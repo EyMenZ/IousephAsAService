@@ -5,6 +5,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.json.JSONObject;
+
+import com.iouseph.model.Track;
+
 /**
  * Root resource (exposed at "myresource" path)
  */
@@ -21,5 +25,11 @@ public class MyResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt() {
         return "Got it!";
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Track getTrack() {
+        return new Track("id", "title", "url", 2, "artist", "album", "image", "iouspeh");
     }
 }
