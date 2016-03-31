@@ -5,18 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 /**
- *
  * @author youssef zemmahi, aymen zalila, marcial lopez ferrada
- *
  */
 public class User implements Serializable{
-	/**
-	 *
-	 */
+
 	private static final long serialVersionUID = 1L;
-	//TODO cette classe sera implementee dans une prochaine version
 	private UUID uid = UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d");
-	private String id_;
+	private String id;
 	private String username;
 	private String password;
 	private Map<String,Playlist> playlists=new HashMap<String, Playlist>();
@@ -26,7 +21,7 @@ public class User implements Serializable{
 	 */
 	public User()
 	{
-		id_= uid.randomUUID().toString();
+		id= uid.randomUUID().toString();
 		username=new String();
 		password=new String();
 	}
@@ -36,14 +31,14 @@ public class User implements Serializable{
 	 * @return
 	 */
 	public String getId() {
-		return id_;
+		return id;
 	}
 	/**
 	 * methode permettant d'attribuer un id a l'utilisateur
 	 * @param id
 	 */
 	public void setId(String id) {
-		this.id_ = id;
+		this.id = id;
 	}
 
 	/**
@@ -94,6 +89,7 @@ public class User implements Serializable{
 	{
 		playlists.clear();
 	}
+
 	/**
 	 * accesseur au nom d'utilisateur
 	 * @return
@@ -134,7 +130,7 @@ public class User implements Serializable{
 
 	@Override
 	public String toString() {
-		return "User [id_=" + id_ + ", username=" + username + ", password=" + password
+		return "User [id=" + id + ", username=" + username + ", password=" + password
 				+ ", playlists=" + playlists + "]";
 	}
 
