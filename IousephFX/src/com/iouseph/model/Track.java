@@ -1,4 +1,4 @@
-package iouseph.model;
+package com.iouseph.model;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;

@@ -1,9 +1,10 @@
-package iouseph;
+package com.iouseph;
 
-import iouseph.api.DeezerClient;
-import iouseph.api.Iapi;
-import iouseph.model.Playlist;
-import iouseph.model.Track;
+import com.iouseph.api.Iapi;
+import com.iouseph.api.IousephClient;
+import com.iouseph.model.Playlist;
+import com.iouseph.model.Track;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -162,7 +163,7 @@ public class MainLayoutController {
 
 	@FXML
 	private void handleSearch() {
-		api = new DeezerClient();
+		api = new IousephClient();
 		mainController.getTracks().clear();
 		mainController.getTracks().addAll(api.get_search(searchTextField.getText()));
 		mainController.getPlaylists().clear();

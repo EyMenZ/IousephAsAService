@@ -1,12 +1,12 @@
-package iouseph.api;
+package com.iouseph.api;
 
 import java.util.List;
 
 import org.json.JSONObject;
 
-import iouseph.model.Playlist;
-import iouseph.model.Track;
-import iouseph.model.User;
+import com.iouseph.model.Playlist;
+import com.iouseph.model.Track;
+import com.iouseph.model.User;
 
 public interface IParser {
 

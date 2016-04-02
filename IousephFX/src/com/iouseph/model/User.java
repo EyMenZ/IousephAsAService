@@ -1,4 +1,4 @@
-package iouseph.model;
+package com.iouseph.model;
 
 public class User {
 	//TODO cette classe sera implementee dans une prochaine version

@@ -1,9 +1,9 @@
-package iouseph;
+package com.iouseph;
 
 import java.io.IOException;
 
-import iouseph.model.Playlist;
-import iouseph.model.Track;
+import com.iouseph.model.Playlist;
+import com.iouseph.model.Track;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;

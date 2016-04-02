@@ -1,4 +1,4 @@
-package iouseph.model;
+package com.iouseph.model;
 
 import java.util.ArrayList;
 import java.util.List;

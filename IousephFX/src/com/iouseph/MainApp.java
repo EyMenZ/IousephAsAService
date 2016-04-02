@@ -1,4 +1,4 @@
-package iouseph;
+package com.iouseph;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
