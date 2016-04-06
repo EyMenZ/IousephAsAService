@@ -16,11 +16,12 @@ public abstract class IParser {
 	/**
 	 * retourne un objet Track, il est parse a partir d'un JSONObject
 	 *
-	 * @param json	un JSONObject recupere depuis le service de streaming
-	 * @return	Track
+	 * @param json
+	 *            un JSONObject recupere depuis le service de streaming
+	 * @return Track
 	 * @see IParser#tracksParse(JSONObject)
 	 */
-	public Track trackParse(JSONObject json){
+	public Track trackParse(JSONObject json) {
 
 		return null;
 	}
@@ -28,61 +29,65 @@ public abstract class IParser {
 	/**
 	 * retourne une List<Track>, elle est parse a partir d'un JSONObject
 	 *
-	 * @param json	un JSONObject recupere depuis le service de streaming
+	 * @param json
+	 *            un JSONObject recupere depuis le service de streaming
 	 *
-	 * @return	List<Track>
+	 * @return List<Track>
 	 */
-	public List<Track> tracksParse(JSONObject json)
-	{
+	public List<Track> tracksParse(JSONObject json) {
 		return null;
 	}
 
 	/**
 	 * retourne un objet Playlist, il est parse a partir d'un JSONObject
 	 *
-	 * @param json	un JSONObject recupere depuis le service de streaming
-	 * @return	Playlist
+	 * @param json
+	 *            un JSONObject recupere depuis le service de streaming
+	 * @return Playlist
 	 * @see IParser#playlistsParse(JSONObject)
 	 */
-	public Playlist playlistParse(JSONObject json)
-	{
+	public Playlist playlistParse(JSONObject json) {
 		return null;
 	}
 
 	/**
 	 * retourne une List<Playlist>, elle est parse a partir d'un JSONObject
 	 *
-	 * @param json	un JSONObject recupere depuis le service de streaming
+	 * @param json
+	 *            un JSONObject recupere depuis le service de streaming
 	 *
-	 * @return	List<Playlist>
+	 * @return List<Playlist>
 	 */
-	public List<Playlist> playlistsParse(JSONObject json)
-	{
+	public List<Playlist> playlistsParse(JSONObject json) {
 		return null;
 	}
 
-	public List<Track> playlistIdParse(JSONObject json)
-	{
+	public List<Track> playlistIdParse(JSONObject json) {
 		return null;
 	}
 
 	/**
 	 * retourne un JSONObject, il est parse a partir d'une List<Playlist>
 	 *
-	 * @param playliste	une List<Playlist> a envoyer vers le service de streaming
+	 * @param playliste
+	 *            une List<Playlist> a envoyer vers le service de streaming
 	 *
-	 * @return	JSONObject
+	 * @return JSONObject
 	 */
-	public JSONObject playlistsParse(List<Playlist> playlists)
-	{
+	public JSONObject playlistsParse(List<Playlist> playlists) {
 		return null;
 	}
 
-	public User userParse(JSONObject json)
-	{
+	public User userParse(JSONObject json) {
 		return null;
 	}
 
+	/**
+	 * methode permettant de convertir un objet track en format json
+	 *
+	 * @param track
+	 * @return String en format json
+	 */
 	public String parseToJsonObject(Track track) {
 		JSONObject jsonObject = new JSONObject();
 		try {
@@ -102,6 +107,13 @@ public abstract class IParser {
 		return jsonObject.toString();
 	}
 
+	/**
+	 * Methode permettant de convertir une list de tracks en String en format
+	 * json
+	 *
+	 * @param tracks
+	 * @return string en format json
+	 */
 	public String parseToJsonArray(List<Track> tracks) {
 		JSONArray jsonArray = new JSONArray();
 		try {
@@ -118,6 +130,13 @@ public abstract class IParser {
 		return jsonArray.toString();
 	}
 
+	/**
+	 * methode permettant de convertir un objet de type playlist en string en
+	 * format json
+	 *
+	 * @param playlist
+	 * @return string en format json
+	 */
 	public String parseToJsonObject(Playlist playlist) {
 		JSONObject jsonObject = new JSONObject();
 
@@ -140,6 +159,13 @@ public abstract class IParser {
 		return jsonObject.toString();
 	}
 
+	/**
+	 * methode permettant de convertir un map contenant des playlist en string
+	 * de format json array
+	 *
+	 * @param map
+	 * @return string en format json array
+	 */
 	public String parseToJsonArray(Map<String, Playlist> map) {
 		JSONArray jsonArray = new JSONArray();
 
@@ -156,6 +182,13 @@ public abstract class IParser {
 		return jsonArray.toString();
 	}
 
+	/**
+	 * methode permettant de parser un objet de type user en string en format
+	 * json object
+	 *
+	 * @param user
+	 * @return string en format jsonObject
+	 */
 	public String parseToJsonObject(User user) {
 		JSONObject jsonObject = new JSONObject();
 		try {

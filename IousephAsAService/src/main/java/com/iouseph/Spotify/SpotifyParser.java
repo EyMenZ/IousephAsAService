@@ -15,7 +15,9 @@ import com.iouseph.parsing.IParser;
 
 public class SpotifyParser extends IParser {
 
-	@Override
+	/**
+	 * methode qui permet de parser un object json en objet track
+	 */
 	public Track trackParse(JSONObject json) {
 		Track track = new Track();
 		try {
@@ -34,7 +36,10 @@ public class SpotifyParser extends IParser {
 		return track;
 	}
 
-	@Override
+	/**
+	 * methode qui permet de parser un objet de type JSONOBJECT qui contient les
+	 * informations des tracks de l'utilisateur connecté en liste d'objet tracks
+	 */
 	public List<Track> tracksParse(JSONObject json) {
 		List<Track> currentUserTracks = new ArrayList<Track>();
 
@@ -54,6 +59,14 @@ public class SpotifyParser extends IParser {
 		return currentUserTracks;
 	}
 
+	/**
+	 * methode qui permet de parser un objet de type json contenant les
+	 * resultats de recherche sur des tracks en liste d'objet de type track
+	 *
+	 * @param json
+	 * @return List<Track>
+	 */
+
 	public List<Track> tracksSearchedParse(JSONObject json) {
 		List<Track> currentUserTracks = new ArrayList<Track>();
 		try {
@@ -70,7 +83,10 @@ public class SpotifyParser extends IParser {
 		return currentUserTracks;
 	}
 
-	@Override
+	/**
+	 * methode permettant de parser un object json contenant les informations
+	 * sur une playlist en un objet de type playlist
+	 */
 	public Playlist playlistParse(JSONObject json) {
 		Playlist myplaylist = new Playlist();
 		try {
@@ -85,7 +101,10 @@ public class SpotifyParser extends IParser {
 		return myplaylist;
 	}
 
-	@Override
+	/**
+	 * methode permettant de parser un objet de type json en une liste d'objet
+	 * de type playlist
+	 */
 	public List<Playlist> playlistsParse(JSONObject json) {
 		List<Playlist> myPlaylists = new ArrayList<Playlist>();
 		JSONArray jsonobjectsArray;
@@ -102,19 +121,26 @@ public class SpotifyParser extends IParser {
 		return myPlaylists;
 	}
 
-	@Override
+	/**
+	 * method non implemented
+	 */
+
 	public List<Track> playlistIdParse(JSONObject json) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	/**
+	 * method non implemented
+	 */
 	public JSONObject playlistsParse(List<Playlist> playlists) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	/**
+	 * method non implemented
+	 */
 	public User userParse(JSONObject json) {
 		// TODO Auto-generated method stub
 		return null;
