@@ -2,15 +2,18 @@ package com.iouseph.Spotify;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.iouseph.model.*;
-import com.iouseph.parsing.*;
+import com.iouseph.model.Playlist;
+import com.iouseph.model.Track;
+import com.iouseph.model.User;
+import com.iouseph.parsing.IParser;
 
-public class SpotifyParser implements IParser {
+public class SpotifyParser extends IParser {
 
 	@Override
 	public Track trackParse(JSONObject json) {
@@ -27,7 +30,7 @@ public class SpotifyParser implements IParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			track.setSource("Spotify");
+		track.setSource("Spotify");
 		return track;
 	}
 
@@ -39,9 +42,10 @@ public class SpotifyParser implements IParser {
 		try {
 			jsonobjectsArray = (JSONArray) json.get("items");
 
-		for (int i = 0; i < jsonobjectsArray.length(); i++) {
+			for (int i = 0; i < jsonobjectsArray.length(); i++) {
 				currentUserTracks.add(trackParse((jsonobjectsArray.getJSONObject(i)).getJSONObject("track")));
-		}} catch (JSONException e) {
+			}
+		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			// TODO Auto-generated catch block
@@ -50,14 +54,13 @@ public class SpotifyParser implements IParser {
 		return currentUserTracks;
 	}
 
-
 	public List<Track> tracksSearchedParse(JSONObject json) {
 		List<Track> currentUserTracks = new ArrayList<Track>();
 		try {
 			json = json.getJSONObject("tracks");
 
 			JSONArray jsonobjectsArray = (JSONArray) json.get("items");
-		for (int i = 0; i < jsonobjectsArray.length(); i++) {
+			for (int i = 0; i < jsonobjectsArray.length(); i++) {
 				currentUserTracks.add(trackParse(jsonobjectsArray.getJSONObject(i)));
 			}
 		} catch (JSONException e) {
@@ -73,8 +76,8 @@ public class SpotifyParser implements IParser {
 		try {
 			myplaylist.setId(json.getString("id"));
 
-		myplaylist.setOwner(json.getJSONObject("owner").getString("id"));
-		myplaylist.setUrl(json.getJSONObject("tracks").getString("href"));
+			myplaylist.setOwner(json.getJSONObject("owner").getString("id"));
+			myplaylist.setUrl(json.getJSONObject("tracks").getString("href"));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,9 +92,9 @@ public class SpotifyParser implements IParser {
 		try {
 			jsonobjectsArray = json.getJSONArray("items");
 
-		for (int i = 0; i < jsonobjectsArray.length(); i++) {
-			myPlaylists.add(playlistParse(jsonobjectsArray.getJSONObject(i)));
-		}
+			for (int i = 0; i < jsonobjectsArray.length(); i++) {
+				myPlaylists.add(playlistParse(jsonobjectsArray.getJSONObject(i)));
+			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,81 +120,4 @@ public class SpotifyParser implements IParser {
 		return null;
 	}
 
-	public String parseToJsonObject(Track track)
-	{
-		JSONObject jsonObject=new JSONObject();
-		try {
-			jsonObject.put("title", track.getTitle());
-			jsonObject.put("id", track.getId());
-			jsonObject.put("artist", track.getArtist());
-			jsonObject.put("album", track.getAlbum());
-			jsonObject.put("externalUrl", track.getExternalUrl());
-			jsonObject.put("image", track.getImage());
-			jsonObject.put("source", track.getSource());
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.err.println("ERROR WHEN PARSING A TRACK TO JSON");
-			return null;
-		}
-		return jsonObject.toString();
-	}
-	public String parseToJsonArray(List<Track> tracks)
-	{
-		JSONArray jsonArray = new JSONArray();
-		try {
-			for(int i=0;i<tracks.size();i++)
-			{
-					JSONObject jsonObject = new JSONObject(this.parseToJsonObject(tracks.get(i)));
-					jsonArray.put(jsonObject);
-			}
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.err.println("ERROR WHEN PARSING A LIST OF TRACKS TO JSON");
-			return null;
-		}
-		return jsonArray.toString();
-	}
-	public String parseToJsonObject(Playlist playlist)
-	{
-		JSONObject jsonObject = new JSONObject();
-
-		try {
-			jsonObject.put("id",playlist.getId());
-			jsonObject.put("idUser", playlist.getIdUser());
-			jsonObject.put("owner", playlist.getOwner());
-			jsonObject.put("title", playlist.getTitle());
-			jsonObject.put("source", playlist.getSource());
-			jsonObject.put("externalUrl", playlist.getUrl());
-			jsonObject.put("tracks", new JSONArray(this.parseToJsonArray(playlist.getTracks())));
-			// TODO ajouter le client ( et voir la necessite de l'avoir dans la classe playlist)
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.err.println("ERROR WHEN PARSING PLAYLIST TO JSON");
-			return null;
-		}
-		return jsonObject.toString();
-	}
-	public String parseToJsonObject(User user)
-	{
-		JSONObject jsonObject = new JSONObject();
-		try {
-			jsonObject.put("id", user.getId());
-			jsonObject.put("password", user.getPassword());
-			jsonObject.put("username", user.getUsername());
-			// TODO jsonObject.put("", user.get);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.err.println("ERROR WHEN PARSING USER TO JSON");
-			return null;
-		}
-
-		return jsonObject.toString();
-
-
-	}
 }
-

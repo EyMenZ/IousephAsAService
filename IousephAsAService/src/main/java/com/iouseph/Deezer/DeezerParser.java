@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import com.iouseph.model.*;
 import com.iouseph.parsing.IParser;
 
-public class DeezerParser implements IParser{
+public class DeezerParser extends IParser{
 
 	/**
 	 * retourne un objet Track, il est parse a partir d'un JSONObject

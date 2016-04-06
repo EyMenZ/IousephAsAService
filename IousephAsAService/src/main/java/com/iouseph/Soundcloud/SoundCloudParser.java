@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import com.iouseph.model.*;
 import com.iouseph.parsing.IParser;
 
-public class SoundCloudParser implements IParser{
+public class SoundCloudParser extends IParser{
 
 	@Override
 	public Track trackParse(JSONObject json) {
