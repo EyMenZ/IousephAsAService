@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
+import com.iouseph.view.LoginLayoutController;
+import com.iouseph.view.MainLayoutController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -101,7 +103,7 @@ public class MainController {
         showMainLayout();
 	}
 
-    public boolean showLoginLayout(String url) {
+    public boolean showLoginLayout() {
         try {
             // Load the FXML file and create a new stage for the popup.
             FXMLLoader loader = new FXMLLoader();
@@ -121,7 +123,6 @@ public class MainController {
             controller.setLoginStage(loginStage);
 
             loginStage.show();
-            controller.loadTrack(url);
 
             return true;
         } catch (IOException e) {

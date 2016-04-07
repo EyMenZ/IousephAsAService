@@ -25,7 +25,6 @@ public class SparkServerService {
 
 		get("/track/:search", (req, res) -> {
 			String query = req.params(":search");
-			System.out.println(query);
 			List<List<Track>> list = new ArrayList<List<Track>>();
 			list.add(soundcloud.get_search(query));
 			list.add(deezer.get_search(query));
@@ -33,8 +32,8 @@ public class SparkServerService {
 			return IousephParser.parseToJsonArray(mix(list));
 		});
 
-		get("/playlists", (req, res) -> {
-
+		get("/playlists/:user", (req, res) -> {
+			String user = req.params(":user");
 			// return list of playlist
 			return null;
 		});
@@ -51,20 +50,22 @@ public class SparkServerService {
 			return null;
 		});
 
-		get("/create_playlist", (req, res) -> {
-
+		get("/create_playlist/:title", (req, res) -> {
+			String title = req.params(":title");
 			// request to create playlist
 			return null;
 		});
 
-		post("/login", (req, res) -> {
-
+		post("/login/:username/:pwd", (req, res) -> {
+			String username = req.params(":username");
+			String password = req.params(":pwd");
 			// request for authentification
 			return null;
 		});
 
-		post("/sign_in", (req, res) -> {
-
+		post("/sign_up/:username/:pwd", (req, res) -> {
+			String username = req.params(":username");
+			String password = req.params(":pwd");
 			// request to create new user
 			return null;
 		});

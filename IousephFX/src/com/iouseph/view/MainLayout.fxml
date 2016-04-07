@@ -11,9 +11,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.web.WebView?>
 
-<VBox id="main_box" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iouseph.MainLayoutController">
+<VBox id="main_box" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iouseph.view.MainLayoutController">
    <children>
       <HBox id="search_box" prefHeight="70.0">
          <children>
@@ -27,9 +26,19 @@
                   <Insets top="20.0" />
                </HBox.margin>
             </Button>
+            <AnchorPane id="info_pane" prefHeight="200.0" prefWidth="260.0">
+               <HBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </HBox.margin>
+               <children>
+                  <Label id="welcome_label" layoutX="14.0" layoutY="14.0" text="Welcome, " />
+                  <Label id="username_label" fx:id="usernameTextField" layoutX="70.0" layoutY="14.0" text="Guest" />
+                  <Button id="connection_button" layoutX="112.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleConnect" prefHeight="25.0" prefWidth="135.0" text="connect/disconnect" />
+               </children>
+            </AnchorPane>
             <HBox id="button_box" prefHeight="100.0" prefWidth="200.0">
                <HBox.margin>
-                  <Insets left="290.0" />
+                  <Insets />
                </HBox.margin>
                <children>
                   <Button id="soundcloud_button" mnemonicParsing="false" onAction="#handleSoundCloud" prefHeight="40.0" prefWidth="40.0" text="SoundCloud">
@@ -63,6 +72,7 @@
                      <children>
                         <Label id="playlists_label" text="Playlists" />
                         <ListView id="playlists_listview" fx:id="playlistList" prefHeight="428.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0" />
+                        <Button id="refresh_button" layoutX="98.0" layoutY="-4.0" mnemonicParsing="false" text="refresh" />
                      </children>
                   </AnchorPane>
                 <AnchorPane id="tracks_box" minHeight="0.0" minWidth="0.0" prefWidth="180.0">
@@ -90,7 +100,15 @@
                         <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                      </padding>
                   </AnchorPane>
-                  <WebView fx:id="player" prefHeight="200.0" prefWidth="200.0" />
+                  <AnchorPane id="player_pane" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Button id="play_button" layoutX="169.0" layoutY="58.0" mnemonicParsing="false" onAction="#handlePlay" prefHeight="51.0" prefWidth="52.0" text="Play" />
+                        <Button id="next_button" layoutX="324.0" layoutY="58.0" mnemonicParsing="false" onAction="#handleNext" prefHeight="51.0" prefWidth="52.0" text="Next" />
+                        <Button id="previous_button" layoutX="14.0" layoutY="58.0" mnemonicParsing="false" onAction="#handlePrevious" prefHeight="51.0" prefWidth="52.0" text="Previous" />
+                        <Button id="stop_button" layoutX="91.0" layoutY="57.0" mnemonicParsing="false" onAction="#handleStop" prefHeight="51.0" prefWidth="52.0" text="Stop" />
+                        <Button id="pause_button" layoutX="248.0" layoutY="58.0" mnemonicParsing="false" onAction="#handlePause" prefHeight="51.0" prefWidth="52.0" text="Pause" />
+                     </children>
+                  </AnchorPane>
                </children>
             </VBox>
          </children>

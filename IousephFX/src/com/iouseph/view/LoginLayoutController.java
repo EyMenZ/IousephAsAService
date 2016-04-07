@@ -1,4 +1,4 @@
-package com.iouseph;
+package com.iouseph.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.web.WebView;

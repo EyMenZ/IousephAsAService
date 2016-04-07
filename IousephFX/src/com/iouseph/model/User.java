@@ -2,23 +2,33 @@ package com.iouseph.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
+
+import javafx.beans.property.MapProperty;
+import javafx.beans.property.SimpleMapProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 
 public class User {
-	private static final long serialVersionUID = 1L;
-	private UUID uid = UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d");
-	private String id;
-	private String username;
-	private String password;
-	private Map<String, Playlist> playlists = new HashMap<String, Playlist>();
+
+	private StringProperty id;
+	private StringProperty username;
+	private StringProperty password;
+	private MapProperty<String, Playlist> playlists;
 
 	/**
 	 * constructeur par defaut
 	 */
 	public User() {
-		id = uid.randomUUID().toString();
-		username = new String();
-		password = new String();
+		this(new String(), new String(), new String(), new HashMap<String, Playlist>());
+	}
+
+	public User(String id, String username, String password, HashMap<String, Playlist> playlists) {
+		this.id = new SimpleStringProperty(id);
+		this.username = new SimpleStringProperty(username);
+		this.password = new SimpleStringProperty(password);
+		this.playlists = new SimpleMapProperty<String, Playlist>(
+				FXCollections.observableMap(new HashMap<String, Playlist>()));
 	}
 
 	/**
@@ -27,7 +37,7 @@ public class User {
 	 * @return
 	 */
 	public String getId() {
-		return id;
+		return id.get();
 	}
 
 	/**
@@ -36,7 +46,7 @@ public class User {
 	 * @param id
 	 */
 	public void setId(String id) {
-		this.id = id;
+		this.id.set(id);
 	}
 
 	/**
@@ -92,7 +102,7 @@ public class User {
 	 */
 
 	public String getUsername() {
-		return username;
+		return username.get();
 	}
 
 	/**
@@ -101,7 +111,7 @@ public class User {
 	 * @param username
 	 */
 	public void setUsername(String username) {
-		this.username = username;
+		this.username.set(username);
 	}
 
 	/**
@@ -111,7 +121,7 @@ public class User {
 	 */
 
 	public String getPassword() {
-		return password;
+		return password.get();
 	}
 
 	/**
@@ -120,7 +130,7 @@ public class User {
 	 * @param password
 	 */
 	public void setPassword(String password) {
-		this.password = password;
+		this.password.set(password);
 	}
 
 	public Map<String, Playlist> getPlaylists() {
@@ -128,7 +138,8 @@ public class User {
 	}
 
 	public void setPlaylists(Map<String, Playlist> playlists) {
-		this.playlists = playlists;
+		this.playlists = new SimpleMapProperty<String, Playlist>(
+				FXCollections.observableMap(new HashMap<String, Playlist>()));
 	}
 
 	@Override

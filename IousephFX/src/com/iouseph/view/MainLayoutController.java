@@ -1,5 +1,6 @@
-package com.iouseph;
+package com.iouseph.view;
 
+import com.iouseph.MainController;
 import com.iouseph.api.Iapi;
 import com.iouseph.api.IousephClient;
 import com.iouseph.model.Playlist;
@@ -14,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.web.WebView;
 
 public class MainLayoutController {
 	@FXML
@@ -30,12 +30,13 @@ public class MainLayoutController {
 	@FXML
 	private ImageView coverImage;
 	@FXML
-	private WebView player;
-	@FXML
 	private TextField searchTextField;
+	@FXML
+	private Label usernameLabel;
 
 	private MainController mainController;
 	private Iapi api;
+	private MediaPlayer mediaPlayer;
 
 	/**
 	 * The constructor. The constructor is called before the initialize()
@@ -92,14 +93,15 @@ public class MainLayoutController {
 			albumTitleLabel.setText(track.getAlbum());
 			// duration.setText(Float.toString(track.getDuration()));
 			coverImage.setImage(new Image(track.getImage()));
-			loadTrack(track.getExternalUrl());
+			Media hit = new Media(track.getExternalUrl());//FIXME Unsupported protocol "https"
+			mediaPlayer = new MediaPlayer(hit);
 		} else {
 			// track is null, remove all the text.
 			trackTitleLabel.setText("Title");
 			artistNameLabel.setText("Artist");
 			albumTitleLabel.setText("Album");
 			coverImage.setImage(new Image("file:res/Iouseph-logo.png"));
-			//loadTrack("https://github.com/elKokito/iouseph");
+
 		}
 	}
 
@@ -113,38 +115,49 @@ public class MainLayoutController {
 		showTrackDetails(playlist.getTracks().get(0));
 	}
 
-	/**
-	 * execute la lecture
-	 *
-	 * @param url
-	 *            lien vers la chanson dans le service de streaming
-	 */
-	public void loadTrack(String url) {
-		//player.getEngine().load(url);
-		Media hit = new Media(url);//FIXME Unsupported protocol "https"
-		MediaPlayer mediaPlayer = new MediaPlayer(hit);
+	@FXML
+	public void handlePlay() {
 		mediaPlayer.play();
+	}
 
+	@FXML
+	public void handleStop() {
+		mediaPlayer.stop();
+	}
+
+	@FXML
+	public void handlePause() {
+		mediaPlayer.pause();
+	}
+
+	@FXML
+	public void handleNext() {
+		trackList.getSelectionModel().selectNext();
+	}
+
+	@FXML
+	public void handlePrevious() {
+		trackList.getSelectionModel().selectPrevious();
 	}
 
 	@FXML
 	private void handleDeezer() {
-		mainController.showLoginLayout("http://www.deezer.com/login");
-
+		//TODO activer/desactive Deezer
 	}
 
 	@FXML
 	private void handleSpotify() {
-		mainController.showLoginLayout(
-				"https://accounts.spotify.com/login?continue=https%3A%2F%2Fwww.spotify.com%2Fca-fr%2Faccount%2Foverview%2F");// TODO
-
+		//TODO activer/desactive Spotify
 	}
 
 	@FXML
 	private void handleSoundCloud() {
-		mainController.showLoginLayout(
-				"https://soundcloud.com/connect?client_id=02gUJC0hH2ct1EGOcYXQIzRFU91c72Ea&response_type=token&scope=non-expiring%20fast-connect%20purchase%20upload&display=next&redirect_uri=https%3A//soundcloud.com/soundcloud-callback.html#tab-connect");// TODO
+		//TODO activer/desactive SC
+	}
 
+	@FXML
+	private void handleConnect(){
+		mainController.showLoginLayout();
 	}
 
 	/**
