@@ -2,7 +2,6 @@ package com.iouseph.Spotify;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,16 +12,14 @@ import com.iouseph.model.Track;
 import com.iouseph.model.User;
 import com.iouseph.parsing.IParser;
 
-public class SpotifyParser extends IParser {
 
-	/**
-	 * methode qui permet de parser un object json en objet track
-	 */
+public class SpotifyParser implements IParser {
+
+	@Override
 	public Track trackParse(JSONObject json) {
 		Track track = new Track();
 		try {
 			track.setId(json.getString("id"));
-
 			track.setTitle(json.getString("name"));
 			track.setExternalUrl(json.getJSONObject("external_urls").getString("spotify"));
 			track.setArtist(json.getJSONArray("artists").getJSONObject(0).getString("name"));
@@ -32,14 +29,11 @@ public class SpotifyParser extends IParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		track.setSource("Spotify");
+			track.setSource("Spotify");
 		return track;
 	}
 
-	/**
-	 * methode qui permet de parser un objet de type JSONOBJECT qui contient les
-	 * informations des tracks de l'utilisateur connecté en liste d'objet tracks
-	 */
+	@Override
 	public List<Track> tracksParse(JSONObject json) {
 		List<Track> currentUserTracks = new ArrayList<Track>();
 
@@ -47,10 +41,9 @@ public class SpotifyParser extends IParser {
 		try {
 			jsonobjectsArray = (JSONArray) json.get("items");
 
-			for (int i = 0; i < jsonobjectsArray.length(); i++) {
+		for (int i = 0; i < jsonobjectsArray.length(); i++) {
 				currentUserTracks.add(trackParse((jsonobjectsArray.getJSONObject(i)).getJSONObject("track")));
-			}
-		} catch (JSONException e) {
+		}} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			// TODO Auto-generated catch block
@@ -59,13 +52,6 @@ public class SpotifyParser extends IParser {
 		return currentUserTracks;
 	}
 
-	/**
-	 * methode qui permet de parser un objet de type json contenant les
-	 * resultats de recherche sur des tracks en liste d'objet de type track
-	 *
-	 * @param json
-	 * @return List<Track>
-	 */
 
 	public List<Track> tracksSearchedParse(JSONObject json) {
 		List<Track> currentUserTracks = new ArrayList<Track>();
@@ -73,7 +59,7 @@ public class SpotifyParser extends IParser {
 			json = json.getJSONObject("tracks");
 
 			JSONArray jsonobjectsArray = (JSONArray) json.get("items");
-			for (int i = 0; i < jsonobjectsArray.length(); i++) {
+		for (int i = 0; i < jsonobjectsArray.length(); i++) {
 				currentUserTracks.add(trackParse(jsonobjectsArray.getJSONObject(i)));
 			}
 		} catch (JSONException e) {
@@ -83,17 +69,14 @@ public class SpotifyParser extends IParser {
 		return currentUserTracks;
 	}
 
-	/**
-	 * methode permettant de parser un object json contenant les informations
-	 * sur une playlist en un objet de type playlist
-	 */
+	@Override
 	public Playlist playlistParse(JSONObject json) {
 		Playlist myplaylist = new Playlist();
 		try {
 			myplaylist.setId(json.getString("id"));
 
-			myplaylist.setOwner(json.getJSONObject("owner").getString("id"));
-			myplaylist.setUrl(json.getJSONObject("tracks").getString("href"));
+		myplaylist.setOwner(json.getJSONObject("owner").getString("id"));
+		myplaylist.setUrl(json.getJSONObject("tracks").getString("href"));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,19 +84,16 @@ public class SpotifyParser extends IParser {
 		return myplaylist;
 	}
 
-	/**
-	 * methode permettant de parser un objet de type json en une liste d'objet
-	 * de type playlist
-	 */
+	@Override
 	public List<Playlist> playlistsParse(JSONObject json) {
 		List<Playlist> myPlaylists = new ArrayList<Playlist>();
 		JSONArray jsonobjectsArray;
 		try {
 			jsonobjectsArray = json.getJSONArray("items");
 
-			for (int i = 0; i < jsonobjectsArray.length(); i++) {
-				myPlaylists.add(playlistParse(jsonobjectsArray.getJSONObject(i)));
-			}
+		for (int i = 0; i < jsonobjectsArray.length(); i++) {
+			myPlaylists.add(playlistParse(jsonobjectsArray.getJSONObject(i)));
+		}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -121,29 +101,29 @@ public class SpotifyParser extends IParser {
 		return myPlaylists;
 	}
 
-	/**
-	 * method non implemented
-	 */
-
+	@Override
 	public List<Track> playlistIdParse(JSONObject json) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/**
-	 * method non implemented
-	 */
+	@Override
 	public JSONObject playlistsParse(List<Playlist> playlists) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/**
-	 * method non implemented
-	 */
+	@Override
 	public User userParse(JSONObject json) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Track> tracksParse(JSONArray json) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

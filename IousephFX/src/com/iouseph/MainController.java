@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;

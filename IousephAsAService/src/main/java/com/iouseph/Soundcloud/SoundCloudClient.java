@@ -1,20 +1,19 @@
 package com.iouseph.Soundcloud;
 
-import java.lang.reflect.Method;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.iouseph.api.Iapi;
-import com.iouseph.model.*;
-import com.iouseph.parsing.IParser;
 import com.iouseph.NetworkWrapper;
+import com.iouseph.api.Iapi;
+import com.iouseph.model.Playlist;
+import com.iouseph.model.Track;
+import com.iouseph.model.User;
+import com.iouseph.parsing.IParser;
 
 
 /** client utilisant l'API public de Soundcloud [https://developers.soundcloud.com/docs/api/reference]

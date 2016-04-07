@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.iouseph.model.*;
+import com.iouseph.model.Playlist;
+import com.iouseph.model.Track;
+import com.iouseph.model.User;
 import com.iouseph.parsing.IParser;
 
-public class DeezerParser extends IParser{
+
+public class DeezerParser implements IParser{
 
 	/**
 	 * retourne un objet Track, il est parse a partir d'un JSONObject
@@ -146,5 +150,11 @@ public class DeezerParser extends IParser{
 			}
 		}
 		return user;
+	}
+
+	@Override
+	public List<Track> tracksParse(JSONArray json) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
