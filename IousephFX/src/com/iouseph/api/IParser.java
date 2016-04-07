@@ -1,7 +1,9 @@
 package com.iouseph.api;
 
 import java.util.List;
+import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.iouseph.model.Playlist;
@@ -13,8 +15,9 @@ public interface IParser {
 	/**
 	 * retourne un objet Track, il est parse a partir d'un JSONObject
 	 *
-	 * @param json	un JSONObject recupere depuis le service de streaming
-	 * @return	Track
+	 * @param json
+	 *            un JSONObject recupere depuis le service de streaming
+	 * @return Track
 	 * @see IParser#tracksParse(JSONObject)
 	 */
 	public Track trackParse(JSONObject json);
@@ -22,17 +25,19 @@ public interface IParser {
 	/**
 	 * retourne une List<Track>, elle est parse a partir d'un JSONObject
 	 *
-	 * @param json	un JSONObject recupere depuis le service de streaming
+	 * @param json
+	 *            un JSONObject recupere depuis le service de streaming
 	 *
-	 * @return	List<Track>
+	 * @return List<Track>
 	 */
-	public List<Track> tracksParse(JSONObject json);
+	public List<Track> tracksParse(JSONArray json);
 
 	/**
 	 * retourne un objet Playlist, il est parse a partir d'un JSONObject
 	 *
-	 * @param json	un JSONObject recupere depuis le service de streaming
-	 * @return	Playlist
+	 * @param json
+	 *            un JSONObject recupere depuis le service de streaming
+	 * @return Playlist
 	 * @see IParser#playlistsParse(JSONObject)
 	 */
 	public Playlist playlistParse(JSONObject json);
@@ -40,20 +45,22 @@ public interface IParser {
 	/**
 	 * retourne une List<Playlist>, elle est parse a partir d'un JSONObject
 	 *
-	 * @param json	un JSONObject recupere depuis le service de streaming
+	 * @param json
+	 *            un JSONObject recupere depuis le service de streaming
 	 *
-	 * @return	List<Playlist>
+	 * @return List<Playlist>
 	 */
-	public List<Playlist> playlistsParse(JSONObject json);
+	public Map<String, Playlist> playlistsParse(JSONArray json);
 
 	public List<Track> playlistIdParse(JSONObject json);
 
 	/**
 	 * retourne un JSONObject, il est parse a partir d'une List<Playlist>
 	 *
-	 * @param playliste	une List<Playlist> a envoyer vers le service de streaming
+	 * @param playliste
+	 *            une List<Playlist> a envoyer vers le service de streaming
 	 *
-	 * @return	JSONObject
+	 * @return JSONObject
 	 */
 	public JSONObject playlistsParse(List<Playlist> playlists);
 
