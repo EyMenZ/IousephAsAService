@@ -113,16 +113,16 @@ public final class NetworkWrapper {
 			e.printStackTrace();
 		}
 
-		if (httpresponse.getStatusLine().getStatusCode() == 200) {
+		//if (httpresponse.getStatusLine().getStatusCode() == 200) {
 			try {
 				return read_response_array(httpresponse.getEntity().getContent());
 			} catch (UnsupportedOperationException | IOException e) {
 				e.printStackTrace();
 			}
-		} else {
+		/*} else {
 			System.out.println("error");
 			System.out.println(httpresponse.getStatusLine().getReasonPhrase());
-		}
+		}*/
 		return null;
 	}
 

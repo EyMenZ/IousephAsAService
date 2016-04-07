@@ -9,6 +9,7 @@ import com.iouseph.Soundcloud.*;
 import com.iouseph.Spotify.*;
 import com.iouseph.api.Iapi;
 import com.iouseph.model.Track;
+import com.iouseph.parsing.IousephParser;
 
 public class SparkServerService {
 
@@ -25,12 +26,12 @@ public class SparkServerService {
 
 			// return tracks
             String query = req.attribute("search");
-            List<Track> soundcloudResult = soundcloud.get_search(query);
-            //List<Track> deezerResult = deezer.get_search(query);
+            //List<Track> soundcloudResult = soundcloud.get_search(query);
+            List<Track> deezerResult = deezer.get_search(query);
             //List<Track> spotifyResult = spotify.get_search(query);
 
             // TODO return appropriate json instead of string
-			return soundcloudResult.toString();
+			return IousephParser.parseToJsonArray(deezerResult);
 		});
 
 		get("/playlists", (req, res) -> {

@@ -167,7 +167,7 @@ public class MainLayoutController {
 		mainController.getTracks().clear();
 		mainController.getTracks().addAll(api.get_search(searchTextField.getText()));
 		mainController.getPlaylists().clear();
-		mainController.getPlaylists().addAll(api.get_playlists(searchTextField.getText()));
+		//mainController.getPlaylists().addAll(api.get_playlists(searchTextField.getText()));
 	}
 
 }

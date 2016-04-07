@@ -90,7 +90,7 @@ public class DeezerClient implements Iapi{
 	 * @see iouseph.api.model.Iapi#get_search(java.lang.String)
 	 */
 	public List<Track> get_search(String search) {
-		String url = host + "/search?q=" + NetworkWrapper.encode(search);// +
+		String url = host + "/search?q=" + search;//FIXME NetworkWrapper.encode(search);// +
 													// "&index=0&limit=5";//me?oauth_token="
 													// + token;
 		return this.parser.tracksParse(NetworkWrapper.get(url));

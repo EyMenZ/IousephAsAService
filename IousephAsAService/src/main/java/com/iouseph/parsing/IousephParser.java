@@ -11,14 +11,14 @@ import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
 import com.iouseph.model.User;
 
-public class IousephParser {
+public final class IousephParser {
 	/**
 	 * methode permettant de convertir un objet track en format json
 	 *
 	 * @param track
 	 * @return String en format json
 	 */
-	public String parseToJsonObject(Track track) {
+	public static String parseToJsonObject(Track track) {
 		JSONObject jsonObject = new JSONObject();
 		try {
 			jsonObject.put("title", track.getTitle());
@@ -29,7 +29,6 @@ public class IousephParser {
 			jsonObject.put("image", track.getImage());
 			jsonObject.put("source", track.getSource());
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.err.println("ERROR WHEN PARSING A TRACK TO JSON");
 			return null;
@@ -44,11 +43,11 @@ public class IousephParser {
 	 * @param tracks
 	 * @return string en format json
 	 */
-	public String parseToJsonArray(List<Track> tracks) {
+	public static String parseToJsonArray(List<Track> tracks) {
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int i = 0; i < tracks.size(); i++) {
-				JSONObject jsonObject = new JSONObject(this.parseToJsonObject(tracks.get(i)));
+				JSONObject jsonObject = new JSONObject(parseToJsonObject(tracks.get(i)));
 				jsonArray.put(jsonObject);
 			}
 		} catch (JSONException e) {
@@ -67,7 +66,7 @@ public class IousephParser {
 	 * @param playlist
 	 * @return string en format json
 	 */
-	public String parseToJsonObject(Playlist playlist) {
+	public static String parseToJsonObject(Playlist playlist) {
 		JSONObject jsonObject = new JSONObject();
 
 		try {
@@ -77,7 +76,7 @@ public class IousephParser {
 			jsonObject.put("title", playlist.getTitle());
 			jsonObject.put("source", playlist.getSource());
 			jsonObject.put("externalUrl", playlist.getUrl());
-			jsonObject.put("tracks", new JSONArray(this.parseToJsonArray(playlist.getTracks())));
+			jsonObject.put("tracks", new JSONArray(IousephParser.parseToJsonArray(playlist.getTracks())));
 			// TODO ajouter le client ( et voir la necessite de l'avoir dans la
 			// classe playlist)
 		} catch (JSONException e) {
@@ -96,13 +95,13 @@ public class IousephParser {
 	 * @param map
 	 * @return string en format json array
 	 */
-	public String parseToJsonArray(Map<String, Playlist> map) {
+	public static String parseToJsonArray(Map<String, Playlist> map) {
 		JSONArray jsonArray = new JSONArray();
 
 		try {
 			for (Map.Entry<String, Playlist> entry : map.entrySet()) {
 
-				jsonArray.put(new JSONObject(this.parseToJsonObject(entry.getValue())));
+				jsonArray.put(new JSONObject(IousephParser.parseToJsonObject(entry.getValue())));
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -119,13 +118,13 @@ public class IousephParser {
 	 * @param user
 	 * @return string en format jsonObject
 	 */
-	public String parseToJsonObject(User user) {
+	public static String parseToJsonObject(User user) {
 		JSONObject jsonObject = new JSONObject();
 		try {
 			jsonObject.put("id", user.getId());
 			jsonObject.put("password", user.getPassword());
 			jsonObject.put("username", user.getUsername());
-			jsonObject.put("playlists", this.parseToJsonArray(user.getPlaylists()));
+			jsonObject.put("playlists", IousephParser.parseToJsonArray(user.getPlaylists()));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
