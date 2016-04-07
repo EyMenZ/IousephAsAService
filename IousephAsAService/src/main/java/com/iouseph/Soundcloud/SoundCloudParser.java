@@ -16,17 +16,17 @@ import com.iouseph.parsing.IParser;
 public class SoundCloudParser implements IParser{
 
 	public Track trackParse(JSONObject json) {
-		// TODO Auto-generated method stub
 		Track track = new Track();
 		try {
 			track.setId(json.getString("id"));
 			track.setTitle(json.getString("title"));
+			track.setAlbum("");//TODO
+			track.setArtist("");//TODO
 			track.setExternalUrl(json.getString("stream_url"));
 			track.setDuration(json.getInt("duration"));
 			track.setImage(json.getString("artwork_url"));
 			track.setSource(json.getString("uri"));
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -34,15 +34,12 @@ public class SoundCloudParser implements IParser{
 	}
 
 	public List<Track> tracksParse(JSONArray json) {
-		// TODO Auto-generated method stub
-
 		List<Track> tracks = new ArrayList<>();
 
 		for(int i = 0; i < json.length(); i++ ) {
 			try {
 				tracks.add(this.trackParse((JSONObject) json.get(i)));
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

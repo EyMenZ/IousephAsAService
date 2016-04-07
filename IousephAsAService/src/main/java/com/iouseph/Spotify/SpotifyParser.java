@@ -26,7 +26,6 @@ public class SpotifyParser implements IParser {
 			track.setAlbum(json.getJSONObject("album").getString("name"));
 			track.setImage(json.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url"));
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 			track.setSource("Spotify");
@@ -44,9 +43,7 @@ public class SpotifyParser implements IParser {
 		for (int i = 0; i < jsonobjectsArray.length(); i++) {
 				currentUserTracks.add(trackParse((jsonobjectsArray.getJSONObject(i)).getJSONObject("track")));
 		}} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return currentUserTracks;
