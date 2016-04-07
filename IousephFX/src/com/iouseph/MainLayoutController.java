@@ -121,7 +121,7 @@ public class MainLayoutController {
 	 */
 	public void loadTrack(String url) {
 		//player.getEngine().load(url);
-		Media hit = new Media(url);
+		Media hit = new Media(url);//FIXME Unsupported protocol "https"
 		MediaPlayer mediaPlayer = new MediaPlayer(hit);
 		mediaPlayer.play();
 

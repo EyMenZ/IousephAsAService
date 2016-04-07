@@ -35,7 +35,7 @@ public class IousephClient implements Iapi {
 	 * @see iouseph.api.model.Iapi#get_search(java.lang.String)
 	 */
 	public List<Track> get_search(String search) {
-		String url = host + "/track?=" + NetworkWrapper.encode(search);// +
+		String url = host + "/track/" + NetworkWrapper.encode(search);// +
 													// "&index=0&limit=5";//me?oauth_token="
 													// + token;
 		return this.parser.tracksParse(NetworkWrapper.get_array(url));

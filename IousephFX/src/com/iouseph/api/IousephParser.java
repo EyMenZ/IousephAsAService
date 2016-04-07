@@ -27,7 +27,6 @@ public class IousephParser implements IParser {
 		track.setExternalUrl(json.getString("externalUrl"));
 		track.setImage(json.getString("image"));
 		track.setSource(json.getString("source"));
-
 		return track;
 	}
 
