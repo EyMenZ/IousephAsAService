@@ -1,4 +1,4 @@
-package com.iouseph.Soundcloud;
+package com.iouseph.api.Soundcloud;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.iouseph.api.IParser;
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
 import com.iouseph.model.User;
-import com.iouseph.parsing.IParser;
 
 
 public class SoundCloudParser implements IParser{

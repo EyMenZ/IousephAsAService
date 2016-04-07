@@ -1,4 +1,4 @@
-package com.iouseph.Soundcloud;
+package com.iouseph.api.Soundcloud;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +9,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.iouseph.NetworkWrapper;
+import com.iouseph.api.IParser;
 import com.iouseph.api.Iapi;
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
 import com.iouseph.model.User;
-import com.iouseph.parsing.IParser;
 
 
 /** client utilisant l'API public de Soundcloud [https://developers.soundcloud.com/docs/api/reference]

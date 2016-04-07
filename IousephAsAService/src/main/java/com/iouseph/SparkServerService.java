@@ -5,10 +5,10 @@ import static spark.Spark.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.iouseph.Deezer.*;
-import com.iouseph.Soundcloud.*;
-import com.iouseph.Spotify.*;
 import com.iouseph.api.Iapi;
+import com.iouseph.api.Deezer.*;
+import com.iouseph.api.Soundcloud.*;
+import com.iouseph.api.Spotify.*;
 import com.iouseph.model.Track;
 import com.iouseph.parsing.IousephParser;
 

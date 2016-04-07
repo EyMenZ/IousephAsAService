@@ -1,4 +1,4 @@
-package com.iouseph.Spotify;
+package com.iouseph.api.Spotify;
 
 import java.lang.reflect.Method;
 import java.net.URI;
@@ -13,11 +13,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.iouseph.NetworkWrapper;
+import com.iouseph.api.IParser;
 import com.iouseph.api.Iapi;
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
 import com.iouseph.model.User;
-import com.iouseph.parsing.IParser;
 
 public class SpotifyClient implements Iapi {
 

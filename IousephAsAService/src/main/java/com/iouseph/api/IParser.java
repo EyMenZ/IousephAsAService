@@ -1,4 +1,4 @@
-package com.iouseph.parsing;
+package com.iouseph.api;
 
 import java.util.List;
 

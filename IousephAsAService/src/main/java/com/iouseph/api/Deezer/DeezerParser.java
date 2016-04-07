@@ -1,4 +1,4 @@
-package com.iouseph.Deezer;
+package com.iouseph.api.Deezer;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,10 +8,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.iouseph.api.IParser;
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
 import com.iouseph.model.User;
-import com.iouseph.parsing.IParser;
 
 
 public class DeezerParser implements IParser{
