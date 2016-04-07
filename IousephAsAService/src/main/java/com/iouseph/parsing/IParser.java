@@ -37,6 +37,10 @@ public abstract class IParser {
 	public List<Track> tracksParse(JSONObject json) {
 		return null;
 	}
+	
+	public List<Track> tracksParse(JSONArray json) {
+		return null;
+	}
 
 	/**
 	 * retourne un objet Playlist, il est parse a partir d'un JSONObject

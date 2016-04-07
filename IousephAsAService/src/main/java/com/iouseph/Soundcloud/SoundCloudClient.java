@@ -111,9 +111,8 @@ public class SoundCloudClient implements Iapi {
 	@Override
 	public List<Track> get_search(String query) {
 		// TODO fix return
-		String url = host + "tracks?q=" + NetworkWrapper.encode(query) + "&client_id=" + client_id;
-		//JSONArray res = NetworkWrapper.get_array(url);
-		return this.parser.tracksParse(NetworkWrapper.get(url));
+		String url = host + "tracks?q=" + query + "&client_id=" + client_id;
+		return this.parser.tracksParse(NetworkWrapper.get_array(url));
 
 	}
 

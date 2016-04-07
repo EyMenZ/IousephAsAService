@@ -27,11 +27,11 @@ public class SparkServerService {
 			// return tracks
             String query = req.attribute("search");
             List<Track> soundcloudResult = soundcloud.get_search(query);
-            List<Track> deezerResult = deezer.get_search(query);
-            List<Track> spotifyResult = spotify.get_search(query);
+            //List<Track> deezerResult = deezer.get_search(query);
+            //List<Track> spotifyResult = spotify.get_search(query);
             
-            // TODO result to json for return
-			return null;
+            // TODO return appropriate json instead of string
+			return soundcloudResult.toString();
 		});
 		
 		get("/playlists", (req, res) -> {
