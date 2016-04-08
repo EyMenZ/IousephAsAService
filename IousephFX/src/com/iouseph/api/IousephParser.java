@@ -19,14 +19,17 @@ public class IousephParser implements IParser {
 	 */
 	@Override
 	public Track trackParse(JSONObject json) {
-		Track track = new Track();
-		track.setId(json.getString("id"));
-		track.setTitle(json.getString("title"));
-		track.setArtist(json.getString("artist"));
-		track.setAlbum(json.getString("album"));
-		track.setExternalUrl(json.getString("externalUrl"));
-		track.setImage(json.getString("image"));
-		track.setSource(json.getString("source"));
+		Track track = null;
+		if (json != null) {
+			track = new Track();
+			track.setId(json.getString("id"));
+			track.setTitle(json.getString("title"));
+			track.setArtist(json.getString("artist"));
+			track.setAlbum(json.getString("album"));
+			track.setExternalUrl(json.getString("externalUrl"));
+			track.setImage(json.getString("image"));
+			track.setSource(json.getString("source"));
+		}
 		return track;
 	}
 
@@ -51,14 +54,17 @@ public class IousephParser implements IParser {
 	 */
 	@Override
 	public Playlist playlistParse(JSONObject json) {
-		Playlist playlist = new Playlist();
-		playlist.setId(json.getString("id"));
-		playlist.setOwner(json.getString("owner"));
-		playlist.setSource(json.getString("source"));
-		playlist.setTitle(json.getString("title"));
-		playlist.setUrl(json.getString("externalUrl"));
-		playlist.setTracks(this.tracksParse(json.getJSONArray("tracks")));
 
+		Playlist playlist = null;
+		if (json != null) {
+			playlist = new Playlist();
+			playlist.setId(json.getString("id"));
+			playlist.setOwner(json.getString("owner"));
+			playlist.setSource(json.getString("source"));
+			playlist.setTitle(json.getString("title"));
+			playlist.setUrl(json.getString("externalUrl"));
+			playlist.setTracks(this.tracksParse(json.getJSONArray("tracks")));
+		}
 		return playlist;
 	}
 
@@ -98,12 +104,14 @@ public class IousephParser implements IParser {
 	 */
 	@Override
 	public User userParse(JSONObject json) {
-		User user = new User();
-		user.setId(json.getString("id"));
-		user.setPassword(json.getString("password"));
-		user.setUsername(json.getString("username"));
-		user.setPlaylists(this.playlistsParse(json.getJSONArray("playlists")));
-
+		User user = null;
+		if (json != null) {
+			user = new User();
+			user.setId(json.getString("id"));
+			user.setPassword(json.getString("password"));
+			user.setUsername(json.getString("username"));
+			user.setPlaylists(this.playlistsParse(json.getJSONArray("playlists")));
+		}
 		return user;
 	}
 
