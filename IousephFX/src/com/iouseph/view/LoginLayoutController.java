@@ -46,11 +46,12 @@ public class LoginLayoutController {
 
     @FXML
 	public void handlelogin(){
-		mainController.getApi().connect("login", loginTextField.getText(), pwdPasswrodField.getText());
+		mainController.setUser(mainController.getApi().connect("login", loginTextField.getText(), pwdPasswrodField.getText()));
+		//TODO fermer fenetre et changer username sur l interface
     }
 
     @FXML
 	public void handleSignUp(){
-    	mainController.getApi().connect("signup", loginTextField.getText(), pwdPasswrodField.getText());
+    	mainController.setUser(mainController.getApi().connect("signup", loginTextField.getText(), pwdPasswrodField.getText()));
     }
 }

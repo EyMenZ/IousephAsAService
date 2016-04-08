@@ -18,7 +18,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -41,7 +40,7 @@ public class MainController {
             loader.setLocation(MainController.class.getResource("view/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
-            user = new User();
+            user = new User("Guest", "");
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -103,6 +102,14 @@ public class MainController {
 		return api;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+		System.out.println(user);
+	}
 
 	public MainController(){
 
