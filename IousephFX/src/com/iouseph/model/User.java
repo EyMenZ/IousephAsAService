@@ -152,4 +152,16 @@ public class User {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", playlists=" + playlists
 				+ "]";
 	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+
+
 }

@@ -23,6 +23,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -34,6 +35,7 @@ import org.json.JSONObject;
 public final class NetworkWrapper {
 
 	static Thread MyServerThread;
+
 	/**
 	 * methode permettant d'envoyer une requete http GET
 	 *
@@ -44,7 +46,7 @@ public final class NetworkWrapper {
 	public NetworkWrapper() {
 	}
 
-	public static String encode(String s){
+	public static String encode(String s) {
 		try {
 			return URLEncoder.encode(s, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
@@ -113,16 +115,16 @@ public final class NetworkWrapper {
 			e.printStackTrace();
 		}
 
-		//if (httpresponse.getStatusLine().getStatusCode() == 200) {
-			try {
-				return read_response_array(httpresponse.getEntity().getContent());
-			} catch (UnsupportedOperationException | IOException e) {
-				e.printStackTrace();
-			}
-		/*} else {
-			System.out.println("error");
-			System.out.println(httpresponse.getStatusLine().getReasonPhrase());
-		}*/
+		// if (httpresponse.getStatusLine().getStatusCode() == 200) {
+		try {
+			return read_response_array(httpresponse.getEntity().getContent());
+		} catch (UnsupportedOperationException | IOException e) {
+			e.printStackTrace();
+		}
+		/*
+		 * } else { System.out.println("error");
+		 * System.out.println(httpresponse.getStatusLine().getReasonPhrase()); }
+		 */
 		return null;
 	}
 
@@ -158,7 +160,7 @@ public final class NetworkWrapper {
 	 */
 	public static JSONObject post(String url, List<NameValuePair> body_args, String HeaderName, String HeaderValue) {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpPost post = new HttpPost(url);//TODO encripter
+		HttpPost post = new HttpPost(url);// TODO encripter
 		if (body_args != null)
 			post.setEntity(new UrlEncodedFormEntity(body_args, Consts.UTF_8));
 		// client_id:secret_id en base 64
@@ -215,7 +217,11 @@ public final class NetworkWrapper {
 	}
 
 	private static JSONObject read_response_object(InputStream r) {
-		return new JSONObject(read_response(r));
+		try {
+			return new JSONObject(read_response(r));
+		} catch (JSONException e) {
+			return null;
+		}
 	}
 
 	/**
@@ -226,12 +232,16 @@ public final class NetworkWrapper {
 	 * @return retourne la reponse sour forme de list JSONArray
 	 */
 	private static JSONArray read_response_array(InputStream r) {
-		return new JSONArray(read_response(r));
+		try {
+			return new JSONArray(read_response(r));
+		} catch (JSONException e) {
+			return null;
+		}
 	}
 
 	// un serveur se met en ecoute pour recuperer le code d'authorization
 	@SuppressWarnings("resource")
-	public static void runServerToListen(int port, Object object, Method methodToInvoke )  {
+	public static void runServerToListen(int port, Object object, Method methodToInvoke) {
 		MyServerThread = new Thread(new Runnable() {
 
 			public void run() {
@@ -289,7 +299,7 @@ public final class NetworkWrapper {
 				out.close();
 				try {
 					socket.close();
-					InvokeMethod(object,methodToInvoke,str);
+					InvokeMethod(object, methodToInvoke, str);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -300,8 +310,8 @@ public final class NetworkWrapper {
 		MyServerThread.start();
 
 	}
-	static private void InvokeMethod(Object object ,Method method, String message)
-	{
+
+	static private void InvokeMethod(Object object, Method method, String message) {
 		try {
 			method.invoke(object, message);
 			stopServer();
@@ -316,6 +326,7 @@ public final class NetworkWrapper {
 			e.printStackTrace();
 		}
 	}
+
 	static private void stopServer() {
 		System.out.println("server closed");
 		MyServerThread.interrupt();

@@ -40,10 +40,11 @@ public class IousephParser implements IParser {
 	@Override
 	public List<Track> tracksParse(JSONArray json) {
 		List<Track> tracks = new ArrayList<Track>();
-
-		for (int i = 0; i < json.length(); i++) {
-			Track track = this.trackParse(json.getJSONObject(i));
-			tracks.add(track);
+		if (json != null) {
+			for (int i = 0; i < json.length(); i++) {
+				Track track = this.trackParse(json.getJSONObject(i));
+				tracks.add(track);
+			}
 		}
 		return tracks;
 	}
@@ -54,7 +55,6 @@ public class IousephParser implements IParser {
 	 */
 	@Override
 	public Playlist playlistParse(JSONObject json) {
-
 		Playlist playlist = null;
 		if (json != null) {
 			playlist = new Playlist();
@@ -75,11 +75,12 @@ public class IousephParser implements IParser {
 	@Override
 	public Map<String, Playlist> playlistsParse(JSONArray json) {
 		Map<String, Playlist> playlists = new HashMap<String, Playlist>();
-		for (int i = 0; i < json.length(); i++) {
-			Playlist playlist = this.playlistParse(json.getJSONObject(i));
-			playlists.put(playlist.getId(), playlist);
+		if (json != null) {
+			for (int i = 0; i < json.length(); i++) {
+				Playlist playlist = this.playlistParse(json.getJSONObject(i));
+				playlists.put(playlist.getId(), playlist);
+			}
 		}
-
 		return playlists;
 	}
 
