@@ -90,8 +90,7 @@ public class MainLayoutController {
 			albumTitleLabel.setText(track.getAlbum());
 			// duration.setText(Float.toString(track.getDuration()));
 			coverImage.setImage(new Image(track.getImage()));
-			Media hit = new Media(track.getExternalUrl());// FIXME Unsupported
-															// protocol "https"
+			Media hit = new Media(track.getExternalUrl());// FIXME Unsupported protocol "https"
 			mediaPlayer = new MediaPlayer(hit);
 		} else {
 			// track is null, remove all the text.
@@ -185,6 +184,11 @@ public class MainLayoutController {
 		mainController.getTracks().addAll(mainController.getApi().get_search(searchTextField.getText()));
 		mainController.getPlaylists().clear();
 		// mainController.getPlaylists().addAll(api.get_playlists(searchTextField.getText()));
+	}
+
+	@FXML
+	private void handleAddToPlaylist(){
+
 	}
 
 	public void setUsernameLabel(String username) {

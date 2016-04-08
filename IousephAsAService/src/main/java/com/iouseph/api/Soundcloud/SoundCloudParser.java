@@ -22,20 +22,18 @@ public class SoundCloudParser implements IParser{
 			track.setTitle(json.getString("title"));
 			track.setAlbum("");//TODO
 			track.setArtist("");//TODO
-			track.setExternalUrl(json.getString("stream_url"));
+			track.setExternalUrl(json.getString("stream_url"));//json.getString("uri")
 			track.setDuration(json.getInt("duration"));
 			track.setImage(json.getString("artwork_url"));
-			track.setSource(json.getString("uri"));
+			track.setSource("SoundCloud");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-
 		return track;
 	}
 
 	public List<Track> tracksParse(JSONArray json) {
 		List<Track> tracks = new ArrayList<>();
-
 		for(int i = 0; i < json.length(); i++ ) {
 			try {
 				tracks.add(this.trackParse((JSONObject) json.get(i)));

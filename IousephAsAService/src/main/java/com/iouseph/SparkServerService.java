@@ -73,6 +73,7 @@ public class SparkServerService {
 	}
 
 	private static List<Track> mix(List<List<Track>> list) {
+		// TODO faire un truc plus efficace
 		List<Track> tracks = new ArrayList<Track>();
 		int i = 0, j = 0;
 		while (list.get(i).size() > j) {
