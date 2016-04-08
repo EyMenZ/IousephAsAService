@@ -29,7 +29,7 @@ public class SparkServerService {
 			List<List<Track>> list = new ArrayList<List<Track>>();
 			list.add(soundcloud.get_search(query));
 			list.add(deezer.get_search(query));
-			//FIXME list.add(spotify.get_search(query));
+			list.add(spotify.get_search(query));
 			return IousephParser.parseToJsonArray(mix(list));
 		});
 

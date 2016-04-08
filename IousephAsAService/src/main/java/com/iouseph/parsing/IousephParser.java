@@ -124,7 +124,7 @@ public final class IousephParser {
 			jsonObject.put("id", user.getId());
 			jsonObject.put("password", user.getPassword());
 			jsonObject.put("username", user.getUsername());
-			jsonObject.put("playlists", IousephParser.parseToJsonArray(user.getPlaylists()));
+			jsonObject.put("playlists", new JSONArray(IousephParser.parseToJsonArray(user.getPlaylists())));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
