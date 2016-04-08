@@ -1,11 +1,8 @@
 package com.iouseph.view;
 
 import com.iouseph.MainController;
-import com.iouseph.api.Iapi;
-import com.iouseph.api.IousephClient;
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
-import com.iouseph.model.User;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -93,7 +90,8 @@ public class MainLayoutController {
 			albumTitleLabel.setText(track.getAlbum());
 			// duration.setText(Float.toString(track.getDuration()));
 			coverImage.setImage(new Image(track.getImage()));
-			Media hit = new Media(track.getExternalUrl());//FIXME Unsupported protocol "https"
+			Media hit = new Media(track.getExternalUrl());// FIXME Unsupported
+															// protocol "https"
 			mediaPlayer = new MediaPlayer(hit);
 		} else {
 			// track is null, remove all the text.
@@ -107,26 +105,30 @@ public class MainLayoutController {
 
 	private void showPlaylistDetails(Playlist playlist) {
 		mainController.getTracks().clear();
-		playlist.setTracks(mainController.getApi().get_playlist(playlist.getId()));// TODO affecter
-																// les track a
-																// la playlist
-																// dans le parse
+		playlist.setTracks(mainController.getApi().get_playlist(playlist.getId()));// TODO
+																					// affecter
+		// les track a
+		// la playlist
+		// dans le parse
 		mainController.getTracks().addAll(playlist.getTracks());
 		showTrackDetails(playlist.getTracks().get(0));
 	}
 
 	@FXML
 	public void handlePlay() {
+		if (trackList.getSelectionModel().getSelectedItem()!=null)
 		mediaPlayer.play();
 	}
 
 	@FXML
 	public void handleStop() {
+		if (trackList.getSelectionModel().getSelectedItem()!=null)
 		mediaPlayer.stop();
 	}
 
 	@FXML
 	public void handlePause() {
+		if (trackList.getSelectionModel().getSelectedItem()!=null)
 		mediaPlayer.pause();
 	}
 
@@ -142,21 +144,21 @@ public class MainLayoutController {
 
 	@FXML
 	private void handleDeezer() {
-		//TODO activer/desactive Deezer
+		// TODO activer/desactive Deezer
 	}
 
 	@FXML
 	private void handleSpotify() {
-		//TODO activer/desactive Spotify
+		// TODO activer/desactive Spotify
 	}
 
 	@FXML
 	private void handleSoundCloud() {
-		//TODO activer/desactive SC
+		// TODO activer/desactive SC
 	}
 
 	@FXML
-	private void handleConnect(){
+	private void handleConnect() {
 		if (mainController.getUser() == null)
 			mainController.showLoginLayout();
 		else
@@ -182,7 +184,12 @@ public class MainLayoutController {
 		mainController.getTracks().clear();
 		mainController.getTracks().addAll(mainController.getApi().get_search(searchTextField.getText()));
 		mainController.getPlaylists().clear();
-		//mainController.getPlaylists().addAll(api.get_playlists(searchTextField.getText()));
+		// mainController.getPlaylists().addAll(api.get_playlists(searchTextField.getText()));
+	}
+
+	public void setUsernameLabel(String username) {
+		System.out.println(username);
+		this.usernameLabel.setText(username);
 	}
 
 }

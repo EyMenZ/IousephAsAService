@@ -24,78 +24,81 @@ import javafx.stage.Stage;
 public class MainController {
 
 	private Stage mainStage;
-    private BorderPane rootLayout;
-    private ObservableList<Track> tracks = FXCollections.observableArrayList();
-    private ObservableList<Playlist> playlists = FXCollections.observableArrayList();
-    private Iapi api = new IousephClient();
-    private User user = null;
+	private BorderPane rootLayout;
+	private ObservableList<Track> tracks = FXCollections.observableArrayList();
+	private ObservableList<Playlist> playlists = FXCollections.observableArrayList();
+	private Iapi api = new IousephClient();
+	private User user = null;
 
-    /**
-     * Initializes the root layout.
-     */
-    public void initRootLayout() {
-        try {
-            // Load root layout from FXML file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainController.class.getResource("view/RootLayout.fxml"));
-            rootLayout = (BorderPane) loader.load();
+	/**
+	 * Initializes the root layout.
+	 */
+	public void initRootLayout() {
+		try {
+			// Load root layout from FXML file.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainController.class.getResource("view/RootLayout.fxml"));
+			rootLayout = (BorderPane) loader.load();
 
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout);
-            mainStage.setScene(scene);
-            mainStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+			// Show the scene containing the root layout.
+			Scene scene = new Scene(rootLayout);
+			mainStage.setScene(scene);
+			mainStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-    public void showMainLayout() {
-        try {
-            // Load main layout.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainController.class.getResource("view/MainLayout.fxml"));
-            VBox mainLayout = (VBox) loader.load();
+	public void showMainLayout() {
+		try {
+			// Load main layout.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainController.class.getResource("view/MainLayout.fxml"));
+			VBox mainLayout = (VBox) loader.load();
 
-            // Set main layout into the center of root layout.
-            rootLayout.setCenter(mainLayout);
+			// Set main layout into the center of root layout.
+			rootLayout.setCenter(mainLayout);
 
-            // Give the controller access to the main app.
-            MainLayoutController controller = loader.getController();
-            controller.setMainController(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+			// Give the controller access to the main app.
+			MainLayoutController controller = loader.getController();
+			controller.setMainController(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-    /**
-     * Returns the main stage.
-     * @return
-     */
-    public Stage getMainStage() {
-        return mainStage;
-    }
+	/**
+	 * Returns the main stage.
+	 *
+	 * @return
+	 */
+	public Stage getMainStage() {
+		return mainStage;
+	}
 
-    /**
-     * Returns the data as an observable list of Tracks.
-     * @return
-     */
-    public ObservableList<Track> getTracks() {
-        return tracks;
-    }
+	/**
+	 * Returns the data as an observable list of Tracks.
+	 *
+	 * @return
+	 */
+	public ObservableList<Track> getTracks() {
+		return tracks;
+	}
 
-    /**
-     * Returns the data as an observable list of Playlists.
-     * @return
-     */
-    public ObservableList<Playlist> getPlaylists() {
-        return playlists;
-    }
+	/**
+	 * Returns the data as an observable list of Playlists.
+	 *
+	 * @return
+	 */
+	public ObservableList<Playlist> getPlaylists() {
+		return playlists;
+	}
 
-
-    /**
-     * Returns the api.
-     * @return
-     */
+	/**
+	 * Returns the api.
+	 *
+	 * @return
+	 */
 	public Iapi getApi() {
 		return api;
 	}
@@ -106,51 +109,51 @@ public class MainController {
 
 	public void setUser(User user) {
 		this.user = user;
+		// TODO changer le nom dans l interface
 	}
 
-	public MainController(){
+	public MainController() {
 
 	}
 
-	public MainController(Stage mainStage){
+	public MainController(Stage mainStage) {
 		this();
 		this.mainStage = mainStage;
-        this.mainStage.setTitle("Iouseph");
-        this.mainStage.getIcons().add(new Image("file:res/Iouseph-icon.png"));
+		this.mainStage.setTitle("Iouseph");
+		this.mainStage.getIcons().add(new Image("file:res/Iouseph-icon.png"));
 
-        initRootLayout();
+		initRootLayout();
 
-        showMainLayout();
+		showMainLayout();
 	}
 
-    public boolean showLoginLayout() {
-        try {
-            // Load the FXML file and create a new stage for the popup.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainController.class.getResource("view/LoginLayout.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+	public boolean showLoginLayout() {
+		try {
+			// Load the FXML file and create a new stage for the popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainController.class.getResource("view/LoginLayout.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
 
-            // Create the login Stage.
-            Stage loginStage = new Stage();
-            loginStage.setTitle("Login");
-            loginStage.getIcons().add(new Image("file:res/Iouseph-icon.png"));
-            loginStage.initModality(Modality.WINDOW_MODAL);
-            loginStage.initOwner(mainStage);
-            Scene scene = new Scene(page);
-            loginStage.setScene(scene);
+			// Create the login Stage.
+			Stage loginStage = new Stage();
+			loginStage.setTitle("Login");
+			loginStage.getIcons().add(new Image("file:res/Iouseph-icon.png"));
+			loginStage.initModality(Modality.WINDOW_MODAL);
+			loginStage.initOwner(mainStage);
+			Scene scene = new Scene(page);
+			loginStage.setScene(scene);
 
-            LoginLayoutController controller = loader.getController();
-            controller.setMainController(this);
-            controller.setLoginStage(loginStage);
+			LoginLayoutController controller = loader.getController();
+			controller.setMainController(this);
+			controller.setLoginStage(loginStage);
 
-            loginStage.show();
+			loginStage.show();
 
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }

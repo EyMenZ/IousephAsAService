@@ -111,7 +111,7 @@ public class IousephParser implements IParser {
 			user.setId(json.getString("id"));
 			user.setPassword(json.getString("password"));
 			user.setUsername(json.getString("username"));
-			//user.setPlaylists(this.playlistsParse(json.getJSONArray("playlists")));
+			user.setPlaylists(this.playlistsParse(json.getJSONArray("playlists")));
 		}
 		return user;
 	}

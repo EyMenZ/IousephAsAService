@@ -15,14 +15,11 @@ import com.iouseph.parsing.IousephParser;
 
 public class SparkServerService {
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 
 		port(8000);
 
-		Iapi deezer = new DeezerClient(),
-				spotify = new SpotifyClient(),
-				soundcloud = new SoundCloudClient();
-
+		Iapi deezer = new DeezerClient(), spotify = new SpotifyClient(), soundcloud = new SoundCloudClient();
 
 		get("/track/:search", (req, res) -> {
 			String query = req.params(":search");
@@ -73,15 +70,14 @@ public class SparkServerService {
 			return IousephParser.parseToJsonObject(new User(username, password));
 		});
 
-
 	}
 
 	private static List<Track> mix(List<List<Track>> list) {
 		List<Track> tracks = new ArrayList<Track>();
 		int i = 0, j = 0;
-		while(list.get(i).size() > j){
+		while (list.get(i).size() > j) {
 			tracks.add(list.get(i++).get(j));
-			if (i == list.size()){
+			if (i == list.size()) {
 				i = 0;
 				j++;
 			}
