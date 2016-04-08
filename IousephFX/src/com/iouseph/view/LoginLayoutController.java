@@ -1,23 +1,21 @@
 package com.iouseph.view;
 
+import com.iouseph.MainController;
+
 import javafx.fxml.FXML;
-import javafx.scene.web.WebView;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class LoginLayoutController {
 	@FXML
-    private WebView loginView;
-	@SuppressWarnings("unused")
-	private Stage loginStage;
+	private TextField loginTextField;
+	@FXML
+    private PasswordField pwdPasswrodField;
 
-	/**
-	 * execute la lecture
-	 *
-	 * @param url lien vers la chanson dans le service de streaming
-	 */
-	public void loadTrack(String url){
-		loginView.getEngine().load(url);
-	}
+	private Stage loginStage;
+	private MainController mainController;
+
 
 	/**
      * Initializes the controller class. This method is automatically called
@@ -35,5 +33,24 @@ public class LoginLayoutController {
      */
     public void setLoginStage(Stage loginStage) {
         this.loginStage = loginStage;
+    }
+
+    /**
+	 * Is called by the main application to give a reference back to itself.
+	 *
+	 * @param mainApp
+	 */
+	public void setMainController(MainController mainController) {
+		this.mainController = mainController;
+	}
+
+    @FXML
+	public void handlelogin(){
+		mainController.getApi().retreive_token();
+    }
+
+    @FXML
+	public void handleSignUp(){
+    	//TODO mainController.getApi().signup();
     }
 }

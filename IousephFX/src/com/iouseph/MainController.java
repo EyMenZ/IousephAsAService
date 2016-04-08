@@ -2,6 +2,8 @@ package com.iouseph;
 
 import java.io.IOException;
 
+import com.iouseph.api.Iapi;
+import com.iouseph.api.IousephClient;
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
 import com.iouseph.view.LoginLayoutController;
@@ -25,7 +27,7 @@ public class MainController {
     private BorderPane rootLayout;
     private ObservableList<Track> tracks = FXCollections.observableArrayList();
     private ObservableList<Playlist> playlists = FXCollections.observableArrayList();
-    MediaPlayer mediaPlayer;
+    private Iapi api = new IousephClient();
 
     /**
      * Initializes the root layout.
@@ -88,6 +90,16 @@ public class MainController {
         return playlists;
     }
 
+
+    /**
+     * Returns the api.
+     * @return
+     */
+	public Iapi getApi() {
+		return api;
+	}
+
+
 	public MainController(){
 
 	}
@@ -120,6 +132,7 @@ public class MainController {
             loginStage.setScene(scene);
 
             LoginLayoutController controller = loader.getController();
+            controller.setMainController(this);
             controller.setLoginStage(loginStage);
 
             loginStage.show();

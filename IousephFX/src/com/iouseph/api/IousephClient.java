@@ -18,12 +18,20 @@ public class IousephClient implements Iapi {
 		this.parser = new IousephParser();
 	}
 
-	public String retreive_token() throws Exception {
-		String url = host + "/login";
-
-
+	public String retreive_token(){
+		// TODO creer un Oauth dans une prochaine version
 		return access_token;
 	}
+
+	public User login(String username, String pwd){
+		String url = host + "/login/" + username + "/" + pwd;
+		return this.parser.userParse(NetworkWrapper.get(url));
+		}
+	public User signUp(String username, String pwd){
+		String url = host + "/signup/" + username + "/" + pwd;
+		return this.parser.userParse(NetworkWrapper.get(url));
+		}
+
 
 	public User get_personnal_info() {
 		String url = host + "/infos";// me?oauth_token=" + token;
@@ -32,7 +40,7 @@ public class IousephClient implements Iapi {
 
 
 	/**
-	 * @see iouseph.api.model.Iapi#get_search(java.lang.String)
+	 * @see com.iouseph.api.model.Iapi#get_search(java.lang.String)
 	 */
 	public List<Track> get_search(String search) {
 		String url = host + "/track/" + NetworkWrapper.encode(search);// +
@@ -58,7 +66,7 @@ public class IousephClient implements Iapi {
 	 *
 	 * @param search	le String a rechercher dana Iouseph
 	 * @return une List<Playlist> contenant une liste de playlists
-	 * @see iouseph.api.model.Iapi#get_playlists(java.lang.String)
+	 * @see com.iouseph.api.model.Iapi#get_playlists(java.lang.String)
 	 */
 	public List<Playlist> get_playlists(String search) {
 		String url = host + "/search/playlist?q=" + NetworkWrapper.encode(search);

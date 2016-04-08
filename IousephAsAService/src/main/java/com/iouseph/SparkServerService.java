@@ -60,13 +60,15 @@ public class SparkServerService {
 			String username = req.params(":username");
 			String password = req.params(":pwd");
 			// request for authentification
+			// TODO if do not exist returns null
 			return null;
 		});
 
-		post("/sign_up/:username/:pwd", (req, res) -> {
+		post("/signup/:username/:pwd", (req, res) -> {
 			String username = req.params(":username");
 			String password = req.params(":pwd");
 			// request to create new user
+			// TODO if exist returns null
 			return null;
 		});
 

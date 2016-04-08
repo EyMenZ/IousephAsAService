@@ -17,7 +17,7 @@ import com.iouseph.model.User;
  */
 public interface Iapi {
 
-	public String retreive_token() throws Exception;
+	public String retreive_token();
 
 	/**
 	 * methode servant a faire une recherche de chason de facon general
@@ -56,5 +56,9 @@ public interface Iapi {
 	 *
 	 */
 	public User get_personnal_info();
+
+	public User login(String username, String pwd);
+	public User signUp(String username, String pwd);
+
 
 }

@@ -35,7 +35,6 @@ public class MainLayoutController {
 	private Label usernameLabel;
 
 	private MainController mainController;
-	private Iapi api;
 	private MediaPlayer mediaPlayer;
 
 	/**
@@ -107,7 +106,7 @@ public class MainLayoutController {
 
 	private void showPlaylistDetails(Playlist playlist) {
 		mainController.getTracks().clear();
-		playlist.setTracks(api.get_playlist(playlist.getId()));// TODO affecter
+		playlist.setTracks(mainController.getApi().get_playlist(playlist.getId()));// TODO affecter
 																// les track a
 																// la playlist
 																// dans le parse
@@ -157,7 +156,9 @@ public class MainLayoutController {
 
 	@FXML
 	private void handleConnect(){
+		//TODO si non connecter
 		mainController.showLoginLayout();
+		//TODO sinon se deconnecter
 	}
 
 	/**
@@ -176,9 +177,8 @@ public class MainLayoutController {
 
 	@FXML
 	private void handleSearch() {
-		api = new IousephClient();
 		mainController.getTracks().clear();
-		mainController.getTracks().addAll(api.get_search(searchTextField.getText()));
+		mainController.getTracks().addAll(mainController.getApi().get_search(searchTextField.getText()));
 		mainController.getPlaylists().clear();
 		//mainController.getPlaylists().addAll(api.get_playlists(searchTextField.getText()));
 	}
