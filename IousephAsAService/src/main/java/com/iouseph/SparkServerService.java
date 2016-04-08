@@ -30,25 +30,48 @@ public class SparkServerService {
 			return IousephParser.parseToJsonArray(mix(list));
 		});
 
-		get("/playlists/:user", (req, res) -> {
-			String user = req.params(":user");
+		get("/playlists/:user_id", (req, res) -> {
+			String user = req.params(":user_id");
 			// return list of playlist
 			return null;
 		});
 
-		get("playlist", (req, res) -> {
+		get("playlist/:user_id/:playlist_id", (req, res) -> {
+			String user = req.params(":user_id");
 
+			// return specific playlist
+			return null;
+		});
+
+		get("playlist/delete/:user_id/:playlist_id", (req, res) -> {
+			String user = req.params(":user_id");
+			// delete playlist
+			// return specific playlist
+			return null;
+		});
+
+		get("playlist/:user_id/:playlist_id/:new_title", (req, res) -> {
+			String user = req.params(":user_id");
+			//changer nom playlist
+			// return specific playlist
+			return null;
+		});
+
+		get("playlist/:user_id/:playlist_id/:track_id", (req, res) -> {
+			String user = req.params(":user_id");
+			//delete track
 			// return specific playlist
 			return null;
 		});
 
 		post("/playlist", (req, res) -> {
 
-			// update a playlist
+			// add Track
 			return null;
 		});
 
-		get("/create_playlist/:title", (req, res) -> {
+		get("/create_playlist/:user_id/:title", (req, res) -> {
+			String user = req.params(":user_id");
 			String title = req.params(":title");
 			// request to create playlist
 			return null;
@@ -60,6 +83,7 @@ public class SparkServerService {
 			// request for authentification
 			// TODO if do not exist returns null
 			return IousephParser.parseToJsonObject(new User(username, password));
+
 		});
 
 		post("/signup/:username/:pwd", (req, res) -> {

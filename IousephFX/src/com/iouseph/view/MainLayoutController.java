@@ -92,6 +92,7 @@ public class MainLayoutController {
 			coverImage.setImage(new Image(track.getImage()));
 			Media hit = new Media(track.getExternalUrl());// FIXME Unsupported protocol "https"
 			mediaPlayer = new MediaPlayer(hit);
+			handlePlay();
 		} else {
 			// track is null, remove all the text.
 			trackTitleLabel.setText("Title");
@@ -104,11 +105,8 @@ public class MainLayoutController {
 
 	private void showPlaylistDetails(Playlist playlist) {
 		mainController.getTracks().clear();
-		playlist.setTracks(mainController.getApi().get_playlist(playlist.getId()));// TODO
-																					// affecter
-		// les track a
-		// la playlist
-		// dans le parse
+		playlist.setTracks(mainController.getApi().get_playlist(playlist.getId()));
+		// TODO affecter les track a la playlist dans le parse
 		mainController.getTracks().addAll(playlist.getTracks());
 		showTrackDetails(playlist.getTracks().get(0));
 	}
@@ -133,12 +131,18 @@ public class MainLayoutController {
 
 	@FXML
 	public void handleNext() {
+		if (trackList.getSelectionModel().getSelectedItem()!=null)
+			mediaPlayer.stop();
 		trackList.getSelectionModel().selectNext();
+		handlePlay();
 	}
 
 	@FXML
 	public void handlePrevious() {
+		if (trackList.getSelectionModel().getSelectedItem()!=null)
+			mediaPlayer.stop();
 		trackList.getSelectionModel().selectPrevious();
+		handlePlay();
 	}
 
 	@FXML
