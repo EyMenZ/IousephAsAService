@@ -15,7 +15,7 @@
          <children>
             <HBox prefHeight="81.0" prefWidth="333.0">
                <children>
-                  <Label id="login_label" text="Login">
+                  <Label id="login_label" fx:id="loginLabel" text="Login">
                      <HBox.margin>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                      </HBox.margin></Label>
@@ -27,7 +27,7 @@
             </HBox>
             <HBox prefHeight="86.0" prefWidth="333.0">
                <children>
-                  <Label id="pwd_label" text="Password">
+                  <Label id="pwd_label" fx:id="pwdLabel" text="Password">
                      <HBox.margin>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                      </HBox.margin></Label>

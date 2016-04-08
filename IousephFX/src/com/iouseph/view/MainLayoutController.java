@@ -5,6 +5,7 @@ import com.iouseph.api.Iapi;
 import com.iouseph.api.IousephClient;
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
+import com.iouseph.model.User;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -156,9 +157,10 @@ public class MainLayoutController {
 
 	@FXML
 	private void handleConnect(){
-		//TODO si non connecter
-		mainController.showLoginLayout();
-		//TODO sinon se deconnecter
+		if (mainController.getUser() == null)
+			mainController.showLoginLayout();
+		else
+			mainController.setUser(null);
 	}
 
 	/**

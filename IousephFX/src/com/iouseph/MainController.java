@@ -28,7 +28,7 @@ public class MainController {
     private ObservableList<Track> tracks = FXCollections.observableArrayList();
     private ObservableList<Playlist> playlists = FXCollections.observableArrayList();
     private Iapi api = new IousephClient();
-    private User user;
+    private User user = null;
 
     /**
      * Initializes the root layout.
@@ -39,8 +39,6 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainController.class.getResource("view/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
-
-            user = new User("Guest", "");
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -108,7 +106,6 @@ public class MainController {
 
 	public void setUser(User user) {
 		this.user = user;
-		System.out.println(user);
 	}
 
 	public MainController(){
