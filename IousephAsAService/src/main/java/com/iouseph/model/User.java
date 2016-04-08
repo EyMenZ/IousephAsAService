@@ -14,16 +14,25 @@ public class User implements Serializable{
 	private String id;
 	private String username;
 	private String password;
-	private Map<String,Playlist> playlists=new HashMap<String, Playlist>();
+	private Map<String,Playlist> playlists;
 
 	/**
 	 * constructeur par defaut
 	 */
 	public User()
 	{
+		this(new String(), new String(), new HashMap<String, Playlist>());
+	}
+
+	public User(String username, String password){
+		this(username, password, new HashMap<String, Playlist>());
+	}
+
+	public User(String username, String password, Map<String,Playlist> playlists){
 		id= uid.randomUUID().toString();
-		username=new String();
-		password=new String();
+		this.username = username;
+		this.password = password;
+		this.playlists = playlists;
 	}
 
 	/**

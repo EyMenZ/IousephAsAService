@@ -23,6 +23,11 @@ public class User {
 		this(new String(), new String(), new String(), new HashMap<String, Playlist>());
 	}
 
+
+	public User(String username, String password){
+		this(new String(), username, password, new HashMap<String, Playlist>());
+	}
+
 	public User(String id, String username, String password, HashMap<String, Playlist> playlists) {
 		this.id = new SimpleStringProperty(id);
 		this.username = new SimpleStringProperty(username);
