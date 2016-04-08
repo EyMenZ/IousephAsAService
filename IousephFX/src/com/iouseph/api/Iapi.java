@@ -57,8 +57,7 @@ public interface Iapi {
 	 */
 	public User get_personnal_info();
 
-	public User login(String username, String pwd);
-	public User signUp(String username, String pwd);
+	public User connect(String type, String username, String pwd);
 
 
 }

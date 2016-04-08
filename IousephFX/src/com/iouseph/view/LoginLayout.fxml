@@ -19,7 +19,7 @@
                      <HBox.margin>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                      </HBox.margin></Label>
-                  <TextField id="login_textfield">
+                  <TextField id="login_textfield" fx:id="loginTextField">
                      <HBox.margin>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                      </HBox.margin></TextField>
@@ -31,7 +31,7 @@
                      <HBox.margin>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                      </HBox.margin></Label>
-                  <PasswordField id="pwd_passwordfield">
+                  <PasswordField id="pwd_passwordfield" fx:id="pwdPasswrodField">
                      <HBox.margin>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                      </HBox.margin>
@@ -40,11 +40,11 @@
             </HBox>
             <HBox prefHeight="84.0" prefWidth="333.0">
                <children>
-                  <Button mnemonicParsing="false" prefWidth="100.0" text="Sign up">
+                  <Button mnemonicParsing="false" onAction="#handleSignUp" prefWidth="100.0" text="Sign up">
                      <HBox.margin>
                         <Insets bottom="30.0" left="45.0" right="45.0" top="30.0" />
                      </HBox.margin></Button>
-                  <Button mnemonicParsing="false" prefWidth="100.0" text="Login">
+                  <Button mnemonicParsing="false" onAction="#handlelogin" prefWidth="100.0" text="Login">
                      <HBox.margin>
                         <Insets bottom="30.0" left="45.0" right="45.0" top="30.0" />
                      </HBox.margin></Button>

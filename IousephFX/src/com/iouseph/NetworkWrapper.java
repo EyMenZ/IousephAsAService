@@ -126,6 +126,10 @@ public final class NetworkWrapper {
 		return null;
 	}
 
+	public static JSONObject post(String url) {
+		return post(url, null, null, null);
+	}
+
 	/**
 	 * methode permettant d'envoyer une requete http POST
 	 *
@@ -155,7 +159,8 @@ public final class NetworkWrapper {
 	public static JSONObject post(String url, List<NameValuePair> body_args, String HeaderName, String HeaderValue) {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		HttpPost post = new HttpPost(url);//TODO encripter
-		post.setEntity(new UrlEncodedFormEntity(body_args, Consts.UTF_8));
+		if (body_args != null)
+			post.setEntity(new UrlEncodedFormEntity(body_args, Consts.UTF_8));
 		// client_id:secret_id en base 64
 		if ((HeaderName != null) && (HeaderValue != null))
 			post.setHeader(HeaderName, HeaderValue);

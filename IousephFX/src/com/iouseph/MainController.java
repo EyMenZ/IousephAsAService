@@ -6,6 +6,7 @@ import com.iouseph.api.Iapi;
 import com.iouseph.api.IousephClient;
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
+import com.iouseph.model.User;
 import com.iouseph.view.LoginLayoutController;
 import com.iouseph.view.MainLayoutController;
 
@@ -28,6 +29,7 @@ public class MainController {
     private ObservableList<Track> tracks = FXCollections.observableArrayList();
     private ObservableList<Playlist> playlists = FXCollections.observableArrayList();
     private Iapi api = new IousephClient();
+    private User user;
 
     /**
      * Initializes the root layout.
@@ -38,6 +40,8 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainController.class.getResource("view/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
+
+            user = new User();
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);

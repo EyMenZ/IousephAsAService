@@ -10,6 +10,7 @@ import com.iouseph.api.Deezer.*;
 import com.iouseph.api.Soundcloud.*;
 import com.iouseph.api.Spotify.*;
 import com.iouseph.model.Track;
+import com.iouseph.model.User;
 import com.iouseph.parsing.IousephParser;
 
 public class SparkServerService {
@@ -61,7 +62,7 @@ public class SparkServerService {
 			String password = req.params(":pwd");
 			// request for authentification
 			// TODO if do not exist returns null
-			return null;
+			return IousephParser.parseToJsonObject(new User(username, password));
 		});
 
 		post("/signup/:username/:pwd", (req, res) -> {
@@ -69,7 +70,7 @@ public class SparkServerService {
 			String password = req.params(":pwd");
 			// request to create new user
 			// TODO if exist returns null
-			return null;
+			return IousephParser.parseToJsonObject(new User(username, password));
 		});
 
 

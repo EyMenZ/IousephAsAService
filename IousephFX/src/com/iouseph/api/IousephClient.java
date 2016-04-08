@@ -1,7 +1,10 @@
 package com.iouseph.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.iouseph.NetworkWrapper;
 import com.iouseph.model.Playlist;
@@ -23,13 +26,12 @@ public class IousephClient implements Iapi {
 		return access_token;
 	}
 
-	public User login(String username, String pwd){
-		String url = host + "/login/" + username + "/" + pwd;
-		return this.parser.userParse(NetworkWrapper.get(url));
-		}
-	public User signUp(String username, String pwd){
-		String url = host + "/signup/" + username + "/" + pwd;
-		return this.parser.userParse(NetworkWrapper.get(url));
+	public User connect(String type, String username, String pwd){
+		String url = host + "/"+ type +"/" + username + "/" + pwd;
+		/*List<NameValuePair> body_args = new ArrayList<NameValuePair>();
+		body_args.add(new BasicNameValuePair("username", username));
+		body_args.add(new BasicNameValuePair("pwd", pwd));*/
+		return this.parser.userParse(NetworkWrapper.post(url));
 		}
 
 

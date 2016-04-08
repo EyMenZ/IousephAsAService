@@ -46,11 +46,11 @@ public class LoginLayoutController {
 
     @FXML
 	public void handlelogin(){
-		mainController.getApi().retreive_token();
+		mainController.getApi().connect("login", loginTextField.getText(), pwdPasswrodField.getText());
     }
 
     @FXML
 	public void handleSignUp(){
-    	//TODO mainController.getApi().signup();
+    	mainController.getApi().connect("signup", loginTextField.getText(), pwdPasswrodField.getText());
     }
 }
