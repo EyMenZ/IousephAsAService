@@ -24,7 +24,7 @@ public class MainController {
 	private BorderPane rootLayout;
 	private ObservableList<Track> tracks = FXCollections.observableArrayList();
 	private ObservableList<Playlist> playlists = FXCollections.observableArrayList();
-	private Iapi api = new IousephClient();
+	private IousephClient api = new IousephClient();
 	private User user = null;
 
 	/**
@@ -96,7 +96,7 @@ public class MainController {
 	 *
 	 * @return
 	 */
-	public Iapi getApi() {
+	public IousephClient getApi() {
 		return api;
 	}
 

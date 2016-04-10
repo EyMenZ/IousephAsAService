@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.iouseph.MainController;
 import com.iouseph.api.Iapi;
+import com.iouseph.api.IousephClient;
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
 import com.iouseph.model.User;
@@ -43,9 +44,12 @@ public class MainLayoutController {
 	private Label usernameLabel;
 	@FXML
 	private Button connectButton;
+	@FXML
+	private TextField addPlaylistTextField;
 
 	private MainController mainController;
 	private MediaPlayer mediaPlayer;
+	private Track currentTrack;
 
 	/**
 	 * The constructor. The constructor is called before the initialize()
@@ -71,8 +75,8 @@ public class MainLayoutController {
 		// changed.
 		trackList.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showTrackDetails(newValue));
-		playlistList.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> showPlaylistDetails(newValue));
+		/*playlistList.getSelectionModel().selectedItemProperty()
+				.addListener((observable, oldValue, newValue) -> showPlaylistDetails(newValue));*/
 	}
 
 	/**
@@ -95,6 +99,7 @@ public class MainLayoutController {
 	 * @param track
 	 */
 	private void showTrackDetails(Track track) {
+		this.currentTrack = track;
 		if (track != null) {
 			// Fill the labels with info from the track object.
 			trackTitleLabel.setText(track.getTitle());
@@ -102,7 +107,8 @@ public class MainLayoutController {
 			albumTitleLabel.setText(track.getAlbum());
 			// duration.setText(Float.toString(track.getDuration()));
 			coverImage.setImage(new Image(track.getImage()));
-			Media hit = new Media(track.getExternalUrl());// FIXME Unsupported protocol "https"
+			Media hit = new Media(track.getExternalUrl());// FIXME Unsupported
+															// protocol "https"
 			mediaPlayer = new MediaPlayer(hit);
 			handlePlay();
 		} else {
@@ -111,13 +117,12 @@ public class MainLayoutController {
 			artistNameLabel.setText("Artist");
 			albumTitleLabel.setText("Album");
 			coverImage.setImage(new Image("file:res/Iouseph-logo.png"));
-
 		}
 	}
 
 	private void showPlaylistDetails(Playlist playlist) {
 		mainController.getTracks().clear();
-		playlist.setTracks(mainController.getApi().get_playlist(playlist.getId()));
+		//playlist.setTracks(mainController.getUser().getPlaylists().values());
 		// TODO affecter les track a la playlist dans le parse
 		mainController.getTracks().addAll(playlist.getTracks());
 		showTrackDetails(playlist.getTracks().get(0));
@@ -125,25 +130,25 @@ public class MainLayoutController {
 
 	@FXML
 	public void handlePlay() {
-		if (trackList.getSelectionModel().getSelectedItem()!=null)
-		mediaPlayer.play();
+		if (trackList.getSelectionModel().getSelectedItem() != null)
+			mediaPlayer.play();
 	}
 
 	@FXML
 	public void handleStop() {
-		if (trackList.getSelectionModel().getSelectedItem()!=null)
-		mediaPlayer.stop();
+		if (trackList.getSelectionModel().getSelectedItem() != null)
+			mediaPlayer.stop();
 	}
 
 	@FXML
 	public void handlePause() {
-		if (trackList.getSelectionModel().getSelectedItem()!=null)
-		mediaPlayer.pause();
+		if (trackList.getSelectionModel().getSelectedItem() != null)
+			mediaPlayer.pause();
 	}
 
 	@FXML
 	public void handleNext() {
-		if (trackList.getSelectionModel().getSelectedItem()!=null)
+		if (trackList.getSelectionModel().getSelectedItem() != null)
 			mediaPlayer.stop();
 		trackList.getSelectionModel().selectNext();
 		handlePlay();
@@ -151,7 +156,7 @@ public class MainLayoutController {
 
 	@FXML
 	public void handlePrevious() {
-		if (trackList.getSelectionModel().getSelectedItem()!=null)
+		if (trackList.getSelectionModel().getSelectedItem() != null)
 			mediaPlayer.stop();
 		trackList.getSelectionModel().selectPrevious();
 		handlePlay();
@@ -174,9 +179,9 @@ public class MainLayoutController {
 
 	@FXML
 	private void handleConnect() {
-		if (mainController.getUser() == null){
+		if (mainController.getUser() == null) {
 			showLoginLayout();
-		}else{
+		} else {
 			mainController.setUser(null);
 			connectButton.setText("connect");
 			usernameLabel.setText("Guest");
@@ -202,12 +207,37 @@ public class MainLayoutController {
 		mainController.getTracks().clear();
 		mainController.getTracks().addAll(mainController.getApi().get_search(searchTextField.getText()));
 		mainController.getPlaylists().clear();
-		// mainController.getPlaylists().addAll(api.get_playlists(searchTextField.getText()));
 	}
 
 	@FXML
-	private void handleAddToPlaylist(){
+	private void handleAddToPlaylist() {
+		if ((currentTrack != null) && (playlistList.getSelectionModel().getSelectedItem() != null)) {
+			// TODO save add on server
+			playlistList.getSelectionModel().getSelectedItem().addTrack(currentTrack);
+			System.out.println(mainController.getPlaylists());
+		}
+	}
 
+	@FXML
+	private void handleAddPlaylist() {
+		if (!addPlaylistTextField.getText().equals(""))
+			if (!mainController.getUser().getPlaylists().containsKey(addPlaylistTextField.getText())) {
+				Playlist playlist = new Playlist();
+				playlist.setTitle(addPlaylistTextField.getText());
+				playlist.setOwner(mainController.getUser().getUsername());
+				playlist.setSource("Iouseph");
+				mainController.getUser().getPlaylists().put(playlist.getTitle(), playlist);
+				// TODO save on server
+				mainController.getPlaylists().clear();
+				mainController.getPlaylists().addAll(mainController.getUser().getPlaylists().values());
+			}
+	}
+
+	@FXML
+	private void handleShowPlaylist(){
+		if (playlistList.getSelectionModel().getSelectedItem() != null) {
+			showPlaylistDetails(playlistList.getSelectionModel().getSelectedItem());
+		}
 	}
 
 	public void setUsernameLabel(String username) {
@@ -243,7 +273,7 @@ public class MainLayoutController {
 		}
 	}
 
-	public Iapi getApi() {
+	public IousephClient getApi() {
 		return mainController.getApi();
 	}
 
@@ -251,7 +281,7 @@ public class MainLayoutController {
 		mainController.setUser(user);
 	}
 
-	public Button getConnectButton(){
+	public Button getConnectButton() {
 		return connectButton;
 	}
 }

@@ -2,6 +2,7 @@ package com.iouseph.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -11,7 +12,7 @@ import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
 import com.iouseph.model.User;
 
-public class IousephClient implements Iapi {
+public class IousephClient {
 	private final String host = "http://localhost:8000";
 	private String access_token = "";
 
@@ -35,12 +36,6 @@ public class IousephClient implements Iapi {
 		}
 
 
-	public User get_personnal_info() {
-		String url = host + "/infos";// me?oauth_token=" + token;
-		return this.parser.userParse(NetworkWrapper.get(url));
-	}
-
-
 	/**
 	 * @see com.iouseph.api.model.Iapi#get_search(java.lang.String)
 	 */
@@ -51,56 +46,48 @@ public class IousephClient implements Iapi {
 		return this.parser.tracksParse(NetworkWrapper.get_array(url));
 	}
 
-	/**
-	 * retourne les informations de l'utilisateur connecte
-	 *
-	 * @param user_id	l'id du user dans Iouseph
-	 * @return un JSONObject contenant les informations de l'utilisateur
-	 */
-	public User get_user_info(String user_id) {
-		String url = host + "user/" + NetworkWrapper.encode(user_id);// + "/playlists";// +
-												// "?client_id=" + client_id;
-		return this.parser.userParse(NetworkWrapper.get(url));
+	public Map<String, Playlist> getUserPlaylists(User user){
+		String url = host + "/playlists/" + user.getId();
+		return this.parser.playlistsParse(NetworkWrapper.get_array(url));
 	}
 
-	/**
-	 *	retourne une liste de playlists
-	 *
-	 * @param search	le String a rechercher dana Iouseph
-	 * @return une List<Playlist> contenant une liste de playlists
-	 * @see com.iouseph.api.model.Iapi#get_playlists(java.lang.String)
-	 */
-	public List<Playlist> get_playlists(String search) {
-		String url = host + "/search/playlist?q=" + NetworkWrapper.encode(search);
-		return (List<Playlist>) this.parser.playlistsParse(NetworkWrapper.get_array(url));//FIXME
+	public Playlist getPlaylist(User user, String id){
+		String url = host + "/playlist/" + user.getId() + "/" + id;
+		return this.parser.playlistParse(NetworkWrapper.get(url));
 	}
 
-	/*
-	 * retourne la liste des tracks de la playlist
-	 *
-	 * @see iouseph.api.model.Iapi#get_playlist(java.lang.String)
-	 */
-	@Override
-	public List<Track> get_playlist(String playlist_id) {
-		String url = host + "/playlist/" + NetworkWrapper.encode(playlist_id) + "/tracks";
-		return this.parser.playlistIdParse(NetworkWrapper.get(url));
+	public String deletePlaylist(User user, Playlist playlist){
+		String url = host + "/playlist/delete/" + user.getId() + "/" + playlist.getId();
+		return NetworkWrapper.get(url).toString();
 	}
 
-	public Track get_track(String track_id) {
-		String url = host + "track/" + NetworkWrapper.encode(track_id);
-		return this.parser.trackParse(NetworkWrapper.get(url));
+	public String addPlaylist(User user, Playlist playlist){
+		String url = host + "/playlist/" + user.getId() + "/" + playlist.getId() + "/" + playlist.getTitle();
+		return NetworkWrapper.get(url).toString();
 	}
 
-	@Override
-	public List<Track> get_tracks() {
-		// TODO Auto-generated method stub
-		return null;
+	public String deleteTrack(User user, Playlist playlist, Track track){
+		String url = host + "/playlist/delete/" + user.getId() + "/" + playlist.getId() + "/" + track.getId();
+		return NetworkWrapper.get(url).toString();
 	}
 
-	@Override
-	public boolean set_playlists(List<Playlist> playlists) {
-		// TODO Auto-generated method stub
-		return true;
+	public String addTrackToPlaylist(User user, Playlist playlist, Track track){
+		String url = host + "/playlist/addtrack/";
+		List<NameValuePair> body_args = new ArrayList<NameValuePair>();
+		body_args.add(new BasicNameValuePair("user_id", user.getId()));
+		body_args.add(new BasicNameValuePair("playlist_id", playlist.getId()));
+		// TODO le track
+		return NetworkWrapper.post(url,body_args).toString();
 	}
+
+	public String createPlaylist(User user, String title){
+		String url = host + "/playlist/create/";
+		List<NameValuePair> body_args = new ArrayList<NameValuePair>();
+		body_args.add(new BasicNameValuePair("userId", user.getId()));
+		body_args.add(new BasicNameValuePair("title", title));
+		// TODO le track
+		return NetworkWrapper.post(url,body_args).toString();
+	}
+
 
 }

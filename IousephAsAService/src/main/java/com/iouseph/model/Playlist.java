@@ -22,12 +22,12 @@ public class Playlist implements Serializable{
 	 * Constructeur par defaut
 	 */
 	public Playlist() {
-		String tempId=uid.randomUUID().toString();
-		this.title = null;
-		this.owner = null;
-		this.source = null;
+		id=uid.randomUUID().toString();
+		this.title = new String();
+		this.owner = new String();
+		this.source = new String();
 		this.tracks = new ArrayList<Track>();
-		this.url=null;
+		this.url=new String();
 	}
 /**
  * Constructeur par parametres
