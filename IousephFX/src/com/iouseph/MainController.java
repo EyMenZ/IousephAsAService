@@ -7,7 +7,6 @@ import com.iouseph.api.IousephClient;
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
 import com.iouseph.model.User;
-import com.iouseph.view.LoginLayoutController;
 import com.iouseph.view.MainLayoutController;
 
 import javafx.collections.FXCollections;
@@ -15,10 +14,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainController {
@@ -127,33 +124,6 @@ public class MainController {
 		showMainLayout();
 	}
 
-	public boolean showLoginLayout() {
-		try {
-			// Load the FXML file and create a new stage for the popup.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainController.class.getResource("view/LoginLayout.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
 
-			// Create the login Stage.
-			Stage loginStage = new Stage();
-			loginStage.setTitle("Login");
-			loginStage.getIcons().add(new Image("file:res/Iouseph-icon.png"));
-			loginStage.initModality(Modality.WINDOW_MODAL);
-			loginStage.initOwner(mainStage);
-			Scene scene = new Scene(page);
-			loginStage.setScene(scene);
-
-			LoginLayoutController controller = loader.getController();
-			controller.setMainController(this);
-			controller.setLoginStage(loginStage);
-
-			loginStage.show();
-
-			return true;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
 
 }

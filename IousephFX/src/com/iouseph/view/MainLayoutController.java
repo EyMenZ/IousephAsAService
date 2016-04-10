@@ -1,18 +1,28 @@
 package com.iouseph.view;
 
+import java.io.IOException;
+
 import com.iouseph.MainController;
+import com.iouseph.api.Iapi;
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
+import com.iouseph.model.User;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class MainLayoutController {
 	@FXML
@@ -31,6 +41,8 @@ public class MainLayoutController {
 	private TextField searchTextField;
 	@FXML
 	private Label usernameLabel;
+	@FXML
+	private Button connectButton;
 
 	private MainController mainController;
 	private MediaPlayer mediaPlayer;
@@ -162,10 +174,13 @@ public class MainLayoutController {
 
 	@FXML
 	private void handleConnect() {
-		if (mainController.getUser() == null)
-			mainController.showLoginLayout();
-		else
+		if (mainController.getUser() == null){
+			showLoginLayout();
+		}else{
 			mainController.setUser(null);
+			connectButton.setText("connect");
+			usernameLabel.setText("Guest");
+		}
 	}
 
 	/**
@@ -196,8 +211,47 @@ public class MainLayoutController {
 	}
 
 	public void setUsernameLabel(String username) {
-		System.out.println(username);
 		this.usernameLabel.setText(username);
 	}
 
+	public boolean showLoginLayout() {
+		try {
+			// Load the FXML file and create a new stage for the popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainController.class.getResource("view/LoginLayout.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the login Stage.
+			Stage loginStage = new Stage();
+			loginStage.setTitle("Login");
+			loginStage.getIcons().add(new Image("file:res/Iouseph-icon.png"));
+			loginStage.initModality(Modality.WINDOW_MODAL);
+			loginStage.initOwner(mainController.getMainStage());
+			Scene scene = new Scene(page);
+			loginStage.setScene(scene);
+
+			LoginLayoutController controller = loader.getController();
+			controller.setMainController(this);
+			controller.setLoginStage(loginStage);
+
+			loginStage.show();
+
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public Iapi getApi() {
+		return mainController.getApi();
+	}
+
+	public void setUser(User user) {
+		mainController.setUser(user);
+	}
+
+	public Button getConnectButton(){
+		return connectButton;
+	}
 }
