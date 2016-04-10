@@ -7,21 +7,16 @@ import com.iouseph.api.IousephClient;
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
 import com.iouseph.model.User;
-import com.iouseph.view.LoginLayoutController;
 import com.iouseph.view.MainLayoutController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 public class MainController {
 

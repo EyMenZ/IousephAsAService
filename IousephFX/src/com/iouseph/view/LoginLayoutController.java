@@ -1,6 +1,5 @@
 package com.iouseph.view;
 
-import com.iouseph.MainController;
 import com.iouseph.model.User;
 
 import javafx.fxml.FXML;
