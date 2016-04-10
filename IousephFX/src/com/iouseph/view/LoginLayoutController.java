@@ -65,7 +65,6 @@ public class LoginLayoutController {
 		if (user != null) {
 			mainController.setUser(user);
 			mainController.getConnectButton().setText("disconnect");
-
 			mainController.setUsernameLabel(user.getUsername());
 			loginStage.close();
 		} else {
@@ -77,7 +76,7 @@ public class LoginLayoutController {
 	@FXML
 	private void handleEnter(KeyEvent ke) {
 		if (ke.getCode().toString().equals("ENTER")) {
-			handlelogin();
+			connect("login");
 		}
 	}
 
