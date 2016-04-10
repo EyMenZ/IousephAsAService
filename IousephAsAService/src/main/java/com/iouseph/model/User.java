@@ -148,9 +148,20 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	/**
+	 * methode permettant de recuperer les playlists de l'utilisateur
+	 * @return
+	 */
 	public Map<String, Playlist> getPlaylists() {
 		return playlists;
+	}
+	/**
+	 * methode permettant de setter les playlists
+	 * @param playlists
+	 */
+	public void setPlaylists(Map<String, Playlist> playlists)
+	{
+		this.playlists=playlists;
 	}
 
 	@Override
@@ -158,6 +169,16 @@ public class User implements Serializable{
 		return "User [id=" + id + ", username=" + username + ", password=" + password
 				+ ", playlists=" + playlists + "]";
 	}
-
+	/**
+	 * methode permettant de cloner un object user sans son mot de passe
+	 */
+	public User clone(){
+	   User user=new User();
+	   user.setId(id);
+	   user.setUsername(username);
+	   user.setPassword("");
+	   user.setPlaylists(new HashMap<String,Playlist> (playlists));
+	   return user;
+	}
 
 }
