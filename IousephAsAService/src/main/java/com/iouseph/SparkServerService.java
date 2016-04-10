@@ -72,11 +72,15 @@ public class SparkServerService {
 			return null;
 		});
 
-		get("/create_playlist/:user_id/:title", (req, res) -> {
-			String user = req.params(":user_id");
-			String title = req.params(":title");
-			// request to create playlist
-			return null;
+		post("/create_playlist", (req, res) -> {
+			String userId = req.queryParams("userId");
+			String title = req.queryParams("title");
+			User user=AccountManager.getInstance().getUser(userId);
+			if(user.addPlaylist(title))
+			{
+				return "true";
+			}
+			return "false";
 		});
 
 		post("/login", (req, res) -> {
@@ -98,6 +102,15 @@ public class SparkServerService {
 			ObjectsManager.SerializeUser(user);
 			// si jamais l'utilisateur est null la fonction de parsage retournera null
 			return IousephParser.parseToJsonObject(user);
+		});
+
+		post("/disconnect", (req,res) -> {
+			String idUser=req.queryParams("idUser");
+			User user = AccountManager.getInstance().getUser(idUser);
+			if(user==null)
+				return "UserNotFound";
+			ObjectsManager.SerializeUser(user);
+			return "disconnected";
 		});
 
 	}

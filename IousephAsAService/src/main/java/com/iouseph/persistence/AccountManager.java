@@ -178,6 +178,15 @@ public class AccountManager {
 		}
 
 	}
+	/**
+	 * Cette methode recupere l'utilisateur selon son id
+	 * @param idUser
+	 * @return user si existe , null sinon
+	 */
+	public User getUser(String idUser)
+	{
+		return this.usersInformations.get(idUser);
+	}
 
 
 }

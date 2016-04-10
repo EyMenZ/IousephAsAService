@@ -67,10 +67,26 @@ public class User implements Serializable{
 	 */
 	public boolean addPlaylist(Playlist playlist)
 	{
-		if(!playlists.containsKey(playlist))
+		if(!playlists.containsValue(playlist))
 		{
 			playlists.put(playlist.getTitle(), playlist);
 			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Fonction permettant de creer une nouvelle playlist
+	 * @param title
+	 * @return true si la playlist a bien ete cree, false sinon
+	 */
+	public boolean addPlaylist(String title)
+	{
+		if(!playlists.containsKey(title))
+		{
+			Playlist playlist = new Playlist();
+			playlist.setTitle(title);
+			playlists.put(title, playlist);
 		}
 		return false;
 	}
