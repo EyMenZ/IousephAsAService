@@ -118,7 +118,6 @@ public class AccountManager {
 				return usersInformations.get(Username).getId();
 			}
 		}
-
 		return null;
 	}
 	/**

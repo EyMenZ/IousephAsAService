@@ -1,15 +1,16 @@
 package com.iouseph;
 
-import static spark.Spark.*;
+import static spark.Spark.get;
+import static spark.Spark.port;
+import static spark.Spark.post;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import com.iouseph.api.Iapi;
-import com.iouseph.api.Deezer.*;
-import com.iouseph.api.Soundcloud.*;
-import com.iouseph.api.Spotify.*;
+import com.iouseph.api.Deezer.DeezerClient;
+import com.iouseph.api.Soundcloud.SoundCloudClient;
+import com.iouseph.api.Spotify.SpotifyClient;
 import com.iouseph.model.Track;
 import com.iouseph.model.User;
 import com.iouseph.parsing.IousephParser;
@@ -35,8 +36,17 @@ public class SparkServerService {
 		});
 
 		get("/playlists/:user_id", (req, res) -> {
-			String user = req.params(":user_id");
-			// return list of playlist
+			String idUser = req.params(":user_id");
+			try
+			{
+				User user = AccountManager.getInstance().getUser(idUser);
+				return IousephParser.parseToJsonArray(user.getPlaylists());
+
+			}
+			catch(NullPointerException e)
+			{
+				System.out.println("user not found");
+			}
 			return null;
 		});
 
@@ -49,17 +59,40 @@ public class SparkServerService {
 		});
 
 		get("playlist/delete/:user_id/:playlist_id", (req, res) -> {
-			String user = req.params(":user_id");
-			// delete playlist
-			// return specific playlist
-			return null;
+			String userId = req.params(":user_id");
+			String playlistId = req.params(":playlist_id");
+			try{
+				User user = AccountManager.getInstance().getUser(userId);
+				if(user.deletePlaylist(playlistId))
+				{
+					ObjectsManager.SerializeUser(user);
+					return Constants.PlaylistDeleted;
+				}
+			}
+			catch(Exception e)
+			{
+				System.err.println("user not found when trying to delete a playlist");
+			}
+			return Constants.PlaylistNotDeleted;
 		});
 
-		get("playlist/:user_id/:playlist_id/:new_title", (req, res) -> {
-			String user = req.params(":user_id");
-			//changer nom playlist
-			// return specific playlist
-			return null;
+		get("playlist/edit/:user_id/:playlist_id/:new_title", (req, res) -> {
+			String userId = req.params(":user_id");
+			String playlistId = req.params(":playlist_id");
+			String NTitle = req.params(":new_title");
+
+			try
+			{
+				User user = AccountManager.getInstance().getUser(userId);
+				user.getPlaylist(playlistId).setTitle(NTitle);
+				ObjectsManager.SerializeUser(user);
+				return Constants.PlaylistNameChanged;
+			}
+			catch(NullPointerException e)
+			{
+				System.err.println("Playlist not found when trying to set a playlist's title");
+			}
+			return Constants.PlaylistNameNotChanged;
 		});
 
 		get("playlist/delete/:user_id/:playlist_id/:track_id", (req, res) -> {
@@ -67,15 +100,22 @@ public class SparkServerService {
 			String playlistId = req.params(":playlist_id");
 			String trackId = req.params(":track_id");
 
-			User user = AccountManager.getInstance().getUser(userId);
-			boolean deleted = user.getPlaylist(playlistId).deleteTrack(trackId);
-			if(deleted)
+			try
 			{
-				ObjectsManager.SerializeUser(user);
-				return Constants.TrackDeleted;
+				User user = AccountManager.getInstance().getUser(userId);
+				boolean deleted = user.getPlaylist(playlistId).deleteTrack(trackId);
+				if(deleted)
+				{
+					ObjectsManager.SerializeUser(user);
+					return Constants.TrackDeleted;
+				}
+			}
+			catch(NullPointerException e)
+			{
+				System.err.println("problem when trying to delete a track");
 			}
 
-			return Constants.TrackNotAdded;
+			return Constants.TrackNotDeleted;
 		});
 
 		post("/playlist/addtrack/:user_id/:playlist_id", (req, res) -> {
@@ -89,6 +129,7 @@ public class SparkServerService {
 			track.setImage(req.queryParams("image"));
 			track.setSource(req.queryParams("source"));
 			track.setTitle(req.queryParams("title"));
+			try{
 			User user=AccountManager.getInstance().getUser(userId);
 			boolean added=user.getPlaylist(playlistId).addTrack(track);
 				if(added)
@@ -96,6 +137,11 @@ public class SparkServerService {
 					ObjectsManager.SerializeUser(user);
 					return Constants.TrackAdded;
 				}
+			}
+			catch(NullPointerException e)
+			{
+				System.err.println("problem when trying to add a track");
+			}
 
 			return Constants.TrackNotAdded;
 		});
@@ -103,11 +149,17 @@ public class SparkServerService {
 		post("/create_playlist", (req, res) -> {
 			String userId = req.queryParams("userId");
 			String title = req.queryParams("title");
-			User user=AccountManager.getInstance().getUser(userId);
-			if(user.addPlaylist(title))
+			try{
+				User user=AccountManager.getInstance().getUser(userId);
+				if(user.addPlaylist(title))
+				{
+					ObjectsManager.SerializeUser(user);
+					return Constants.PlaylistAdded;
+				}
+			}
+			catch(NullPointerException e)
 			{
-				ObjectsManager.SerializeUser(user);
-				return Constants.PlaylistAdded;
+				System.err.println(" user not found when trying to create a playlist");
 			}
 			return Constants.PlaylistNotAdded;
 		});
