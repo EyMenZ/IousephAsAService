@@ -4,6 +4,7 @@ import static spark.Spark.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.iouseph.api.Iapi;
 import com.iouseph.api.Deezer.*;
@@ -13,6 +14,7 @@ import com.iouseph.model.Track;
 import com.iouseph.model.User;
 import com.iouseph.parsing.IousephParser;
 import com.iouseph.persistence.AccountManager;
+import com.iouseph.persistence.Constants;
 import com.iouseph.persistence.ObjectsManager;
 
 public class SparkServerService {
@@ -39,10 +41,11 @@ public class SparkServerService {
 		});
 
 		get("playlist/:user_id/:playlist_id", (req, res) -> {
-			String user = req.params(":user_id");
+			String idUser = req.params(":user_id");
+			String playlistId = req.params(":playlist_id");
+			User user = AccountManager.getInstance().getUser(idUser);
 
-			// return specific playlist
-			return null;
+			return IousephParser.parseToJsonObject(user.getPlaylist(playlistId));
 		});
 
 		get("playlist/delete/:user_id/:playlist_id", (req, res) -> {
@@ -59,17 +62,42 @@ public class SparkServerService {
 			return null;
 		});
 
-		get("playlist/:user_id/:playlist_id/:track_id", (req, res) -> {
-			String user = req.params(":user_id");
-			//delete track
-			// return specific playlist
-			return null;
+		get("playlist/delete/:user_id/:playlist_id/:track_id", (req, res) -> {
+			String userId = req.params(":user_id");
+			String playlistId = req.params(":playlist_id");
+			String trackId = req.params(":track_id");
+
+			User user = AccountManager.getInstance().getUser(userId);
+			boolean deleted = user.getPlaylist(playlistId).deleteTrack(trackId);
+			if(deleted)
+			{
+				ObjectsManager.SerializeUser(user);
+				return Constants.TrackDeleted;
+			}
+
+			return Constants.TrackNotAdded;
 		});
 
-		post("/playlist", (req, res) -> {
+		post("/playlist/addtrack/:user_id/:playlist_id", (req, res) -> {
+			String userId=req.params(":user_id");
+			String playlistId=req.params(":playlist_id");
+			Track track = new Track();
+			track.setId(req.queryParams("id"));
+			track.setAlbum(req.queryParams("album"));
+			track.setArtist(req.queryParams("artist"));
+			track.setExternalUrl(req.queryParams("externalUrl"));
+			track.setImage(req.queryParams("image"));
+			track.setSource(req.queryParams("source"));
+			track.setTitle(req.queryParams("title"));
+			User user=AccountManager.getInstance().getUser(userId);
+			boolean added=user.getPlaylist(playlistId).addTrack(track);
+				if(added)
+				{
+					ObjectsManager.SerializeUser(user);
+					return Constants.TrackAdded;
+				}
 
-			// add Track
-			return null;
+			return Constants.TrackNotAdded;
 		});
 
 		post("/create_playlist", (req, res) -> {
@@ -78,9 +106,10 @@ public class SparkServerService {
 			User user=AccountManager.getInstance().getUser(userId);
 			if(user.addPlaylist(title))
 			{
-				return "true";
+				ObjectsManager.SerializeUser(user);
+				return Constants.PlaylistAdded;
 			}
-			return "false";
+			return Constants.PlaylistNotAdded;
 		});
 
 		post("/login", (req, res) -> {
@@ -108,9 +137,9 @@ public class SparkServerService {
 			String idUser=req.queryParams("idUser");
 			User user = AccountManager.getInstance().getUser(idUser);
 			if(user==null)
-				return "UserNotFound";
+				return Constants.UserNotConnected;
 			ObjectsManager.SerializeUser(user);
-			return "disconnected";
+			return Constants.UserDisconnected;
 		});
 
 	}

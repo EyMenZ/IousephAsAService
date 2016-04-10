@@ -82,6 +82,23 @@ public class Playlist implements Serializable{
 		return tracks.remove(track);
 	}
 	/**
+	 * Cette methode permet de supprimer un track selon son id
+	 * @param TrackId
+	 * @return True si le track a ete supprime, false sinon
+	 */
+	public boolean deleteTrack(String trackId)
+	{
+		for(int i=0;i<tracks.size();i++)
+		{
+			if(tracks.get(i).getId().contentEquals(trackId))
+			{
+				tracks.remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
+	/**
 	 * Methode permettant de reinitialier la playlist
 	 */
 	public void clearPlaylist()
