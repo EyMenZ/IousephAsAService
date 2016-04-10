@@ -6,21 +6,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URL;
 
 import com.iouseph.model.User;
 
-public class ObjectsManager {
+public final class ObjectsManager {
 
 	/**
 	 * Cette methode permet de serialiser un objet de type User
 	 * @param user
 	 * @return true si la serialisation a ete effectue avec succes, false sinon
 	 */
-	public boolean SerializeUser(User user) {
+	public static boolean SerializeUser(User user) {
 
 		try {
-
-			FileOutputStream fileOut = new FileOutputStream("user." + user.getId() + ".ser");
+			URL location=ObjectsManager.class.getProtectionDomain().getCodeSource().getLocation();
+			String path=location.getPath();
+			FileOutputStream fileOut = new FileOutputStream(path+"user." + user.getId() + ".ser");
 			ObjectOutputStream out;
 			out = new ObjectOutputStream(fileOut);
 			out.writeObject(user);
@@ -41,11 +43,13 @@ public class ObjectsManager {
 	 * @param userId
 	 * @return l'utilisateur
 	 */
-	public User DeserializeUser(String userId)
+	public static User DeserializeUser(String userId)
 	{
 		User user=null;
 		try {
-			FileInputStream fileIn= new FileInputStream("user." + userId + ".ser");
+			URL location=ObjectsManager.class.getProtectionDomain().getCodeSource().getLocation();
+			String path=location.getPath();
+			FileInputStream fileIn= new FileInputStream(path+"user." + userId + ".ser");
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			user=(User) in.readObject();
 			in.close();
@@ -53,15 +57,15 @@ public class ObjectsManager {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return user;
+			return null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return user;
+			return null;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return user;
+			return null;
 		}
 		System.out.println("User Loaded: ");
 		System.out.println("Id: "+user.getId());

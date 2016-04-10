@@ -25,14 +25,17 @@ import org.xml.sax.SAXException;
 import com.iouseph.model.User;
 
 public class AccountManager {
+	private static AccountManager Instance= new AccountManager();
+
 	private DocumentBuilderFactory factory;
 	private DocumentBuilder builder;
 	// pour permettre un retracage facile la cle sera le username
 	private Map<String,User> usersInformations=new HashMap<String,User>();
 	/**
 	 * Constructeur par defaut
+	 * Le constructeur se charge a sa creation de charger les informations sur les utilisateurs si deja cree
 	 */
-	public AccountManager()
+	private AccountManager()
 	{
 		factory = DocumentBuilderFactory.newInstance();
 		try {
@@ -41,7 +44,14 @@ public class AccountManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.loadAccountsInformations();
 	}
+
+	public static AccountManager getInstance()
+	{
+		return Instance;
+	}
+
 	/**
 	 * Verfie si le fichier contenant les informations des utilisateurs existe
 	 * @return
@@ -126,7 +136,7 @@ public class AccountManager {
 		user.setUsername(username);
 		user.setPassword(password);
 		usersInformations.put(username, user);
-
+		this.saveAccountsInformations();
 		return user;
 	}
 	/**
@@ -155,6 +165,7 @@ public class AccountManager {
 			DOMSource source = new DOMSource(doc);
 			URL location = AccountManager.class.getProtectionDomain().getCodeSource().getLocation();
 			String path=location.getPath();
+			System.out.println(path);
 			StreamResult result = new StreamResult(new File(path+"accounts.xml"));
 			transformer.transform(source, result);
 			System.out.println("File saved!");

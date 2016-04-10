@@ -132,6 +132,5 @@ public final class IousephParser {
 			return null;
 		}
 		return jsonObject.toString();
-
 	}
 }

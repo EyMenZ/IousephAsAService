@@ -12,6 +12,8 @@ import com.iouseph.api.Spotify.*;
 import com.iouseph.model.Track;
 import com.iouseph.model.User;
 import com.iouseph.parsing.IousephParser;
+import com.iouseph.persistence.AccountManager;
+import com.iouseph.persistence.ObjectsManager;
 
 public class SparkServerService {
 
@@ -77,21 +79,25 @@ public class SparkServerService {
 			return null;
 		});
 
-		post("/login/:username/:pwd", (req, res) -> {
-			String username = req.params(":username");
-			String password = req.params(":pwd");
-			// request for authentification
-			// TODO if do not exist returns null
-			return IousephParser.parseToJsonObject(new User(username, password));
+		post("/login", (req, res) -> {
+			String username = req.queryParams("username");
+			String password = req.queryParams("pwd");
+			String idUser=AccountManager.getInstance().Authentification(username, password);
+			if(idUser==null)
+				return null;
+			User user = ObjectsManager.DeserializeUser(idUser);
+			// si jamais l'utilisateur est null la fonction de parsage retournera null
+			return IousephParser.parseToJsonObject(user);
 
 		});
 
-		post("/signup/:username/:pwd", (req, res) -> {
-			String username = req.params(":username");
-			String password = req.params(":pwd");
-			// request to create new user
-			// TODO if exist returns null
-			return IousephParser.parseToJsonObject(new User(username, password));
+		post("/signup", (req, res) -> {
+			String username = req.queryParams("username");
+			String password = req.queryParams("pwd");
+			User user = AccountManager.getInstance().Enregistrement(username, password);
+			ObjectsManager.SerializeUser(user);
+			// si jamais l'utilisateur est null la fonction de parsage retournera null
+			return IousephParser.parseToJsonObject(user);
 		});
 
 	}

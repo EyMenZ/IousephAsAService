@@ -27,11 +27,11 @@ public class IousephClient implements Iapi {
 	}
 
 	public User connect(String type, String username, String pwd){
-		String url = host + "/"+ type +"/" + username + "/" + pwd;
-		/*List<NameValuePair> body_args = new ArrayList<NameValuePair>();
+		String url = host + "/"+ type ;
+		List<NameValuePair> body_args = new ArrayList<NameValuePair>();
 		body_args.add(new BasicNameValuePair("username", username));
-		body_args.add(new BasicNameValuePair("pwd", pwd));*/
-		return this.parser.userParse(NetworkWrapper.post(url));
+		body_args.add(new BasicNameValuePair("pwd", pwd));
+		return this.parser.userParse(NetworkWrapper.post(url,body_args));
 		}
 
 
