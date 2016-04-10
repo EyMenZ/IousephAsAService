@@ -9,4 +9,8 @@ public class Constants {
 	public final static String UserDisconnected="UserDisconnected";
 	public final static String TrackDeleted="TrackDeleted";
 	public final static String TrackNotDeleted="TrackNotDeleted";
+	public final static String PlaylistNameChanged = "PlaylistNameChanged";
+	public final static String PlaylistNameNotChanged ="PlaylistNameNotChanged";
+	public final static String PlaylistDeleted="PlaylistDeleted";
+	public final static String PlaylistNotDeleted = "PlaylistNotDeleted";
 }
