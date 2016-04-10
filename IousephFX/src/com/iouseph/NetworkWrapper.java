@@ -207,7 +207,7 @@ public final class NetworkWrapper {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(response);
+		//System.out.println(response);
 		try {
 			reader.close();
 		} catch (IOException e) {

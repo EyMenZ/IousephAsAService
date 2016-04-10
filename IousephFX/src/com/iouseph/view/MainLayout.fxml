@@ -32,8 +32,8 @@
                </HBox.margin>
                <children>
                   <Label id="welcome_label" layoutX="14.0" layoutY="14.0" text="Welcome, " />
-                  <Label id="username_label" fx:id="usernameTextField" layoutX="70.0" layoutY="14.0" text="Guest" />
-                  <Button id="connection_button" layoutX="112.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleConnect" prefHeight="25.0" prefWidth="135.0" text="connect/disconnect" />
+                  <Label id="username_label" fx:id="usernameLabel" layoutX="70.0" layoutY="14.0" text="Guest" />
+                  <Button id="connection_button" fx:id="connectButton" layoutX="112.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleConnect" prefHeight="25.0" prefWidth="135.0" text="connect" />
                </children>
             </AnchorPane>
             <HBox id="button_box" prefHeight="100.0" prefWidth="200.0">

@@ -22,7 +22,7 @@ public class LoginLayoutController {
 	private Label pwdLabel;
 
 	private Stage loginStage;
-	private MainController mainController;
+	private MainLayoutController mainController;
 
 	/**
 	 * Initializes the controller class. This method is automatically called
@@ -47,26 +47,32 @@ public class LoginLayoutController {
 	 *
 	 * @param mainApp
 	 */
-	public void setMainController(MainController mainController) {
+	public void setMainController(MainLayoutController mainController) {
 		this.mainController = mainController;
 	}
 
 	@FXML
 	public void handlelogin() {
-		User user = mainController.getApi().connect("login", loginTextField.getText(), pwdPasswrodField.getText());
+		connect("login");
+	}
+
+	@FXML
+	public void handleSignUp() {
+		connect("signup");
+	}
+
+	private void connect(String type){
+		User user = mainController.getApi().connect(type, loginTextField.getText(), pwdPasswrodField.getText());
 		if (user != null) {
 			mainController.setUser(user);
+			mainController.getConnectButton().setText("disconnect");
+
+			mainController.setUsernameLabel(user.getUsername());
 			loginStage.close();
 		} else {
 			loginLabel.setTextFill(Color.web("#FF0000"));
 			pwdLabel.setTextFill(Color.web("#FF0000"));
 		}
-	}
-
-	@FXML
-	public void handleSignUp() {
-		mainController.setUser(
-				mainController.getApi().connect("signup", loginTextField.getText(), pwdPasswrodField.getText()));
 	}
 
 	@FXML
