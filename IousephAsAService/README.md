@@ -8,7 +8,7 @@ search for a song
 
 _request_
 
-__GET__ /track/search=<requested song>
+__GET__ /track/search=requested song
 
 _response_
 
@@ -24,8 +24,7 @@ _response_
         "image": "",
         "source": ""
     },
-    {},
-    ...
+    {}
 ]}
 ```
 
@@ -36,7 +35,7 @@ retourne un utilisateur selon un id
 
 _request_
 
-__GET__ /users/<userid>
+__GET__ /users/userid
 
 _response_
 
@@ -49,13 +48,13 @@ _response_
 }
 ```
 
-### /playlists/<userid>
+### /playlists/userid
 
 retourne la liste des playlists d'un utilisateur
 
 _request_
 
-__GET__ /playlists/<userid>
+__GET__ /playlists/userid
 
 _response_
 
@@ -75,22 +74,22 @@ _response_
                     "album": "",
                     "externalUrl": "",
                     "image": "",
-                    "source": "",
-                    ...
-                    ]}
+                    "source": ""
+                    },
+                    {}
+                   ]
     },
-    ...
-
+    {}
 ]}
 ```
 
-### /playlist/<userid>/<playlistid>
+### /playlist/userid/playlistid
 
-retourne la playlist <playlistid> de l'utilisateur <userid>
+retourne la playlist playlistid de l'utilisateur userid
 
 _request_
 
-__GET__ /playlist/<userid>/<playlistid>
+__GET__ /playlist/userid/playlistid
 
 _response_
 
@@ -109,17 +108,18 @@ _response_
                 "album": "",
                 "externalUrl": "",
                 "image": "",
-                "source": "",
-                ...
+                "source": ""
+                },
+                {}
                 ]
 }
 ```
 
-### /playlist/delete/<userid>/<playlistid>
+### /playlist/delete/userid/playlistid
 
-requete pour supprimer la playlist <playlistid> du user <userid>
+requete pour supprimer la playlist playlistid du user userid
 
-__GET__ /playlist/delete/<userid>/<playlistid>
+__GET__ /playlist/delete/userid/playlistid
 
 
 _response_
@@ -129,13 +129,13 @@ PlaylistDeleted
 PlaylistNotDeleted
 ```
 
-### /playlist/edit/<userid>/<playlistid>/<newtitle>
+### /playlist/edit/userid/playlistid/newtitle
 
-changer le nom de la playlist <playlistid> du user <userid>
+changer le nom de la playlist playlistid du user userid
 
 _request_
 
-__GET__ /playlist/edit/<userid>/<playlistid>/<newtitle>
+__GET__ /playlist/edit/userid/playlistid/newtitle
 
 
 _response_
@@ -145,13 +145,13 @@ PlaylistNameChanged
 PlaylistNameNotChanged
 ```
 
-### /playlist/delete/<userid>/<playlistid>/<trackid>
+### /playlist/delete/userid/playlistid/trackid
 
-retirer le track <trackid> de la playlist <playlistid> qui appartien a l'utilisateur <userid>
+retirer le track trackid de la playlist playlistid qui appartien a l'utilisateur userid
 
 _request_
 
-__GET__ /playlist/delete/<userid>/<playlistid>/<trackid>
+__GET__ /playlist/delete/userid/playlistid/trackid
 
 
 _response_
