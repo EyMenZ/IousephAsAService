@@ -4,11 +4,11 @@
 
 ### /track/:search
 
-search for a song
+recherche dans les clients pour le string "music"
 
 _request_
 
-__GET__ /track/search=requested song
+__GET__ /track/music
 
 _response_
 
