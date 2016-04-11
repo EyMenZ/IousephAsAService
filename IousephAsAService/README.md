@@ -2,82 +2,224 @@
 
 ## API
 
-### /track
+### /track/:search
 
 search for a song
 
 _request_
 
-__GET__ /track?search=<requested song>
+__GET__ /track/search=<requested song>
 
 _response_
 
 ```json
 {[
+    {
+        "title": "",
+        "id": "",
+        "artist": "",
+        "album": "",
+        "source": "",
+        "externalUrl": "",
+        "image": "",
+        "source": ""
+    },
+    {},
+    ...
 ]}
 ```
 
-### /playlists
 
-get all playlists
+### /users/
+
+retourne un utilisateur selon un id
 
 _request_
 
-__GET__ /playlists
+__GET__ /users/<userid>
 
 _response_
 
 ```json
-{[]}
+{
+    "id": "",
+    "password": "",
+    "username": "",
+    "playlist": ""
+}
 ```
 
-### /playlist
+### /playlists/<userid>
 
-get a specific playlist
+retourne la liste des playlists d'un utilisateur
 
 _request_
 
-__GET__ /playlist?id=<id of the playlist>
+__GET__ /playlists/<userid>
 
 _response_
 
 ```json
-{}
+{[
+    {
+        "id": "",
+        "idUser": "",
+        "owner": "",
+        "title": "",
+        "source": "",
+        "externalUrl": "",
+        "tracks": [{
+                    "title": "",
+                    "id": "",
+                    "artist": "",
+                    "album": "",
+                    "externalUrl": "",
+                    "image": "",
+                    "source": "",
+                    ...
+                    ]}
+    },
+    ...
+
+]}
 ```
 
-### /playlist
+### /playlist/<userid>/<playlistid>
 
-update a playlist, add a song, modify name, etc...
+retourne la playlist <playlistid> de l'utilisateur <userid>
 
-__POST__ /playlist
+_request_
+
+__GET__ /playlist/<userid>/<playlistid>
+
+_response_
+
+```json
+{
+    "id": "",
+    "idUser": "",
+    "owner": "",
+    "title": "",
+    "source": "",
+    "externalUrl": "",
+    "tracks": [{
+                "title": "",
+                "id": "",
+                "artist": "",
+                "album": "",
+                "externalUrl": "",
+                "image": "",
+                "source": "",
+                ...
+                ]
+}
+```
+
+### /playlist/delete/<userid>/<playlistid>
+
+requete pour supprimer la playlist <playlistid> du user <userid>
+
+__GET__ /playlist/delete/<userid>/<playlistid>
+
+
+_response_
+
+```
+PlaylistDeleted
+PlaylistNotDeleted
+```
+
+### /playlist/edit/<userid>/<playlistid>/<newtitle>
+
+changer le nom de la playlist <playlistid> du user <userid>
+
+_request_
+
+__GET__ /playlist/edit/<userid>/<playlistid>/<newtitle>
+
+
+_response_
+
+```
+PlaylistNameChanged
+PlaylistNameNotChanged
+```
+
+### /playlist/delete/<userid>/<playlistid>/<trackid>
+
+retirer le track <trackid> de la playlist <playlistid> qui appartien a l'utilisateur <userid>
+
+_request_
+
+__GET__ /playlist/delete/<userid>/<playlistid>/<trackid>
+
+
+_response_
+
+```
+TrackDeleted
+TrackNotDeleted
+```
+
+### /playlist/addtrack
+
+ajouter une track a une playlist d'un utilisateur
+
+_request_
+
+__POST__ /playlist/addtrack
 
 body:
 
 ```json
-{}
+{
+    "user_id": "",
+    "playlist_id": "",
+    "id": "",
+    "album": "",
+    "artist": "",
+    "externalUrl": "",
+    "image": "",
+    "source": "",
+    "title": ""
+}
 ```
 
 _response_
 
-### /create_playlist
+```
+TrackAdded
+TrackNotAdded
+```
 
-create a new playlist
+### /playlist/create
+
+creer une playlist
 
 _request_
 
-__POST__ /create_playlist
+__POST__ /playlist/create
 
 body:
 
 ```json
-{}
+{
+    "userId": "",
+    "title": ""
+}
 ```
 
 _response_
+
+```
+PlaylistAdded
+PlaylistNotAdded
+```
+
 
 ### /login
 
-login as a registered user
+authentification
 
 _request_
 
@@ -87,29 +229,19 @@ body:
 
 ```json
 {
-    "username": "...",
-    "password": "..."
+    "username": "",
+    "pwd": ""
 }
 ```
 
 _response_
-
-### /sign_in
-
-create a new user
-
-_request_
-
-__POST__ /sign_in
-
-body:
 
 ```json
 {
-    "username": "...",
-    "password": "..."
+    "id": "",
+    "password": "",
+    "username": "",
+    "playlists": ""
 }
 ```
-
-_response_
 
