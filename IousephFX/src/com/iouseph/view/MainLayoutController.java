@@ -212,7 +212,7 @@ public class MainLayoutController {
 	@FXML
 	private void handleAddToPlaylist() {
 		if ((currentTrack != null) && (playlistList.getSelectionModel().getSelectedItem() != null)) {
-			// TODO save add on server
+			mainController.getApi().addTrackToPlaylist(mainController.getUser(), playlistList.getSelectionModel().getSelectedItem(), currentTrack);
 			playlistList.getSelectionModel().getSelectedItem().addTrack(currentTrack);
 			System.out.println(mainController.getPlaylists());
 		}
@@ -227,7 +227,7 @@ public class MainLayoutController {
 				playlist.setOwner(mainController.getUser().getUsername());
 				playlist.setSource("Iouseph");
 				mainController.getUser().getPlaylists().put(playlist.getTitle(), playlist);
-				// TODO save on server
+				mainController.getApi().addPlaylist(mainController.getUser(), playlist);
 				mainController.getPlaylists().clear();
 				mainController.getPlaylists().addAll(mainController.getUser().getPlaylists().values());
 			}
