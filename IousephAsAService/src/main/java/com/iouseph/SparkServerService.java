@@ -15,7 +15,6 @@ import com.iouseph.model.Track;
 import com.iouseph.model.User;
 import com.iouseph.parsing.IousephParser;
 import com.iouseph.persistence.AccountManager;
-import com.iouseph.persistence.Constants;
 import com.iouseph.persistence.ObjectsManager;
 
 public class SparkServerService {

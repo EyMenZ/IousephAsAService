@@ -1,4 +1,4 @@
-package com.iouseph.view;
+package com.iouseph;
 
 import com.iouseph.model.User;
 

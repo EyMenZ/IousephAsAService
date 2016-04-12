@@ -1,4 +1,4 @@
-package com.iouseph.persistence;
+package com.iouseph;
 
 public class Constants {
 	public final static String TrackAdded="TrackAdded";

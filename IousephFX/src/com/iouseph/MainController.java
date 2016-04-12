@@ -7,7 +7,6 @@ import com.iouseph.api.IousephClient;
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
 import com.iouseph.model.User;
-import com.iouseph.view.MainLayoutController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

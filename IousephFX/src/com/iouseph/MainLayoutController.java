@@ -1,8 +1,7 @@
-package com.iouseph.view;
+package com.iouseph;
 
 import java.io.IOException;
 
-import com.iouseph.MainController;
 import com.iouseph.api.Iapi;
 import com.iouseph.api.IousephClient;
 import com.iouseph.model.Playlist;

@@ -1,4 +1,4 @@
-package com.iouseph;
+package com.iouseph.api;
 
 import java.io.BufferedReader;
 import java.io.IOException;
