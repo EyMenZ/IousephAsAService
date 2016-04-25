@@ -131,7 +131,6 @@ public final class IousephParser {
 			System.err.println("ERROR WHEN PARSING USER TO JSON");
 			return null;
 		}
-		System.out.println(jsonObject.toString());
 		return jsonObject.toString();
 	}
 

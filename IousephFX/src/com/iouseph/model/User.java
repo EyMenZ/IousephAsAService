@@ -163,7 +163,7 @@ public class User {
 
 	public void setPlaylists(Map<String, Playlist> playlists) {
 		this.playlists = new SimpleMapProperty<String, Playlist>(
-				FXCollections.observableMap(new HashMap<String, Playlist>()));
+				FXCollections.observableMap(playlists));
 	}
 
 	@Override
