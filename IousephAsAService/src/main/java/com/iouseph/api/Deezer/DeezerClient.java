@@ -18,6 +18,10 @@ import com.iouseph.model.Track;
 import com.iouseph.model.User;
 
 
+/**
+ * @author EyMenZ
+ *
+ */
 public class DeezerClient implements Iapi{
 
 	private final String host = "https://api.deezer.com/";
@@ -32,6 +36,9 @@ public class DeezerClient implements Iapi{
 		this.parser = new DeezerParser();
 	}
 
+	/**
+	 * @see com.iouseph.api.Iapi#retreive_token()
+	 */
 	public String retreive_token() throws Exception {
 
 		/*
@@ -80,14 +87,16 @@ public class DeezerClient implements Iapi{
 		return access_token;
 	}
 
+	/**
+	 * @see com.iouseph.api.Iapi#get_personnal_info()
+	 */
 	public User get_personnal_info() {
-		String url = host + "/infos";// me?oauth_token=" + token;
+		String url = host +"/infos";// me?oauth_token=" + token;
 		return this.parser.userParse(NetworkWrapper.get(url));
 	}
 
-
 	/**
-	 * @see iouseph.api.model.Iapi#get_search(java.lang.String)
+	 * @see com.iouseph.api.Iapi#get_search(java.lang.String)
 	 */
 	public List<Track> get_search(String search) {
 		String url = host + "/search?q=" + search;//FIXME NetworkWrapper.encode(search);// +
@@ -99,8 +108,10 @@ public class DeezerClient implements Iapi{
 	/**
 	 * retourne les informations de l'utilisateur connecte
 	 *
-	 * @param user_id	l'id du user dans deezer
-	 * @return un JSONObject contenant les informations de l'utilisateur
+	 * @param user_id
+	 * 				l'id du user dans deezer
+	 * @return
+	 * 				un JSONObject contenant les informations de l'utilisateur
 	 */
 	public User get_user_info(String user_id) {
 		String url = host + "user/" + NetworkWrapper.encode(user_id);// + "/playlists";// +
@@ -111,9 +122,11 @@ public class DeezerClient implements Iapi{
 	/**
 	 *	retourne une liste de playlists
 	 *
-	 * @param search	le String a rechercher dana deezer
-	 * @return une List<Playlist> contenant une liste de playlists
-	 * @see iouseph.api.model.Iapi#get_playlists(java.lang.String)
+	 * @param search
+	 * 				le String a rechercher dana deezer
+	 * @return
+	 * 				une List<Playlist> contenant une liste de playlists
+	 * @see com.iouseph.api.Iapi#get_playlists(java.lang.String)
 	 */
 	public List<Playlist> get_playlists(String search) {
 		String url = host + "/search/playlist?q=" + NetworkWrapper.encode(search);
@@ -123,7 +136,7 @@ public class DeezerClient implements Iapi{
 	/**
 	 * retourne la liste des tracks de la playlist
 	 *
-	 * @see iouseph.api.model.Iapi#get_playlist(java.lang.String)
+	 * @see com.iouseph.api.Iapi#get_playlist(java.lang.String)
 	 */
 	@Override
 	public List<Track> get_playlist(String playlist_id) {
@@ -131,59 +144,30 @@ public class DeezerClient implements Iapi{
 		return this.parser.playlistIdParse(NetworkWrapper.get(url));
 	}
 
+	/**
+	 * @see com.iouseph.api.Iapi#get_track(String)
+	 */
 	public Track get_track(String track_id) {
 		String url = host + "track/" + NetworkWrapper.encode(track_id);
 		return this.parser.trackParse(NetworkWrapper.get(url));
 	}
 
+	/**
+	 * @see com.iouseph.api.Iapi#get_tracks()
+	 */
 	@Override
 	public List<Track> get_tracks() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * @see com.iouseph.api.Iapi#set_playlists(List)
+	 */
 	@Override
 	public boolean set_playlists(List<Playlist> playlists) {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
-	//TODO ces methodes seront implementees dans les prochaines versions
-	/*
-	public Album get_album(String album_id) {
-	}
-
-	public Artist get_artist(String artist_id) {
-	}
-
-	public Genre get_genre(String genre_id) {
-	}
-
-	public List<Genre> get_genres() {
-	}
-
-	public void get_chart() {
-	}
-
-	public Comment get_comment(String comment_id) {
-	}
-
-	public List<Editorial> get_editorials() {
-	}
-
-	public Editorial get_editorial(String editorial_id) {
-	}
-
-	public Podcast get_podcast(String podcast_id) {
-	}
-
-	public List<Radio> get_radios() {
-	}
-
-	public Radio get_radio(String radio_id) {
-	}
-	public List<Option> get_options() {
-	}
-	*/
 
 }

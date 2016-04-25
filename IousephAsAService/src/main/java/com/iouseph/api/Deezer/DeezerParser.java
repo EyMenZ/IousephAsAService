@@ -14,6 +14,10 @@ import com.iouseph.model.Track;
 import com.iouseph.model.User;
 
 
+/**
+ * @author EyMenz
+ *
+ */
 public class DeezerParser implements IParser{
 
 	/**
@@ -22,7 +26,7 @@ public class DeezerParser implements IParser{
 	 * @param json	un JSONObject recupere depuis le service de streaming
 	 * @return	Track
 	 * @throws JSONException
-	 * @see IParser#tracksParse(JSONObject)
+	 * @see com.iouseph.api.IParser#tracksParse(JSONObject)
 	 */
 	@Override
 	public Track trackParse(JSONObject json){
@@ -48,6 +52,8 @@ public class DeezerParser implements IParser{
 	 * @param json	un JSONObject recupere depuis le service de streaming
 	 *
 	 * @return	ArrayList<Track>
+	 *
+	 * @see com.iouseph.api.IParser#tracksParse(JSONObject)
 	 */
 	@Override
 	public List<Track> tracksParse(JSONObject json) {
@@ -69,9 +75,11 @@ public class DeezerParser implements IParser{
 	/**
 	 * retourne un objet Playlist, il est parse a partir d'un JSONObject
 	 *
-	 * @param json	un JSONObject recupere depuis le service de streaming
-	 * @return	Playlist
-	 * @see IParser#playlistsParse(JSONObject)
+	 * @param json
+	 * 				un JSONObject recupere depuis le service de streaming
+	 * @return
+	 * 				Playlist
+	 * @see com.iouseph.api.IParser#playlistsParse(JSONObject)
 	 */
 	@Override
 	public Playlist playlistParse(JSONObject json){
@@ -88,13 +96,15 @@ public class DeezerParser implements IParser{
 		return playlist;
 	}
 
-
 	/**
 	 * retourne une List<Playlist>, elle est parse a partir d'un JSONObject
 	 *
-	 * @param json	un JSONObject recupere depuis le service de streaming
+	 * @param json
+	 * 				un JSONObject recupere depuis le service de streaming
 	 *
-	 * @return	ArrayList<Playlist>
+	 * @return
+	 * 				ArrayList<Playlist>
+	 * @see com.iouseph.api.IParser#playlistsParse(JSONObject)
 	 */
 	@Override
 	public List<Playlist> playlistsParse(JSONObject json){
@@ -113,6 +123,9 @@ public class DeezerParser implements IParser{
 		return playlists;
 	}
 
+	/**
+	 * @see com.iouseph.api.IParser#playlistIdParse(org.json.JSONObject)
+	 */
 	@Override
 	public List<Track> playlistIdParse(JSONObject json) {
 		/*List<Track> tracks = new ArrayList<>();
@@ -130,6 +143,9 @@ public class DeezerParser implements IParser{
 		return tracksParse(json);
 	}
 
+	/**
+	 * @see com.iouseph.api.IParser#playlistsParse(java.util.List)
+	 */
 	@Override
 	public JSONObject playlistsParse(List<Playlist> playlists) {
 		JSONObject json = new JSONObject();
@@ -152,6 +168,9 @@ public class DeezerParser implements IParser{
 		return user;
 	}
 
+	/**
+	 * @see com.iouseph.api.IParser#tracksParse(org.json.JSONArray)
+	 */
 	@Override
 	public List<Track> tracksParse(JSONArray json) {
 		// TODO Auto-generated method stub

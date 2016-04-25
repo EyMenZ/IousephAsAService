@@ -9,6 +9,7 @@ public class Playlist implements Serializable{
 
 	private String idUser_;
 	private static final long serialVersionUID = 1L;
+
 	private UUID uid = UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d");
 	private String id;
 	private String title;

@@ -19,6 +19,11 @@ import com.iouseph.persistence.ObjectsManager;
 
 public class SparkServerService {
 
+	/**
+	 * main of IousephAsAService
+	 *
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		port(8000);
@@ -79,6 +84,7 @@ public class SparkServerService {
 
 			return IousephParser.parseToJsonObject(user.getPlaylist(playlistId));
 		});
+
 		/**
 		 * methode supprime une playliste d'un utilisateur
 		 */
@@ -235,6 +241,14 @@ public class SparkServerService {
 
 	}
 
+	/**
+	 * cette methode mélange les chanson récuperées des différents services de streaming
+	 *
+	 * @param list
+	 * 				une liste de List<Track>
+	 * @return
+	 * 				une List<Track> mélangée
+	 */
 	private static List<Track> mix(List<List<Track>> list) {
 		// TODO faire un truc plus efficace
 		List<Track> tracks = new ArrayList<Track>();

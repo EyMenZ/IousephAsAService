@@ -57,4 +57,20 @@ public interface Iapi {
 	 */
 	public User get_personnal_info();
 
+
+	//TODO ces methodes seront implementees dans les prochaines versions
+	/*
+	public Album get_album(String album_id);
+	public Artist get_artist(String artist_id);
+	public Genre get_genre(String genre_id);
+	public List<Genre> get_genres();
+	public void get_chart();
+	public Comment get_comment(String comment_id);
+	public List<Editorial> get_editorials();
+	public Editorial get_editorial(String editorial_id);
+	public Podcast get_podcast(String podcast_id);
+	public List<Radio> get_radios();
+	public Radio get_radio(String radio_id);
+	public List<Option> get_options();
+	*/
 }
