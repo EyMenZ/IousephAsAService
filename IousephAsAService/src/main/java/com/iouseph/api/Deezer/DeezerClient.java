@@ -120,7 +120,7 @@ public class DeezerClient implements Iapi{
 		return this.parser.playlistsParse(NetworkWrapper.get(url));
 	}
 
-	/*
+	/**
 	 * retourne la liste des tracks de la playlist
 	 *
 	 * @see iouseph.api.model.Iapi#get_playlist(java.lang.String)

@@ -107,7 +107,6 @@ public class SparkServerService {
 			String userId = req.params(":user_id");
 			String playlistId = req.params(":playlist_id");
 			String NTitle = req.params(":new_title");
-
 			try
 			{
 				User user = AccountManager.getInstance().getUser(userId);
