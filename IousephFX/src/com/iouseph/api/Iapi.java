@@ -57,7 +57,19 @@ public interface Iapi {
 	 */
 	public User get_personnal_info();
 
-	public User connect(String type, String username, String pwd);
 
+	/**
+	 * methode pour connecter ou create un compte utilisateur
+	 *
+	 * @param type
+	 * 				type de la connexion (login ou sign up)
+	 * @param username
+	 * 				l'identifiant de l'utilisateur
+	 * @param pwd
+	 * 				le mot de passe
+	 * @return
+	 * 				rtoue un objet {@link User} contenant ses informations
+	 */
+	public User connect(String type, String username, String pwd);
 
 }

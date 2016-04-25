@@ -12,6 +12,10 @@ import javafx.beans.property.StringProperty;
 public class Playlist {
 
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * generateur d'identifient
+	 */
 	private UUID uid = UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d");
 	private StringProperty id;
 	private StringProperty title;
@@ -24,14 +28,31 @@ public class Playlist {
 	 * Constructeur par defaut
 	 */
 	public Playlist() {
-		this.id.set(uid.randomUUID().toString());
-		this.title.set(new String());
-		this.owner.set(new String());
-		this.source.set(new String());
+		this.id = new SimpleStringProperty(uid.randomUUID().toString());
+		this.title = new SimpleStringProperty(new String());
+		this.owner = new SimpleStringProperty(new String());
+		this.source = new SimpleStringProperty("Iouseph");
 		this.tracks = new SimpleListProperty<Track>(javafx.collections.FXCollections.observableList(new ArrayList<Track>()));
-		this.url.set(new String());
+		this.url = new SimpleStringProperty(new String());
 	}
 
+
+	/**
+	 * constructeur avec parametres
+	 *
+	 * @param id
+	 * 			l'identifient de la Playlist
+	 * @param title
+	 * 			le nom de la Playlist
+	 * @param owner
+	 * 			le nom du createur de la Playlist
+	 * @param source
+	 * 			le service dans lequel la Playlist a ete créée
+	 * @param tracks
+	 * 			la liste des Tracks de la Playlist
+	 * @param url
+	 * 			lien direct vers la Playlist
+	 */
 	public Playlist(String id, String title, String owner, String source,
 			List<Track> tracks, String url) {
 		this.id = new SimpleStringProperty(id);
@@ -42,18 +63,21 @@ public class Playlist {
 		this.url=new SimpleStringProperty(url);
 	}
 
-
-
 	/**
 	 * @return
+	 * 			la liste de Tracks contenue dans la Playlist
 	 */
 	public List<Track> getTracks() {
 		return tracks.get();
 	}
 
 	/**
+	 * ajoute un Track dans la Playlist
+	 *
 	 * @param track
+	 * 				le Track à ajouter
 	 * @return
+	 * 				un boolean de confirmation
 	 */
 	public boolean addTrack(Track track)
 	{
@@ -65,34 +89,45 @@ public class Playlist {
 	}
 
 	/**
+	 * supprime un Track de la Playlist
+	 *
 	 * @param track
+	 * 				le Track a supprimer
 	 * @return
+	 * 				un boolean de confirmation
 	 */
 	public boolean deleteTrack(Track track){
 		return tracks.remove(track);
 	}
+
 	/**
-	 *
+	 * vide la Playlist
 	 */
 	public void clearPlaylist()
 	{
 		tracks.clear();
 	}
+
 	public String getTitle() {
 		return title.get();
 	}
+
 	public void setTitle(String title) {
 		this.title.set(title);
 	}
+
 	public String getOwner() {
 		return owner.get();
 	}
+
 	public void setOwner(String owner) {
 		this.owner.set(owner);
 	}
+
 	public String getSource() {
 		return source.get();
 	}
+
 	public void setSource(String source) {
 		this.source.set(source);
 	}
@@ -121,6 +156,5 @@ public class Playlist {
 
 	public void setUrl(String myurl) {
 		this.url.set(myurl);
-		System.out.println(myurl);
 	}
 }

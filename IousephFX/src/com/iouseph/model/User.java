@@ -23,11 +23,30 @@ public class User {
 		this(new String(), new String(), new String(), new HashMap<String, Playlist>());
 	}
 
-
+	/**
+	 * Constructeur avec parametres
+	 *
+	 * @param username
+	 * 				le nom d'utilisateur
+	 * @param password
+	 * 				le mot de passe de l'utilisateur
+	 */
 	public User(String username, String password){
 		this(new String(), username, password, new HashMap<String, Playlist>());
 	}
 
+	/**
+	 * constructeur avec tous les parametres
+	 *
+	 * @param id
+	 * 				l'identifient de l'utilisateur
+	 * @param username
+	 * 				le nom d'utilisateur
+	 * @param password
+	 * 				le mot de passe de l'utilisateur
+	 * @param playlists
+	 * 				un {@link HashMap} des Playlist de l'utilisateur
+	 */
 	public User(String id, String username, String password, HashMap<String, Playlist> playlists) {
 		this.id = new SimpleStringProperty(id);
 		this.username = new SimpleStringProperty(username);

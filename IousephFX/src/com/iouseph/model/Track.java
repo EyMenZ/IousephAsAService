@@ -16,12 +16,33 @@ public class Track {
 	private StringProperty image;
 	private StringProperty source;
 
+	/**
+	 * Constructeur par défaut
+	 */
 	public Track() {
 		this(null, null, null, 0, null, null, null, null);
 	}
 
-
-
+	/**
+	 * constructeur avec parametres
+	 *
+	 * @param id
+	 *				l'identifient du Track
+	 * @param title
+	 * 				titre de la chanson
+	 * @param externalUrl
+	 * 				lien direct vers la chanson
+	 * @param duration
+	 * 				la durée du morceau
+	 * @param artist
+	 * 				le nom de l'artiste
+	 * @param album
+	 * 				le nom de l'album
+	 * @param image
+	 * 				lien vers la couverture de l'albim
+	 * @param source
+	 * 				le nom du service source
+	 */
 	public Track(String id, String title, String externalUrl, float duration,
 			String artist, String album, String image, String source) {
 		super();
@@ -34,8 +55,6 @@ public class Track {
 		this.image = new SimpleStringProperty(image);
 		this.source = new SimpleStringProperty(source);
 	}
-
-
 
 	public String getId() {
 		return id.get();

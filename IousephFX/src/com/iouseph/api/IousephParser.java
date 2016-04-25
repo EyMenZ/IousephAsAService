@@ -16,6 +16,8 @@ public class IousephParser implements IParser {
 
 	/**
 	 * methode permetant de creer une instance track a partir d'un objet json
+	 *
+	 * @see com.iouseph.api.IParser#trackParse(JSONObject)
 	 */
 	@Override
 	public Track trackParse(JSONObject json) {
@@ -36,6 +38,8 @@ public class IousephParser implements IParser {
 	/**
 	 * methode permettant de creer une liste de tracks a partir d'un objet de
 	 * type jsonArray
+	 *
+	 * @see com.iouseph.api.IParser#trackParse(JSONArray)
 	 */
 	@Override
 	public List<Track> tracksParse(JSONArray json) {
@@ -52,6 +56,8 @@ public class IousephParser implements IParser {
 	/**
 	 * methode permettant de creer une instance playlist a partir d'un objet de
 	 * type json
+	 *
+	 * @see com.iouseph.api.IParser#playlistParse(JSONObject)
 	 */
 	@Override
 	public Playlist playlistParse(JSONObject json) {
@@ -71,6 +77,8 @@ public class IousephParser implements IParser {
 	/**
 	 * methode permettant de creer une map dont la cle correspond a l'id de la
 	 * playlist et la valeur la playlist a partir d'un objet de type jsonarray
+	 *
+	 * @see com.iouseph.api.IParser#playlistsParse(JSONArray)
 	 */
 	@Override
 	public Map<String, Playlist> playlistsParse(JSONArray json) {
@@ -85,7 +93,7 @@ public class IousephParser implements IParser {
 	}
 
 	/**
-	 *
+	 *@see com.iouseph.api.IParser#playlistIdParse(JSONObject)
 	 */
 	@Override
 	public List<Track> playlistIdParse(JSONObject json) {
@@ -102,6 +110,8 @@ public class IousephParser implements IParser {
 	/**
 	 * methode permettant de creer une instance de la classe User a partir d'un
 	 * objet de type json
+	 *
+	 * @see com.iouseph.api.IParser#userParse(JSONObject)
 	 */
 	@Override
 	public User userParse(JSONObject json) {

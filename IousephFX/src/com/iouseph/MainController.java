@@ -17,6 +17,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * @author Marcial Lopez-Ferrada, Youssef Zemmahi, Aymen Zalila
+ * @version IousephFX
+ *
+ */
 public class MainController {
 
 	private Stage mainStage;
@@ -45,6 +50,11 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * shows the MainLayout.fxml
+	 *
+	 * this method calls {@link MainLayoutController#setMainController(MainController)}
+	 */
 	public void showMainLayout() {
 		try {
 			// Load main layout.
@@ -66,7 +76,7 @@ public class MainController {
 	/**
 	 * Returns the main stage.
 	 *
-	 * @return
+	 * @return {@link #mainStage}
 	 */
 	public Stage getMainStage() {
 		return mainStage;
@@ -75,7 +85,7 @@ public class MainController {
 	/**
 	 * Returns the data as an observable list of Tracks.
 	 *
-	 * @return
+	 * @return {@link #tracks}
 	 */
 	public ObservableList<Track> getTracks() {
 		return tracks;
@@ -84,7 +94,7 @@ public class MainController {
 	/**
 	 * Returns the data as an observable list of Playlists.
 	 *
-	 * @return
+	 * @return {@link #playlists}
 	 */
 	public ObservableList<Playlist> getPlaylists() {
 		return playlists;
@@ -93,25 +103,44 @@ public class MainController {
 	/**
 	 * Returns the api.
 	 *
-	 * @return
+	 * @return {@link #api}
 	 */
 	public IousephClient getApi() {
 		return api;
 	}
 
+	/**
+	 * returns the current user
+	 *
+	 * @return {@link #user}
+	 */
 	public User getUser() {
 		return user;
 	}
 
+	/**
+	 * changes {@link #user} value
+	 *
+	 * @param user the new value
+	 */
 	public void setUser(User user) {
 		this.user = user;
 		// TODO changer le nom dans l interface
 	}
 
+	/**
+	 * Default constructor
+	 */
 	public MainController() {
-
 	}
 
+	/**
+	 * Constructor with parameters
+	 *
+	 * @param mainStage initial {@link Stage} where will create the root layout
+	 *
+	 * this method calls {@link #initRootLayout()} then {@link #showMainLayout()}
+	 */
 	public MainController(Stage mainStage) {
 		this();
 		this.mainStage = mainStage;
@@ -122,7 +151,5 @@ public class MainController {
 
 		showMainLayout();
 	}
-
-
 
 }

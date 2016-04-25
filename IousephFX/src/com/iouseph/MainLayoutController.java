@@ -24,6 +24,11 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * @author Marcial Lopez-Ferrada, Youssef Zemmahi, Aymen Zalila
+ * @version IousephFX
+ *
+ */
 public class MainLayoutController {
 	@FXML
 	private ListView<Track> trackList;
@@ -46,6 +51,7 @@ public class MainLayoutController {
 	@FXML
 	private TextField addPlaylistTextField;
 
+
 	private MainController mainController;
 	private MediaPlayer mediaPlayer;
 	private Track currentTrack;
@@ -61,6 +67,9 @@ public class MainLayoutController {
 	/**
 	 * Initializes the controller class. This method is automatically called
 	 * after the fxml file has been loaded.
+	 *
+	 * this method calls {@link #showTrackDetails(Track)} with default data
+	 * and create {@link #trackList} and {@link #playlistList} Listeners
 	 */
 	@FXML
 	private void initialize() {
@@ -80,8 +89,9 @@ public class MainLayoutController {
 
 	/**
 	 * Is called by the main application to give a reference back to itself.
+	 * it update the data of {@link #trackList} and {@link #playlistList}
 	 *
-	 * @param mainApp
+	 * @param {@link MainController}
 	 */
 	public void setMainController(MainController mainController) {
 		this.mainController = mainController;
@@ -94,6 +104,8 @@ public class MainLayoutController {
 	/**
 	 * Fills all text fields to show details about a track. If the specified
 	 * track is null, all text fields are cleared.
+	 *
+	 * Use {@link Media} and {@link MediaPlayer} to play {@link Track}
 	 *
 	 * @param track
 	 */
@@ -119,6 +131,14 @@ public class MainLayoutController {
 		}
 	}
 
+	/**
+	 * Shows list of {@link Track} in selected playlist
+	 * and show details of first track with showTrackDetails(Track)
+	 *
+	 * @see #showTrackDetails(Track)
+	 *
+	 * @param playlist
+	 */
 	private void showPlaylistDetails(Playlist playlist) {
 		mainController.getTracks().clear();
 		//playlist.setTracks(mainController.getUser().getPlaylists().values());
@@ -127,24 +147,44 @@ public class MainLayoutController {
 		showTrackDetails(playlist.getTracks().get(0));
 	}
 
+	/**
+	 * play the selected Track
+	 *
+	 * is called play_button is clicked on #MainLayout.fxml
+	 */
 	@FXML
 	public void handlePlay() {
 		if (trackList.getSelectionModel().getSelectedItem() != null)
 			mediaPlayer.play();
 	}
 
+	/**
+	 * stop the current Track
+	 *
+	 * is called stop_button is clicked on #MainLayout.fxml
+	 */
 	@FXML
 	public void handleStop() {
 		if (trackList.getSelectionModel().getSelectedItem() != null)
 			mediaPlayer.stop();
 	}
 
+	/**
+	 * turns the music on pause
+	 *
+	 * is called pause_button is clicked on #MainLayout.fxml
+	 */
 	@FXML
 	public void handlePause() {
 		if (trackList.getSelectionModel().getSelectedItem() != null)
 			mediaPlayer.pause();
 	}
 
+	/**
+	 * play the next Track if it exists
+	 *
+	 * is called next_button is clicked on #MainLayout.fxml
+	 */
 	@FXML
 	public void handleNext() {
 		if (trackList.getSelectionModel().getSelectedItem() != null)
@@ -153,6 +193,11 @@ public class MainLayoutController {
 		handlePlay();
 	}
 
+	/**
+	 * play the previous Track if it exists
+	 *
+	 * is called previous_button is clicked on #MainLayout.fxml
+	 */
 	@FXML
 	public void handlePrevious() {
 		if (trackList.getSelectionModel().getSelectedItem() != null)
@@ -161,21 +206,37 @@ public class MainLayoutController {
 		handlePlay();
 	}
 
+
+	/**
+	 * to enable/disable Deezer Service
+	 */
 	@FXML
 	private void handleDeezer() {
 		// TODO activer/desactive Deezer
 	}
 
+	/**
+	 * to enable/disable Spotify Service
+	 */
 	@FXML
 	private void handleSpotify() {
 		// TODO activer/desactive Spotify
 	}
 
+	/**
+	 * to enable/disable SoundCloud Service
+	 */
 	@FXML
 	private void handleSoundCloud() {
 		// TODO activer/desactive SC
 	}
 
+	/**
+	 * is called when {@link #connectButton} is clicked
+	 * shows the LoyinLayout
+	 *
+	 * @see #showLoginLayout()
+	 */
 	@FXML
 	private void handleConnect() {
 		if (mainController.getUser() == null) {
@@ -201,6 +262,9 @@ public class MainLayoutController {
 		}
 	}
 
+	/**
+	 *
+	 */
 	@FXML
 	private void handleSearch() {
 		mainController.getTracks().clear();

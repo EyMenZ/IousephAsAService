@@ -18,6 +18,9 @@ public class IousephClient {
 
 	private IParser parser;
 
+	/**
+	 * Default constructor
+	 */
 	public IousephClient() {
 		this.parser = new IousephParser();
 	}
@@ -27,17 +30,21 @@ public class IousephClient {
 		return access_token;
 	}
 
+
+	/**
+	 * @see com.iouseph.api.Iapi#connect(String, String, String)
+	 */
 	public User connect(String type, String username, String pwd){
 		String url = host + "/"+ type ;
 		List<NameValuePair> body_args = new ArrayList<NameValuePair>();
 		body_args.add(new BasicNameValuePair("username", username));
 		body_args.add(new BasicNameValuePair("pwd", pwd));
 		return this.parser.userParse(NetworkWrapper.post(url,body_args));
-		}
+	}
 
 
 	/**
-	 * @see com.iouseph.api.model.Iapi#get_search(java.lang.String)
+	 * @see com.iouseph.api.Iapi#get_search(java.lang.String)
 	 */
 	public List<Track> get_search(String search) {
 		String url = host + "/track/" + NetworkWrapper.encode(search);// +
@@ -46,31 +53,94 @@ public class IousephClient {
 		return this.parser.tracksParse(NetworkWrapper.get_array(url));
 	}
 
+	/**
+	 * recupere les playlists de l'utilisateur connecte
+	 *
+	 * @param user
+	 * 			l'utilisateur
+	 * @return
+	 * 			un {@link Map} de Playlist
+	 */
 	public Map<String, Playlist> getUserPlaylists(User user){
 		String url = host + "/playlists/" + user.getId();
 		return this.parser.playlistsParse(NetworkWrapper.get_array(url));
 	}
 
+	/**
+	 * recupere une playlist avec son id
+	 *
+	 * @param user
+	 * 			l'utilisateur connecte
+	 * @param id
+	 * 			l'id de la playlist
+	 * @return
+	 * 			{@link Playlist}
+	 */
 	public Playlist getPlaylist(User user, String id){
 		String url = host + "/playlist/" + user.getId() + "/" + id;
 		return this.parser.playlistParse(NetworkWrapper.get(url));
 	}
 
+	/**
+	 * supprime une playlist du compte de l'utilisateur sur le serveur
+	 *
+	 * @param user
+	 * 			l'utilisateur connecte
+	 * @param playlist
+	 * 			la playlist a supprimer
+	 * @return
+	 * 			un message de validation ou d'erreur
+	 */
 	public String deletePlaylist(User user, Playlist playlist){
 		String url = host + "/playlist/delete/" + user.getId() + "/" + playlist.getId();
 		return NetworkWrapper.get(url).toString();
 	}
 
+
+	/**
+	 * ajout une Playlist au compte de l'utilisateur sur le serveur
+	 *
+	 * @param user
+	 * 				l'utilisateur connecté
+	 * @param playlist
+	 * 				la playlist a sauvegarder
+	 * @return
+	 * 				un message de validation ou d'erreur
+	 */
 	public String addPlaylist(User user, Playlist playlist){
-		String url = host + "/playlist/" + user.getId() + "/" + playlist.getId() + "/" + playlist.getTitle();
+		String url = host + "/playlist/create/" + user.getId() + "/" + playlist.getId() + "/" + playlist.getTitle();
 		return NetworkWrapper.get(url).toString();
 	}
 
+	/**
+	 * supprime un Track d'une playlist du compte sur le serveur
+	 *
+	 * @param user
+	 * 				l'utilisateur connecté
+	 * @param playlist
+	 * 				la Playlist selectionnée
+	 * @param track
+	 * 				le Track a supprimer
+	 * @return
+	 * 				un message de validation ou d'erreur
+	 */
 	public String deleteTrack(User user, Playlist playlist, Track track){
 		String url = host + "/playlist/delete/" + user.getId() + "/" + playlist.getId() + "/" + track.getId();
 		return NetworkWrapper.get(url).toString();
 	}
 
+	/**
+	 * ajoute un Track a une playlist sur le serveur
+	 *
+	 * @param user
+	 * 				l'utilisateur connecté
+	 * @param playlist
+	 * 				la Playlist selectionnée
+	 * @param track
+	 * 				le Track a ajouter
+	 * @return
+	 * 				un message de validation ou d'erreur
+	 */
 	public String addTrackToPlaylist(User user, Playlist playlist, Track track){
 		String url = host + "/playlist/addtrack/";
 		List<NameValuePair> body_args = new ArrayList<NameValuePair>();
@@ -80,6 +150,16 @@ public class IousephClient {
 		return NetworkWrapper.post(url,body_args).toString();
 	}
 
+	/**
+	 * crée une nouvelle playlist sur le compte utilisateur sur le serveur
+	 *
+	 * @param user
+	 * 				l'utilisateur connecté
+	 * @param title
+	 * 				le nom de la Playlist
+	 * @return
+	 * 				un message de validation ou d'erreur
+	 */
 	public String createPlaylist(User user, String title){
 		String url = host + "/playlist/create/";
 		List<NameValuePair> body_args = new ArrayList<NameValuePair>();

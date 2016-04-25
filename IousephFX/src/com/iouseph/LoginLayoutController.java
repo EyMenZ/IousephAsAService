@@ -10,7 +10,18 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * @author Marcial Lopez-Ferrada, Youssef Zemmahi, Aymen Zalila
+ *
+ */
+/**
+ * @author MSI
+ *
+ */
 public class LoginLayoutController {
+	/**
+	 *
+	 */
 	@FXML
 	private TextField loginTextField;
 	@FXML
@@ -29,7 +40,7 @@ public class LoginLayoutController {
 	 */
 	@FXML
 	private void initialize() {
-		// TODO lancer le serveur
+		// TODO
 	}
 
 	/**
@@ -44,22 +55,34 @@ public class LoginLayoutController {
 	/**
 	 * Is called by the main application to give a reference back to itself.
 	 *
-	 * @param mainApp
+	 * @param {@link {@link MainLayoutController}
 	 */
 	public void setMainController(MainLayoutController mainController) {
 		this.mainController = mainController;
 	}
 
+	/**
+	 * is called by click on the login_button in LoginLayout.fxml
+	 */
 	@FXML
 	public void handlelogin() {
 		connect("login");
 	}
 
+	/**
+	 * is called by click on the signup_button in LoginLayout.fxml
+	 */
 	@FXML
 	public void handleSignUp() {
 		connect("signup");
 	}
 
+	/**
+	 * is called precedents handles
+	 * if parameters are wrong, {@link #loginLabel} and {@link #pwdLabel} change color to red
+	 *
+	 * @param type type of connection (login or sign up)
+	 */
 	private void connect(String type){
 		User user = mainController.getApi().connect(type, loginTextField.getText(), pwdPasswrodField.getText());
 		if (user != null) {
@@ -73,6 +96,12 @@ public class LoginLayoutController {
 		}
 	}
 
+	/**
+	 * is called when {@link KeyEvent} equals "ENTER"
+	 * is linked to {@link #loginTextField} and {@link #pwdPasswrodField}
+	 *
+	 * @param ke {@link KeyEvent} value
+	 */
 	@FXML
 	private void handleEnter(KeyEvent ke) {
 		if (ke.getCode().toString().equals("ENTER")) {

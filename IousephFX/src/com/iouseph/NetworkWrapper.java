@@ -36,13 +36,6 @@ public final class NetworkWrapper {
 
 	static Thread MyServerThread;
 
-	/**
-	 * methode permettant d'envoyer une requete http GET
-	 *
-	 * @param url
-	 *            url demander
-	 * @return object contenant la reponse qui respecte le format json
-	 */
 	public NetworkWrapper() {
 	}
 
@@ -56,6 +49,9 @@ public final class NetworkWrapper {
 		return s;
 	}
 
+	/**
+	 * @see #get(String, String, String)
+	 */
 	public static JSONObject get(String url) {
 		return get(url, null, null);
 	}
@@ -69,7 +65,8 @@ public final class NetworkWrapper {
 	 *            Nom de l'entete
 	 * @param HeaderValue
 	 *            valeur de l'entete
-	 * @return object contenant la reponse qui respecte le format json
+	 * @return
+	 * 			object contenant la reponse qui respecte le format json
 	 */
 	public static JSONObject get(String url, String HeaderName, String HeaderValue) {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -128,6 +125,10 @@ public final class NetworkWrapper {
 		return null;
 	}
 
+
+	/**
+	 * @see #post(String, List, String, String)
+	 */
 	public static JSONObject post(String url) {
 		return post(url, null, null, null);
 	}
@@ -216,6 +217,13 @@ public final class NetworkWrapper {
 		return response.toString();
 	}
 
+	/**
+	 * methode permettant d'analyser la reponse recu (parsing)
+	 *
+	 * @param r
+	 *            reponse recu
+	 * @return retourne la reponse sour forme de {@link JSONObject}
+	 */
 	private static JSONObject read_response_object(InputStream r) {
 		try {
 			return new JSONObject(read_response(r));
