@@ -131,6 +131,20 @@ public final class IousephParser {
 			System.err.println("ERROR WHEN PARSING USER TO JSON");
 			return null;
 		}
+		System.out.println(jsonObject.toString());
+		return jsonObject.toString();
+	}
+
+	public static Object parseToJsonObject(String message) {
+		JSONObject jsonObject = new JSONObject();
+		try {
+			jsonObject.put("message", message);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.err.println("ERROR WHEN PARSING MESSAGE TO JSON");
+			return null;
+		}
 		return jsonObject.toString();
 	}
 }

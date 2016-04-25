@@ -108,8 +108,12 @@ public class IousephClient {
 	 * 				un message de validation ou d'erreur
 	 */
 	public String addPlaylist(User user, Playlist playlist){
-		String url = host + "/playlist/create/" + user.getId() + "/" + playlist.getId() + "/" + playlist.getTitle();
-		return NetworkWrapper.get(url).toString();
+		String url = host + "/playlist/create";
+		List<NameValuePair> body_args = new ArrayList<NameValuePair>();
+		body_args.add(new BasicNameValuePair("user_id", user.getId()));
+		body_args.add(new BasicNameValuePair("playlist_id", playlist.getId()));
+		body_args.add(new BasicNameValuePair("title", playlist.getTitle()));
+		return this.parser.messageParse(NetworkWrapper.post(url, body_args));
 	}
 
 	/**

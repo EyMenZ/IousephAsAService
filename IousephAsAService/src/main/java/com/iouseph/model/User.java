@@ -67,7 +67,10 @@ public class User implements Serializable{
 	 */
 	public boolean addPlaylist(Playlist playlist)
 	{
-		if(!playlists.containsValue(playlist))
+		System.out.println(playlist);
+		System.out.println(playlists);
+		System.out.println(playlists.size());
+		if(!playlists.containsKey(playlist.getTitle()))
 		{
 			playlists.put(playlist.getTitle(), playlist);
 			return true;
@@ -80,13 +83,17 @@ public class User implements Serializable{
 	 * @param title
 	 * @return true si la playlist a bien ete cree, false sinon
 	 */
-	public boolean addPlaylist(String title)
+	public boolean addPlaylist(String id, String title)
 	{
 		if(!playlists.containsKey(title))
 		{
 			Playlist playlist = new Playlist();
+			playlist.setId(id);
 			playlist.setTitle(title);
+			playlist.setOwner(this.username);
+			playlist.setSource("Iouseph");
 			playlists.put(title, playlist);
+			return true;
 		}
 		return false;
 	}

@@ -89,6 +89,7 @@ public class LoginLayoutController {
 			mainController.setUser(user);
 			mainController.getConnectButton().setText("disconnect");
 			mainController.setUsernameLabel(user.getUsername());
+			mainController.refreshPlaylists();
 			loginStage.close();
 		} else {
 			loginLabel.setTextFill(Color.web("#FF0000"));

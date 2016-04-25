@@ -291,8 +291,7 @@ public class MainLayoutController {
 				playlist.setSource("Iouseph");
 				mainController.getUser().getPlaylists().put(playlist.getTitle(), playlist);
 				mainController.getApi().addPlaylist(mainController.getUser(), playlist);
-				mainController.getPlaylists().clear();
-				mainController.getPlaylists().addAll(mainController.getUser().getPlaylists().values());
+				refreshPlaylists();
 			}
 	}
 
@@ -346,5 +345,11 @@ public class MainLayoutController {
 
 	public Button getConnectButton() {
 		return connectButton;
+	}
+
+	@FXML
+	public void refreshPlaylists(){
+		mainController.getPlaylists().clear();
+		mainController.getPlaylists().addAll(mainController.getUser().getPlaylists().values());
 	}
 }

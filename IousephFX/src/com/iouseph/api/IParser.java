@@ -65,4 +65,6 @@ public interface IParser {
 	public JSONObject playlistsParse(List<Playlist> playlists);
 
 	public User userParse(JSONObject json);
+
+	public String messageParse(JSONObject string);
 }

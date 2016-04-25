@@ -96,14 +96,14 @@ public class SparkServerService {
 				if(user.deletePlaylist(playlistId))
 				{
 					ObjectsManager.SerializeUser(user);
-					return Constants.PlaylistDeleted;
+					return IousephParser.parseToJsonObject(Constants.PlaylistDeleted);
 				}
 			}
 			catch(Exception e)
 			{
 				System.err.println("user not found when trying to delete a playlist");
 			}
-			return Constants.PlaylistNotDeleted;
+			return IousephParser.parseToJsonObject(Constants.PlaylistNotDeleted);
 		});
 
 		/**
@@ -118,13 +118,13 @@ public class SparkServerService {
 				User user = AccountManager.getInstance().getUser(userId);
 				user.getPlaylist(playlistId).setTitle(NTitle);
 				ObjectsManager.SerializeUser(user);
-				return Constants.PlaylistNameChanged;
+				return IousephParser.parseToJsonObject(Constants.PlaylistNameChanged);
 			}
 			catch(NullPointerException e)
 			{
 				System.err.println("Playlist not found when trying to set a playlist's title");
 			}
-			return Constants.PlaylistNameNotChanged;
+			return IousephParser.parseToJsonObject(Constants.PlaylistNameNotChanged);
 		});
 		/**
 		 *  supprime un track de la playlist d'un utilisateur
@@ -141,7 +141,7 @@ public class SparkServerService {
 				if(deleted)
 				{
 					ObjectsManager.SerializeUser(user);
-					return Constants.TrackDeleted;
+					return IousephParser.parseToJsonObject(Constants.TrackDeleted);
 				}
 			}
 			catch(NullPointerException e)
@@ -149,7 +149,7 @@ public class SparkServerService {
 				System.err.println("problem when trying to delete a track");
 			}
 
-			return Constants.TrackNotDeleted;
+			return IousephParser.parseToJsonObject(Constants.TrackNotDeleted);
 		});
 		/**
 		 * ajoute un track a une playlist dun utilisateur
@@ -170,7 +170,7 @@ public class SparkServerService {
 			boolean added = user.getPlaylist(playlistId).addTrack(track);
 			if (added) {
 				ObjectsManager.SerializeUser(user);
-				return Constants.TrackAdded;
+				return IousephParser.parseToJsonObject(Constants.TrackAdded);
 			}
 			}
 			catch(NullPointerException e)
@@ -178,27 +178,28 @@ public class SparkServerService {
 				System.err.println("problem when trying to add a track");
 			}
 
-			return Constants.TrackNotAdded;
+			return IousephParser.parseToJsonObject(Constants.TrackNotAdded);
 		});
 		/**
 		 * cree une nouvelle playlist a un utilisateur
 		 */
 		post("/playlist/create", (req, res) -> {
-			String userId = req.queryParams("userId");
+			String userId = req.queryParams("user_id");
+			String playlistId = req.queryParams("playlist_id");
 			String title = req.queryParams("title");
 			try{
-				User user=AccountManager.getInstance().getUser(userId);
-				if(user.addPlaylist(title))
+				User user = ObjectsManager.DeserializeUser(userId);
+				if(user.addPlaylist(playlistId, title))
 				{
 					ObjectsManager.SerializeUser(user);
-					return Constants.PlaylistAdded;
+					return IousephParser.parseToJsonObject(Constants.PlaylistAdded);
 				}
 			}
 			catch(NullPointerException e)
 			{
 				System.err.println(" user not found when trying to create a playlist");
 			}
-			return Constants.PlaylistNotAdded;
+			return IousephParser.parseToJsonObject(Constants.PlaylistNotAdded);
 		});
 		/**
 		 * methode pour authentification
@@ -210,8 +211,6 @@ public class SparkServerService {
 			if (idUser == null)
 				return null;
 			User user = ObjectsManager.DeserializeUser(idUser);
-			// si jamais l'utilisateur est null la fonction de parsage
-			// retournera null
 			return IousephParser.parseToJsonObject(user);
 
 		});
@@ -234,9 +233,9 @@ public class SparkServerService {
 			String idUser = req.queryParams("idUser");
 			User user = AccountManager.getInstance().getUser(idUser);
 			if (user == null)
-				return Constants.UserNotConnected;
+				return IousephParser.parseToJsonObject(Constants.UserNotConnected);
 			ObjectsManager.SerializeUser(user);
-			return Constants.UserDisconnected;
+			return IousephParser.parseToJsonObject(Constants.UserDisconnected);
 		});
 
 	}

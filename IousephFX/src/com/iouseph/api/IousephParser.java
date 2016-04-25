@@ -126,4 +126,13 @@ public class IousephParser implements IParser {
 		return user;
 	}
 
+	@Override
+	public String messageParse(JSONObject json) {
+		String message = null;
+		if (json != null) {
+			message = json.getString("message");
+		}
+		return message;
+	}
+
 }
