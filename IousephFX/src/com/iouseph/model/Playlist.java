@@ -11,6 +11,7 @@ import javafx.beans.property.StringProperty;
 
 public class Playlist {
 
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -27,6 +28,7 @@ public class Playlist {
 	/**
 	 * Constructeur par defaut
 	 */
+	@SuppressWarnings("static-access")
 	public Playlist() {
 		this.id = new SimpleStringProperty(uid.randomUUID().toString());
 		this.title = new SimpleStringProperty(new String());
@@ -156,5 +158,9 @@ public class Playlist {
 
 	public void setUrl(String myurl) {
 		this.url.set(myurl);
+	}
+
+	public StringProperty getTitleProperty(){
+		return title;
 	}
 }

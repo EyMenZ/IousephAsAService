@@ -2,18 +2,21 @@ package com.iouseph;
 
 import java.io.IOException;
 
-import com.iouseph.api.Iapi;
 import com.iouseph.api.IousephClient;
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
 import com.iouseph.model.User;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +24,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -83,8 +87,68 @@ public class MainLayoutController {
 		// changed.
 		trackList.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showTrackDetails(newValue));
+		trackList.setCellFactory(lv -> {
+            ListCell<Track> cell = new ListCell<>();
+
+            ContextMenu contextMenu = new ContextMenu();
+
+            MenuItem showItem = new MenuItem();
+            showItem.textProperty().bind(Bindings.format("Show \"%s\"", cell.itemProperty()));
+            showItem.setOnAction(event -> {
+                Track item = cell.getItem();
+                showTrackDetails(item);
+            });
+            MenuItem addItem = new MenuItem();
+            //if (playlistList.getSelectionModel().getSelectedItem() != null){
+            addItem.textProperty().bind(Bindings.format("add to playlist", playlistList.getSelectionModel().getSelectedItem()));
+            addItem.setOnAction(event -> trackList.getItems().remove(cell.getItem()));// FIXME add to playlist
+            //}
+            MenuItem deleteItem = new MenuItem();
+            deleteItem.textProperty().bind(Bindings.format("Delete \"%s\"", cell.itemProperty()));
+            deleteItem.setOnAction(event -> trackList.getItems().remove(cell.getItem()));
+            contextMenu.getItems().addAll(showItem, addItem, deleteItem);
+
+            cell.textProperty().bind(Bindings.format("%s", cell.itemProperty()));
+
+            cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
+                if (isNowEmpty) {
+                    cell.setContextMenu(null);
+                } else {
+                    cell.setContextMenu(contextMenu);
+                }
+            });
+            return cell ;
+        });
 		/*playlistList.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showPlaylistDetails(newValue));*/
+		playlistList.setCellFactory(lv -> {
+            ListCell<Playlist> cell = new ListCell<>();
+
+            ContextMenu contextMenu = new ContextMenu();
+
+            MenuItem editItem = new MenuItem();
+            editItem.textProperty().bind(Bindings.format("Show \"%s\"", cell.itemProperty()));
+            editItem.setOnAction(event -> {
+                Playlist item = cell.getItem();
+                showPlaylistDetails(item);
+            });
+            MenuItem deleteItem = new MenuItem();
+            deleteItem.textProperty().bind(Bindings.format("Delete \"%s\"", cell.itemProperty()));
+            deleteItem.setOnAction(event -> playlistList.getItems().remove(cell.getItem()));
+            contextMenu.getItems().addAll(editItem, deleteItem);
+
+            if (!cell.itemProperty().equals("null"))
+            	cell.textProperty().bind(Bindings.format("%s", cell.itemProperty()));
+
+            cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
+                if (isNowEmpty) {
+                    cell.setContextMenu(null);
+                } else {
+                    cell.setContextMenu(contextMenu);
+                }
+            });
+            return cell ;
+        });
 	}
 
 	/**
@@ -269,7 +333,6 @@ public class MainLayoutController {
 	private void handleSearch() {
 		mainController.getTracks().clear();
 		mainController.getTracks().addAll(mainController.getApi().get_search(searchTextField.getText()));
-		mainController.getPlaylists().clear();
 	}
 
 	@FXML
