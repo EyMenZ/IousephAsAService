@@ -165,9 +165,14 @@ public class SparkServerService {
 			track.setImage(req.queryParams("image"));
 			track.setSource(req.queryParams("source"));
 			track.setTitle(req.queryParams("title"));
+			System.out.println(track);
 			try{
-			User user = AccountManager.getInstance().getUser(userId);
+			User user = ObjectsManager.DeserializeUser(userId);
 			boolean added = user.getPlaylist(playlistId).addTrack(track);
+			System.out.println(user);
+			System.out.println(playlistId);
+			System.out.println(user.getPlaylist(playlistId));
+			System.out.println(track);
 			if (added) {
 				ObjectsManager.SerializeUser(user);
 				return IousephParser.parseToJsonObject(Constants.TrackAdded);

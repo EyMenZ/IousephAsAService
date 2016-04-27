@@ -101,7 +101,9 @@ public class MainLayoutController {
             MenuItem addItem = new MenuItem();
             //if (playlistList.getSelectionModel().getSelectedItem() != null){
             addItem.textProperty().bind(Bindings.format("add to playlist", playlistList.getSelectionModel().getSelectedItem()));
-            addItem.setOnAction(event -> trackList.getItems().remove(cell.getItem()));// FIXME add to playlist
+            addItem.setOnAction(event ->
+            	addTrachToSelectedPlaylist(cell.getItem())
+            );// FIXME add to playlist
             //}
             MenuItem deleteItem = new MenuItem();
             deleteItem.textProperty().bind(Bindings.format("Delete \"%s\"", cell.itemProperty()));
@@ -149,6 +151,15 @@ public class MainLayoutController {
             });
             return cell ;
         });
+	}
+
+	private Object addTrachToSelectedPlaylist(Track track) {
+		playlistList.getSelectionModel().getSelectedItem().addTrack(track);
+		this.mainController.getApi().addTrackToPlaylist(
+				this.mainController.getUser(),
+				playlistList.getSelectionModel().getSelectedItem(),
+				track);
+		return null;
 	}
 
 	/**
@@ -208,7 +219,6 @@ public class MainLayoutController {
 		//playlist.setTracks(mainController.getUser().getPlaylists().values());
 		// TODO affecter les track a la playlist dans le parse
 		mainController.getTracks().addAll(playlist.getTracks());
-		showTrackDetails(playlist.getTracks().get(0));
 	}
 
 	/**

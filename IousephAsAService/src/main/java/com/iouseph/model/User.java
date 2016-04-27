@@ -21,7 +21,7 @@ public class User implements Serializable{
 	 */
 	public User()
 	{
-		this(new String(), new String(), new HashMap<String, Playlist>());
+		this(new String(), new String());
 	}
 
 	public User(String username, String password){

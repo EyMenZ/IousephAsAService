@@ -93,7 +93,7 @@ public class IousephClient {
 	 */
 	public String deletePlaylist(User user, Playlist playlist){
 		String url = host + "/playlist/delete/" + user.getId() + "/" + playlist.getId();
-		return NetworkWrapper.get(url).toString();
+		return this.parser.messageParse(NetworkWrapper.get(url));
 	}
 
 
@@ -130,7 +130,7 @@ public class IousephClient {
 	 */
 	public String deleteTrack(User user, Playlist playlist, Track track){
 		String url = host + "/playlist/delete/" + user.getId() + "/" + playlist.getId() + "/" + track.getId();
-		return NetworkWrapper.get(url).toString();
+		return this.parser.messageParse(NetworkWrapper.get(url));
 	}
 
 	/**
@@ -146,12 +146,23 @@ public class IousephClient {
 	 * 				un message de validation ou d'erreur
 	 */
 	public String addTrackToPlaylist(User user, Playlist playlist, Track track){
-		String url = host + "/playlist/addtrack/";
+		String url = host + "/playlist/addtrack";
 		List<NameValuePair> body_args = new ArrayList<NameValuePair>();
 		body_args.add(new BasicNameValuePair("user_id", user.getId()));
 		body_args.add(new BasicNameValuePair("playlist_id", playlist.getId()));
-		// TODO le track
-		return NetworkWrapper.post(url,body_args).toString();
+		body_args = addTrackToBodyArgs(body_args, track);
+		return this.parser.messageParse(NetworkWrapper.post(url,body_args));
+	}
+
+	private List<NameValuePair> addTrackToBodyArgs(List<NameValuePair> body_args, Track track) {
+		body_args.add(new BasicNameValuePair("id", track.getId()));
+		body_args.add(new BasicNameValuePair("album", track.getAlbum()));
+		body_args.add(new BasicNameValuePair("artist", track.getArtist()));
+		body_args.add(new BasicNameValuePair("externalUrl", track.getExternalUrl()));
+		body_args.add(new BasicNameValuePair("image", track.getImage()));
+		body_args.add(new BasicNameValuePair("source", track.getSource()));
+		body_args.add(new BasicNameValuePair("title", track.getTitle()));
+		return body_args;
 	}
 
 	/**
@@ -170,7 +181,7 @@ public class IousephClient {
 		body_args.add(new BasicNameValuePair("userId", user.getId()));
 		body_args.add(new BasicNameValuePair("title", title));
 		// TODO le track
-		return NetworkWrapper.post(url,body_args).toString();
+		return this.parser.messageParse(NetworkWrapper.post(url,body_args));
 	}
 
 
