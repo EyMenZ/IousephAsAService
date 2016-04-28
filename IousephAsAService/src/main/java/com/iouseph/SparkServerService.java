@@ -44,15 +44,13 @@ public class SparkServerService {
 		/**
 		 * retourne un utilisateur selon son id
 		 */
-		get("/users/:userid", (req,res)-> {
+		get("/users/:userid", (req, res) -> {
 			String userid = req.params(":userid");
-			try{
-				User user=AccountManager.getInstance().getUser(userid);
+			try {
+				User user = AccountManager.getInstance().getUser(userid);
 				User copyUser = user.clone();
 				return IousephParser.parseToJsonObject(user);
-			}
-			catch(NullPointerException e)
-			{
+			} catch (NullPointerException e) {
 				System.err.println("user not found");
 			}
 			return null;
@@ -62,20 +60,18 @@ public class SparkServerService {
 		 */
 		get("/playlists/:user_id", (req, res) -> {
 			String idUser = req.params(":user_id");
-			try
-			{
+			try {
 				User user = AccountManager.getInstance().getUser(idUser);
 				return IousephParser.parseToJsonArray(user.getPlaylists());
 
-			}
-			catch(NullPointerException e)
-			{
+			} catch (NullPointerException e) {
 				System.out.println("user not found");
 			}
 			return null;
 		});
 		/**
-		 * retourne une playlist en utilisant l'id de l'utilisateur et celui de la playlist
+		 * retourne une playlist en utilisant l'id de l'utilisateur et celui de
+		 * la playlist
 		 */
 		get("playlist/:user_id/:playlist_id", (req, res) -> {
 			String idUser = req.params(":user_id");
@@ -91,16 +87,13 @@ public class SparkServerService {
 		get("playlist/delete/:user_id/:playlist_id", (req, res) -> {
 			String userId = req.params(":user_id");
 			String playlistId = req.params(":playlist_id");
-			try{
+			try {
 				User user = AccountManager.getInstance().getUser(userId);
-				if(user.deletePlaylist(playlistId))
-				{
+				if (user.deletePlaylist(playlistId)) {
 					ObjectsManager.SerializeUser(user);
 					return IousephParser.parseToJsonObject(Constants.PlaylistDeleted);
 				}
-			}
-			catch(Exception e)
-			{
+			} catch (Exception e) {
 				System.err.println("user not found when trying to delete a playlist");
 			}
 			return IousephParser.parseToJsonObject(Constants.PlaylistNotDeleted);
@@ -113,39 +106,32 @@ public class SparkServerService {
 			String userId = req.params(":user_id");
 			String playlistId = req.params(":playlist_id");
 			String NTitle = req.params(":new_title");
-			try
-			{
+			try {
 				User user = AccountManager.getInstance().getUser(userId);
 				user.getPlaylist(playlistId).setTitle(NTitle);
 				ObjectsManager.SerializeUser(user);
 				return IousephParser.parseToJsonObject(Constants.PlaylistNameChanged);
-			}
-			catch(NullPointerException e)
-			{
+			} catch (NullPointerException e) {
 				System.err.println("Playlist not found when trying to set a playlist's title");
 			}
 			return IousephParser.parseToJsonObject(Constants.PlaylistNameNotChanged);
 		});
 		/**
-		 *  supprime un track de la playlist d'un utilisateur
+		 * supprime un track de la playlist d'un utilisateur
 		 */
 		get("playlist/delete/:user_id/:playlist_id/:track_id", (req, res) -> {
 			String userId = req.params(":user_id");
 			String playlistId = req.params(":playlist_id");
 			String trackId = req.params(":track_id");
 
-			try
-			{
+			try {
 				User user = AccountManager.getInstance().getUser(userId);
 				boolean deleted = user.getPlaylist(playlistId).deleteTrack(trackId);
-				if(deleted)
-				{
+				if (deleted) {
 					ObjectsManager.SerializeUser(user);
 					return IousephParser.parseToJsonObject(Constants.TrackDeleted);
 				}
-			}
-			catch(NullPointerException e)
-			{
+			} catch (NullPointerException e) {
 				System.err.println("problem when trying to delete a track");
 			}
 
@@ -166,20 +152,18 @@ public class SparkServerService {
 			track.setSource(req.queryParams("source"));
 			track.setTitle(req.queryParams("title"));
 			System.out.println(track);
-			try{
-			User user = ObjectsManager.DeserializeUser(userId);
-			boolean added = user.getPlaylist(playlistId).addTrack(track);
-			System.out.println(user);
-			System.out.println(playlistId);
-			System.out.println(user.getPlaylist(playlistId));
-			System.out.println(track);
-			if (added) {
-				ObjectsManager.SerializeUser(user);
-				return IousephParser.parseToJsonObject(Constants.TrackAdded);
-			}
-			}
-			catch(NullPointerException e)
-			{
+			try {
+				User user = ObjectsManager.DeserializeUser(userId);
+				boolean added = user.getPlaylist(playlistId).addTrack(track);
+				System.out.println(user);
+				System.out.println(playlistId);
+				System.out.println(user.getPlaylist(playlistId));
+				System.out.println(track);
+				if (added) {
+					ObjectsManager.SerializeUser(user);
+					return IousephParser.parseToJsonObject(Constants.TrackAdded);
+				}
+			} catch (NullPointerException e) {
 				System.err.println("problem when trying to add a track");
 			}
 
@@ -192,16 +176,13 @@ public class SparkServerService {
 			String userId = req.queryParams("user_id");
 			String playlistId = req.queryParams("playlist_id");
 			String title = req.queryParams("title");
-			try{
+			try {
 				User user = ObjectsManager.DeserializeUser(userId);
-				if(user.addPlaylist(playlistId, title))
-				{
+				if (user.addPlaylist(playlistId, title)) {
 					ObjectsManager.SerializeUser(user);
 					return IousephParser.parseToJsonObject(Constants.PlaylistAdded);
 				}
-			}
-			catch(NullPointerException e)
-			{
+			} catch (NullPointerException e) {
 				System.err.println(" user not found when trying to create a playlist");
 			}
 			return IousephParser.parseToJsonObject(Constants.PlaylistNotAdded);
@@ -246,12 +227,12 @@ public class SparkServerService {
 	}
 
 	/**
-	 * cette methode mélange les chanson récuperées des différents services de streaming
+	 * cette methode mélange les chanson récuperées des différents services de
+	 * streaming
 	 *
 	 * @param list
-	 * 				une liste de List<Track>
-	 * @return
-	 * 				une List<Track> mélangée
+	 *            une liste de List<Track>
+	 * @return une List<Track> mélangée
 	 */
 	private static List<Track> mix(List<List<Track>> list) {
 		// TODO faire un truc plus efficace
@@ -264,9 +245,9 @@ public class SparkServerService {
 			} else if (!banned.contains(i))
 				banned.add(i);
 			if (++i == list.size()) {
-					i = 0;
-					j++;
-				}
+				i = 0;
+				j++;
+			}
 		}
 		return tracks;
 	}

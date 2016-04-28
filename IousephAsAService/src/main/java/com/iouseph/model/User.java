@@ -57,6 +57,9 @@ public class User implements Serializable{
 	 */
 	public Playlist getPlaylist(String playlistId)
 	{
+		System.out.println(playlists);
+		Playlist playlist = playlists.get(playlistId);
+		System.out.println(playlist);
 		return playlists.get(playlistId);
 	}
 
@@ -70,9 +73,9 @@ public class User implements Serializable{
 		System.out.println(playlist);
 		System.out.println(playlists);
 		System.out.println(playlists.size());
-		if(!playlists.containsKey(playlist.getTitle()))
+		if(!playlists.containsKey(playlist.getId()))
 		{
-			playlists.put(playlist.getTitle(), playlist);
+			playlists.put(playlist.getId(), playlist);
 			return true;
 		}
 		return false;
@@ -92,7 +95,7 @@ public class User implements Serializable{
 			playlist.setTitle(title);
 			playlist.setOwner(this.username);
 			playlist.setSource("Iouseph");
-			playlists.put(title, playlist);
+			playlists.put(id, playlist);
 			return true;
 		}
 		return false;
