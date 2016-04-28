@@ -59,6 +59,7 @@ public class MainLayoutController {
 	private MainController mainController;
 	private MediaPlayer mediaPlayer;
 	private Track currentTrack;
+	private Playlist currentPlaylist;
 
 	/**
 	 * The constructor. The constructor is called before the initialize()
@@ -88,26 +89,32 @@ public class MainLayoutController {
 		trackList.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showTrackDetails(newValue));
 		trackList.setCellFactory(lv -> {
+			/*
+			 * this code is inspired from StackOverFlow code
+			 */
             ListCell<Track> cell = new ListCell<>();
 
             ContextMenu contextMenu = new ContextMenu();
 
             MenuItem showItem = new MenuItem();
-            showItem.textProperty().bind(Bindings.format("Show \"%s\"", cell.itemProperty()));
+            showItem.textProperty().bind(Bindings.format("Show"/* \"%s\""*/, cell.itemProperty()));
             showItem.setOnAction(event -> {
                 Track item = cell.getItem();
                 showTrackDetails(item);
             });
             MenuItem addItem = new MenuItem();
             //if (playlistList.getSelectionModel().getSelectedItem() != null){
-            addItem.textProperty().bind(Bindings.format("add to playlist", playlistList.getSelectionModel().getSelectedItem()));
+            addItem.textProperty().bind(Bindings.format("Add to playlist", playlistList.getSelectionModel().getSelectedItem()));
             addItem.setOnAction(event ->
             	addTrachToSelectedPlaylist(cell.getItem())
-            );// FIXME add to playlist
+            );
             //}
             MenuItem deleteItem = new MenuItem();
-            deleteItem.textProperty().bind(Bindings.format("Delete \"%s\"", cell.itemProperty()));
-            deleteItem.setOnAction(event -> trackList.getItems().remove(cell.getItem()));
+            deleteItem.textProperty().bind(Bindings.format("Delete", cell.itemProperty()));
+            deleteItem.setOnAction(event ->{
+            	deleteTrackFromPlaylist(cell.getItem());
+            	trackList.getItems().remove(cell.getItem());
+            });
             contextMenu.getItems().addAll(showItem, addItem, deleteItem);
 
             cell.textProperty().bind(Bindings.format("%s", cell.itemProperty()));
@@ -129,14 +136,17 @@ public class MainLayoutController {
             ContextMenu contextMenu = new ContextMenu();
 
             MenuItem editItem = new MenuItem();
-            editItem.textProperty().bind(Bindings.format("Show \"%s\"", cell.itemProperty()));
+            editItem.textProperty().bind(Bindings.format("Show", cell.itemProperty()));
             editItem.setOnAction(event -> {
-                Playlist item = cell.getItem();
-                showPlaylistDetails(item);
+                currentPlaylist = cell.getItem();
+                showPlaylistDetails(currentPlaylist);
             });
             MenuItem deleteItem = new MenuItem();
-            deleteItem.textProperty().bind(Bindings.format("Delete \"%s\"", cell.itemProperty()));
-            deleteItem.setOnAction(event -> playlistList.getItems().remove(cell.getItem()));
+            deleteItem.textProperty().bind(Bindings.format("Delete", cell.itemProperty()));
+            deleteItem.setOnAction(event -> {
+            	deletePlaylist(cell.getItem());
+            	playlistList.getItems().remove(cell.getItem());
+            });
             contextMenu.getItems().addAll(editItem, deleteItem);
 
             if (!cell.itemProperty().equals("null"))
@@ -153,13 +163,30 @@ public class MainLayoutController {
         });
 	}
 
+	private void deletePlaylist(Playlist playlist) {
+		System.out.println(this.mainController.getApi().deletePlaylist(
+				this.mainController.getUser(), playlist));
+		currentPlaylist = null;
+		this.mainController.getPlaylists().remove(playlist);
+	}
+
+	private void deleteTrackFromPlaylist(Track track) {
+		if (currentPlaylist != null){
+			System.out.println(this.mainController.getApi().deleteTrack(
+					this.mainController.getUser(),
+					currentPlaylist, track));
+			currentPlaylist.getTracks().remove(track);
+			//FIXME this.mainController.getPlaylists().get(index).getTracks().remove(track);
+		}
+	}
+
 	private Object addTrachToSelectedPlaylist(Track track) {
 		if (playlistList.getSelectionModel().getSelectedItem() != null){
-		playlistList.getSelectionModel().getSelectedItem().addTrack(track);
-		this.mainController.getApi().addTrackToPlaylist(
-				this.mainController.getUser(),
-				playlistList.getSelectionModel().getSelectedItem(),
-				track);
+			playlistList.getSelectionModel().getSelectedItem().addTrack(track);
+			System.out.println(this.mainController.getApi().addTrackToPlaylist(
+					this.mainController.getUser(),
+					playlistList.getSelectionModel().getSelectedItem(),
+					track));
 		}
 		return null;
 	}
@@ -217,6 +244,7 @@ public class MainLayoutController {
 	 * @param playlist
 	 */
 	private void showPlaylistDetails(Playlist playlist) {
+		this.currentPlaylist = playlist;
 		mainController.getTracks().clear();
 		//playlist.setTracks(mainController.getUser().getPlaylists().values());
 		// TODO affecter les track a la playlist dans le parse
@@ -325,6 +353,8 @@ public class MainLayoutController {
 			this.mainController.getTracks().clear();
 			showTrackDetails(null);
 			addPlaylistTextField.setText("");
+			currentPlaylist = null;
+			currentTrack = null;
 		}
 	}
 

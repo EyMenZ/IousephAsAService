@@ -101,7 +101,7 @@ public class IousephClient {
 	 * ajout une Playlist au compte de l'utilisateur sur le serveur
 	 *
 	 * @param user
-	 * 				l'utilisateur connecté
+	 * 				l'utilisateur connectï¿½
 	 * @param playlist
 	 * 				la playlist a sauvegarder
 	 * @return
@@ -120,15 +120,18 @@ public class IousephClient {
 	 * supprime un Track d'une playlist du compte sur le serveur
 	 *
 	 * @param user
-	 * 				l'utilisateur connecté
+	 * 				l'utilisateur connectï¿½
 	 * @param playlist
-	 * 				la Playlist selectionnée
+	 * 				la Playlist selectionnï¿½e
 	 * @param track
 	 * 				le Track a supprimer
 	 * @return
 	 * 				un message de validation ou d'erreur
 	 */
 	public String deleteTrack(User user, Playlist playlist, Track track){
+		System.out.println("/playlist/delete/" + user.getId());
+		System.out.println("/" + playlist.getId());
+		System.out.println("/" + track.getId());
 		String url = host + "/playlist/delete/" + user.getId() + "/" + playlist.getId() + "/" + track.getId();
 		return this.parser.messageParse(NetworkWrapper.get(url));
 	}
@@ -137,9 +140,9 @@ public class IousephClient {
 	 * ajoute un Track a une playlist sur le serveur
 	 *
 	 * @param user
-	 * 				l'utilisateur connecté
+	 * 				l'utilisateur connectï¿½
 	 * @param playlist
-	 * 				la Playlist selectionnée
+	 * 				la Playlist selectionnï¿½e
 	 * @param track
 	 * 				le Track a ajouter
 	 * @return
@@ -166,10 +169,10 @@ public class IousephClient {
 	}
 
 	/**
-	 * crée une nouvelle playlist sur le compte utilisateur sur le serveur
+	 * crï¿½e une nouvelle playlist sur le compte utilisateur sur le serveur
 	 *
 	 * @param user
-	 * 				l'utilisateur connecté
+	 * 				l'utilisateur connectï¿½
 	 * @param title
 	 * 				le nom de la Playlist
 	 * @return

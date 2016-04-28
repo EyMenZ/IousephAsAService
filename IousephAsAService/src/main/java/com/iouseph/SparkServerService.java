@@ -88,7 +88,7 @@ public class SparkServerService {
 			String userId = req.params(":user_id");
 			String playlistId = req.params(":playlist_id");
 			try {
-				User user = AccountManager.getInstance().getUser(userId);
+				User user = ObjectsManager.DeserializeUser(userId);
 				if (user.deletePlaylist(playlistId)) {
 					ObjectsManager.SerializeUser(user);
 					return IousephParser.parseToJsonObject(Constants.PlaylistDeleted);
@@ -123,9 +123,8 @@ public class SparkServerService {
 			String userId = req.params(":user_id");
 			String playlistId = req.params(":playlist_id");
 			String trackId = req.params(":track_id");
-
 			try {
-				User user = AccountManager.getInstance().getUser(userId);
+				User user = ObjectsManager.DeserializeUser(userId);
 				boolean deleted = user.getPlaylist(playlistId).deleteTrack(trackId);
 				if (deleted) {
 					ObjectsManager.SerializeUser(user);
