@@ -108,7 +108,7 @@ public class User implements Serializable{
 	 */
 	public boolean deletePlaylist(String idPlaylist)
 	{
-		if(!playlists.containsKey(idPlaylist))
+		if(playlists.containsKey(idPlaylist))
 		{
 			playlists.remove(idPlaylist);
 			return true;
