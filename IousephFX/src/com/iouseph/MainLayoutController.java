@@ -154,11 +154,13 @@ public class MainLayoutController {
 	}
 
 	private Object addTrachToSelectedPlaylist(Track track) {
+		if (playlistList.getSelectionModel().getSelectedItem() != null){
 		playlistList.getSelectionModel().getSelectedItem().addTrack(track);
 		this.mainController.getApi().addTrackToPlaylist(
 				this.mainController.getUser(),
 				playlistList.getSelectionModel().getSelectedItem(),
 				track);
+		}
 		return null;
 	}
 
@@ -240,7 +242,7 @@ public class MainLayoutController {
 	@FXML
 	public void handleStop() {
 		if (trackList.getSelectionModel().getSelectedItem() != null)
-			mediaPlayer.stop();
+			mediaPlayer.stop();//TODO Media = null
 	}
 
 	/**
@@ -319,6 +321,10 @@ public class MainLayoutController {
 			mainController.setUser(null);
 			connectButton.setText("connect");
 			usernameLabel.setText("Guest");
+			this.mainController.getPlaylists().clear();
+			this.mainController.getTracks().clear();
+			showTrackDetails(null);
+			addPlaylistTextField.setText("");
 		}
 	}
 
@@ -356,6 +362,7 @@ public class MainLayoutController {
 
 	@FXML
 	private void handleAddPlaylist() {
+		if (this.mainController.getUser() != null)
 		if (!addPlaylistTextField.getText().equals(""))
 			if (!mainController.getUser().getPlaylists().containsKey(addPlaylistTextField.getText())) {
 				Playlist playlist = new Playlist();
