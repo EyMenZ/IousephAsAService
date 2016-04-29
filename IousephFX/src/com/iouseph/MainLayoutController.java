@@ -24,7 +24,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -172,11 +171,11 @@ public class MainLayoutController {
 
 	private void deleteTrackFromPlaylist(Track track) {
 		if (currentPlaylist != null){
+			this.mainController.getPlaylists().get(this.mainController.getPlaylist(currentPlaylist)).getTracks().remove(track);
 			System.out.println(this.mainController.getApi().deleteTrack(
 					this.mainController.getUser(),
 					currentPlaylist, track));
 			currentPlaylist.getTracks().remove(track);
-			//FIXME this.mainController.getPlaylists().get(index).getTracks().remove(track);
 		}
 	}
 

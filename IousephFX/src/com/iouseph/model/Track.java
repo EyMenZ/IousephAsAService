@@ -1,13 +1,9 @@
 package com.iouseph.model;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.FloatProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
 public class Track{
 

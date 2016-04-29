@@ -28,6 +28,7 @@ public class User implements Serializable{
 		this(username, password, new HashMap<String, Playlist>());
 	}
 
+	@SuppressWarnings("static-access")
 	public User(String username, String password, Map<String,Playlist> playlists){
 		id= uid.randomUUID().toString();
 		this.username = username;

@@ -56,10 +56,10 @@ public class SpotifyClient implements Iapi {
 		try {
 			java.awt.Desktop.getDesktop().browse(new URI(url));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// runServer(8888);
+		@SuppressWarnings("rawtypes")
 		Class[] parameterTypes = new Class[1];
 		parameterTypes[0] = String.class;
 		Method method1;
@@ -67,7 +67,6 @@ public class SpotifyClient implements Iapi {
 			method1 = SpotifyClient.class.getMethod("retreive_token", parameterTypes);
 			NetworkWrapper.runServerToListen(8888, this, method1);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -100,7 +99,6 @@ public class SpotifyClient implements Iapi {
 		try {
 			access_token = res_json.getString("access_token");
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// stopServer();

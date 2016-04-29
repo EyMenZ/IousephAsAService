@@ -22,6 +22,7 @@ public class Playlist implements Serializable{
 	/**
 	 * Constructeur par defaut
 	 */
+	@SuppressWarnings("static-access")
 	public Playlist() {
 		id=uid.randomUUID().toString();
 		this.title = new String();

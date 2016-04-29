@@ -1,3 +1,8 @@
 com.iouseph
 com.iouseph.api
+com.iouseph.api.Deezer
+com.iouseph.api.Soundcloud
+com.iouseph.api.Spotify
 com.iouseph.model
+com.iouseph.parsing
+com.iouseph.persistence

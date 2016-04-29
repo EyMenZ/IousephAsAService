@@ -237,7 +237,6 @@ public final class NetworkWrapper {
 	}
 
 	// un serveur se met en ecoute pour recuperer le code d'authorization
-	@SuppressWarnings("resource")
 	public static void runServerToListen(int port, Object object, Method methodToInvoke )  {
 		MyServerThread = new Thread(new Runnable() {
 
@@ -259,6 +258,7 @@ public final class NetworkWrapper {
 					e.printStackTrace();
 				}
 				try {
+					@SuppressWarnings("unused")
 					OutputStream os = socket.getOutputStream();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

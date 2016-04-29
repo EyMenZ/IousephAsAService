@@ -100,10 +100,12 @@ public class SoundCloudClient implements Iapi {
 		return res;
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public List<Track> get_tracks() {
 		String url = host + "tracks?client_id=" + client_id;
-		//return this.parser.tracksParse(get_array(url)); //TODO si possible changer en JSONObject
+		//return this.parser.tracksParse(get_array(url));
+		//TODO si possible changer en JSONObject
 		return null;
 	}
 
@@ -125,7 +127,7 @@ public class SoundCloudClient implements Iapi {
 
 	@Override
 	public List<Track> get_playlist(String playlist_id) {
-		String url = null;// TODO Auto-generated method stub
+		String url = null;
 		return this.parser.playlistIdParse(NetworkWrapper.get(url));
 
 	}
@@ -141,25 +143,4 @@ public class SoundCloudClient implements Iapi {
 		// TODO Auto-generated method stub
 		return true;
 	}
-/* prochaines versions
-	public JSONObject get_album(String album_id) {
-		// TODO Auto-generated method stub
-		JSONObject res = null;
-		return res;
-	}
-	public JSONObject get_artist(String artist_id) {
-		// TODO Auto-generated method stub
-		JSONObject res = null;
-		return res;
-	}
-	public JSONObject get_genres() {
-		// TODO Auto-generated method stub
-		JSONObject res = null;
-		return res;
-	}
-	public JSONObject  get_genre(String genre_id) {
-		// TODO Auto-generated method stub
-		JSONObject res = null;
-		return res;
-	}*/
 }

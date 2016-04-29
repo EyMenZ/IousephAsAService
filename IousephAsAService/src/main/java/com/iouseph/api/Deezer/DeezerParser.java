@@ -39,7 +39,6 @@ public class DeezerParser implements IParser{
 			track.setAlbum(((JSONObject) json.get("album")).getString("title"));
 			track.setImage(((JSONObject) json.get("album")).getString("cover_big"));
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		track.setSource("Deezer");
@@ -90,7 +89,6 @@ public class DeezerParser implements IParser{
 			playlist.setOwner(((JSONObject) json.get("user")).getString("name"));
 			playlist.setSource("Deezer");
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return playlist;
@@ -155,13 +153,13 @@ public class DeezerParser implements IParser{
 
 	public User userParse(JSONObject json){
 		User user = new User();
+		@SuppressWarnings("unchecked")
 		Iterator<String> i = json.keys();
 		while (i.hasNext()) {
 			String s = i.next();
 			try {
 				System.out.println(s + " : " + json.get(s));
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

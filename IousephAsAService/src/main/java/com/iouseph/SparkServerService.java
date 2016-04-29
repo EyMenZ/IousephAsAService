@@ -48,6 +48,7 @@ public class SparkServerService {
 			String userid = req.params(":userid");
 			try {
 				User user = AccountManager.getInstance().getUser(userid);
+				@SuppressWarnings("unused")
 				User copyUser = user.clone();
 				return IousephParser.parseToJsonObject(user);
 			} catch (NullPointerException e) {

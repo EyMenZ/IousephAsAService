@@ -2,7 +2,6 @@ package com.iouseph;
 
 import java.io.IOException;
 
-import com.iouseph.api.Iapi;
 import com.iouseph.api.IousephClient;
 import com.iouseph.model.Playlist;
 import com.iouseph.model.Track;
@@ -125,7 +124,6 @@ public class MainController {
 	 */
 	public void setUser(User user) {
 		this.user = user;
-		// TODO changer le nom dans l interface
 	}
 
 	/**
@@ -150,6 +148,13 @@ public class MainController {
 		initRootLayout();
 
 		showMainLayout();
+	}
+
+	public int getPlaylist(Playlist playlist){
+		for (int i = 0; i < playlists.size(); i++)
+			if (playlists.get(i).equals(playlist))
+				return i;
+		return -1;
 	}
 
 }

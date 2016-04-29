@@ -248,7 +248,6 @@ public final class NetworkWrapper {
 	}
 
 	// un serveur se met en ecoute pour recuperer le code d'authorization
-	@SuppressWarnings("resource")
 	public static void runServerToListen(int port, Object object, Method methodToInvoke) {
 		MyServerThread = new Thread(new Runnable() {
 
@@ -259,34 +258,30 @@ public final class NetworkWrapper {
 				try {
 					serverSocket = new ServerSocket(portNumber);
 				} catch (IOException e2) {
-					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
 				Socket socket = null;
 				try {
 					socket = serverSocket.accept();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
+					@SuppressWarnings("unused")
 					OutputStream os = socket.getOutputStream();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				BufferedReader br = null;
 				try {
 					br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				String str = null;
 				try {
 					str = br.readLine();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -295,7 +290,6 @@ public final class NetworkWrapper {
 				try {
 					out = new PrintWriter(socket.getOutputStream());
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				out.println("HTTP/1.1 200 OK");
@@ -309,7 +303,6 @@ public final class NetworkWrapper {
 					socket.close();
 					InvokeMethod(object, methodToInvoke, str);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -324,13 +317,10 @@ public final class NetworkWrapper {
 			method.invoke(object, message);
 			stopServer();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
